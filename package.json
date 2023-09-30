@@ -7,14 +7,13 @@
     "dev": "dotenv -- turbo run dev",
     "lint": "dotenv -- turbo run lint --filter addrop-frontend",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "generate": "dotenv -- turbo run db:generate",
     "db:push": "dotenv -- turbo run db:push",
     "fe:dev": "pnpm run dev --filter addrop-frontend",
     "fe:build": "dotenv -- turbo run build --filter addrop-frontend",
     "be": "pnpm run dev --filter addrop-backend",
     "be:build": "turbo run build --filter addrop-backend",
     "be:dev": "turbo run dev --filter addrop-backend",
-    "be:start": "pnpm --filter addrop-backend run start",
+    "be:start": "pnpm run start --filter addrop-backend ",
     "postinstall": "dotenv -- turbo run db:generate"
   },
   "workspaces": [
