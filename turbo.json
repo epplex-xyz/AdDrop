@@ -1,11 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env", "tsconfig.json"],
+  "globalDependencies": [".env", "tsconfig.json"],
   "globalEnv": ["NEXT_PUBLIC_SOLANA_RPC"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "persistent": true,
+      "cache": false
     },
     "type-check": {
       "dependsOn": ["^db:generate"],
