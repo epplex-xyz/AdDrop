@@ -1,0 +1,47 @@
+dist
+logs
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+build/
+.next/
+
+# misc
+.DS_Store
+tailwind.css
+
+# log
+npm-debug.log*
+yarn-debug.log*
+../yarn-error.log
+
+# editor
+.idea/
+.editorconfig
+
+# Ignore all local files
+*.local
+
+*.local_keys
+
+.vscode/*
+
+target/*
+
+# env
+.env.local
+*.env
+!app/.env.example
+
+# turbo
+.turbo
+
+# vercel
+.vercel

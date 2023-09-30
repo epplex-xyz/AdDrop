@@ -1,0 +1,19 @@
+{
+  "name": "@addrop/database",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "dev": "pnpm prisma studio --port 5556"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "dotenv-cli": "latest"
+  },
+  "devDependencies": {
+    "prisma": "^5.1.1",
+    "typescript": "^5.1.3"
+  }
+}
