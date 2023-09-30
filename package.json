@@ -14,7 +14,7 @@
     "be": "pnpm run dev --filter addrop-backend",
     "be:build": "turbo run build --filter addrop-backend",
     "be:dev": "turbo run dev --filter addrop-backend",
-    "be:start": "pnpm --filter backend run start"
+    "be:start": "pnpm run start --filter addrop-backend "
   },
   "workspaces": [
     "apps/*",

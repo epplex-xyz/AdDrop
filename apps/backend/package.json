@@ -6,7 +6,7 @@
   "private": false,
   "license": "UNLICENSED",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "prebuild": "rimraf dist && npx prisma generate",
