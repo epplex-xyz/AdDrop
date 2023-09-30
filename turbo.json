@@ -11,6 +11,9 @@
       "persistent": true,
       "cache": false
     },
+    "start": {
+      "cache": false
+    },
     "type-check": {
       "dependsOn": ["^db:generate"],
       "cache": false
