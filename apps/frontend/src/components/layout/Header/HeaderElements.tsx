@@ -46,7 +46,7 @@ export function HeaderLogo(){
                 paddingLeft={"8px"}
                 display={{ xs: "none", md: "none", lg: "flex", xl: "flex" }}
             >
-                epPlex
+                AdDrop
             </Text.H5>
         </Link>
     );

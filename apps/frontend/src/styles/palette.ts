@@ -7,15 +7,10 @@ import palette from "../styles/palette.module.scss";
 
 export const paletteLight = {
     primary: {
-        main: palette.contrastBlack,
+        main: palette.primaryRed,
     },
     secondary: {
         main: palette.primaryWhite,
-    },
-    textShadow: {
-        main: palette.accentYellow,
-        light: palette.secondaryRed,
-        dark: palette.backgroundGrey,
     },
     background: {
         // Toggles the bg color of dropdown menu
@@ -24,7 +19,7 @@ export const paletteLight = {
     },
     text: {
         primary: palette.contrastBlack,
-        secondary: palette.contrastBlack,
+        secondary: palette.backgroundGrey,
     },
 };
 
@@ -37,11 +32,6 @@ export const paletteDark = {
     },
     secondary: {
         main: paletteLight.secondary.main,
-    },
-    textShadow: {
-        main: paletteLight.textShadow.main,
-        light: paletteLight.textShadow.light,
-        dark: paletteLight.textShadow.dark,
     },
     background: {
         default: grey[700],

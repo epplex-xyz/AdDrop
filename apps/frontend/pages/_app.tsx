@@ -42,7 +42,7 @@ function App(props: MyAppProps) {
 
                     {/* Ensures proper initial font loading */}
                     <div className={`
-                        ${font.AlegreyaBold.className}
+                        ${font.AlegreyaBoldItalic.className}
                         ${font.SatoshiBold.className}
                         ${font.SatoshiMedium.className}
                     `}>

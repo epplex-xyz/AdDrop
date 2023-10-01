@@ -57,11 +57,14 @@ export function Header({ headerPosition }) {
     const router = useRouter();
 
     let RightComponent: React.ReactNode;
+    let LeftComponent: React.ReactNode;
 
     if (router.asPath === "/demo") {
         RightComponent = <MyMountedWalletButton/>;
+        LeftComponent = <HeaderLeft TriggerButton={TriggerButton}/>
     } else {
-        RightComponent = <ButtonLink {...ButtonConfig.demo}/>;
+        RightComponent = <ButtonLink {...ButtonConfig.login}/>;
+        LeftComponent = <></>
     }
 
 
@@ -84,9 +87,10 @@ export function Header({ headerPosition }) {
                             justifyContent: "space-between",
                         }}
                     >
-                        <HeaderLeft TriggerButton={TriggerButton}/>
+                        {/*<HeaderLeft TriggerButton={TriggerButton}/>*/}
+                        {LeftComponent}
 
-                        <HeaderRight Component={RightComponent}/>
+                        {/*<HeaderRight Component={RightComponent}/>*/}
                     </Toolbar>
                 </Container>
             </AppBar>

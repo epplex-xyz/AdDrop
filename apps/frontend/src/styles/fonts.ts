@@ -1,12 +1,12 @@
 import localFont from "next/font/local";
 
 
-export const AlegreyaBold = localFont({
+export const AlegreyaBoldItalic = localFont({
     preload: true,
     display: "swap",
     src: [
         {
-            path: '../../public/fonts/alegreya/AlegreyaSansSC-BoldItalic.ttf',
+            path: '../../public/fonts/alegreya/Alegreya-BoldItalic.ttf',
         },
     ],
     fallback: ['Helvetica Neue', 'sans-serif'],

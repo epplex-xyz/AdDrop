@@ -52,16 +52,18 @@ const theme = (colorMode: PaletteMode) => responsiveFontSizes(
                     {
                         props: { variant: 'contained' },
                         style: {
-                            backgroundColor: paletteLight.secondary.main,
-                            '&:hover': {
-                                backgroundColor: `${paletteLight.secondary.main}` + "80"
-                            },
+                            border: `2px solid ${paletteLight.text.primary}`,
+                            backgroundColor: paletteLight.primary.main,
+                            boxShadow: `5px 5px ${paletteLight.text.primary}`,
+                            "&:hover": {
+                                boxShadow: `4px 4px ${paletteLight.text.primary}80`
+                            }
                         },
                     },
                     {
                         props: { variant: 'outlined' },
                         style: {
-                            borderColor: paletteLight.secondary.main,
+                            borderColor: paletteLight.text.primary,
                             '&:hover': {
                                 backgroundColor: `${paletteLight.primary.main}` + "80"
                             },
