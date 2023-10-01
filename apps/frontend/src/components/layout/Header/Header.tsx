@@ -10,7 +10,10 @@ import { ButtonLink } from "src/components/Buttons/LinkButton";
 import { ButtonConfig } from "src/components/Buttons/ButtonConfig";
 import { useRouter } from "next/router";
 import { MyMountedWalletButton } from "@components/Buttons/MyWalletConnectButton";
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {IconButton} from "@mui/material";
+import Button from "@mui/material/Button";
+import {paletteLight} from "@styles/palette";
 function HeaderLeft({TriggerButton}: {TriggerButton: () => React.ReactNode}) {
     return (
         <Box
@@ -32,6 +35,26 @@ function HeaderLeft({TriggerButton}: {TriggerButton: () => React.ReactNode}) {
                 display={{ xs: "flex", md: "none" }}
             >
                 <TriggerButton/>
+            </Box>
+        </Box>
+    );
+}
+
+function HeaderBack({}) {
+    return (
+        <Box
+            component="div"
+            display="flex"
+            justifyContent={"flex-start"}
+            flex={"1 0 0"}
+        >
+            <Box
+                component="div"
+                display={"flex"}
+            >
+                <IconButton href={"/"}>
+                    <ArrowBackIcon/>
+                </IconButton>
             </Box>
         </Box>
     );
@@ -62,6 +85,9 @@ export function Header({ headerPosition }) {
     if (router.asPath === "/demo") {
         RightComponent = <MyMountedWalletButton/>;
         LeftComponent = <HeaderLeft TriggerButton={TriggerButton}/>
+    } else if (router.asPath === "/signup") {
+        LeftComponent = <HeaderBack/>
+        RightComponent = <></>
     } else {
         RightComponent = <ButtonLink {...ButtonConfig.login}/>;
         LeftComponent = <></>

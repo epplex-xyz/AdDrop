@@ -79,6 +79,19 @@ const theme = (colorMode: PaletteMode) => responsiveFontSizes(
                     },
                 },
             },
+            MuiIconButton: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: paletteLight.primary.main,
+                        color: paletteLight.text.primary,
+                        border: `2px solid ${paletteLight.text.primary}`,
+                        boxShadow: `3px 3px ${paletteLight.text.primary}`,
+                        "&:hover": {
+                            boxShadow: `3px 3px ${paletteLight.text.primary}80`
+                        }
+                    },
+                },
+            },
             // Fix disappearing of scrollbar, in the navbar menu
             // https://stackoverflow.com/questions/69065717/material-ui-menu-component-locks-body-scrollbar/71671897#71671897
             MuiMenu: {
