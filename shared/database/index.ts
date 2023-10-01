@@ -1,5 +1,6 @@
 export * from '@prisma/client';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client/edge'
 import { config } from 'dotenv';
 
 config();
