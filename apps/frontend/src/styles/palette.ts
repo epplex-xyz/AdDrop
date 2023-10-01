@@ -23,7 +23,7 @@ export const paletteLight = {
         paper: palette.primaryWhite,
     },
     text: {
-        primary: palette.primaryWhite,
+        primary: palette.contrastBlack,
         secondary: palette.contrastBlack,
     },
 };
