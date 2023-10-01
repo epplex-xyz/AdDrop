@@ -7,7 +7,7 @@ import {
     CorsConfig,
     NestConfig,
 } from './configs/config.interface';
-import {TrpcRouter} from "./trpc/trpc.router";
+// import {TrpcRouter} from "./trpc/trpc.router";
 
 // Boot Strap
 async function bootstrap() {
@@ -39,8 +39,8 @@ async function bootstrap() {
         app.enableCors();
     }
 
-    const trpc = app.get(TrpcRouter);
-    trpc.applyMiddleware(app);
+    // const trpc = app.get(TrpcRouter);
+    // trpc.applyMiddleware(app);
 
     await app.listen(process.env.PORT || nestConfig.port || 3005);
 }

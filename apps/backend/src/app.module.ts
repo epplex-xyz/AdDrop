@@ -10,8 +10,8 @@ import { AppService } from './app.service';
 import config from './configs/config';
 import { SecurityConfig, ThrottleConfig } from './configs/config.interface';
 import { ProductModule } from './product/product.module';
-import { SphereModule } from './sphere/sphere.module';
-import {TrpcModule} from "./trpc/trpc.module";
+// import {TrpcModule} from "./trpc/trpc.module";
+
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true, load: [config] }),
@@ -48,8 +48,7 @@ import {TrpcModule} from "./trpc/trpc.module";
             },
         }),
         ProductModule,
-        SphereModule,
-        TrpcModule,
+        // TrpcModule,
     ],
     controllers: [AppController],
     providers: [AppService],

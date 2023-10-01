@@ -8,14 +8,6 @@ const config: Config = {
     cors: {
         enabled: true,
     },
-    swagger: {
-        enabled: true,
-        title: process.env.TITLE,
-        description: 'API endpoints',
-        version: process.env.VERSION,
-        path: 'api',
-        persistAuthorization: true,
-    },
     security: {
         expiresIn: '7d',
         refreshIn: '30d',

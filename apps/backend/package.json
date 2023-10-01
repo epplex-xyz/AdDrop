@@ -38,7 +38,6 @@
     "@prisma/client": "^5.1.1",
     "@solana/spl-token": "^0.3.8",
     "@solana/web3.js": "^1.78.0",
-    "@trpc/server": "^10.38.5",
     "@types/ejs": "^3.0.3",
     "@types/inquirer": "^9.0.3",
     "@types/pug": "2.0.6",
@@ -61,8 +60,7 @@
     "rxjs": "^7.8.1",
     "ua-parser-js": "^1.0.34",
     "uuid": "^9.0.0",
-    "webpack": "^5.88.2",
-    "zod": "^3.22.2"
+    "webpack": "^5.88.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.1.11",
