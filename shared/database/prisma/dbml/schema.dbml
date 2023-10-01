@@ -1,0 +1,284 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table audit_log_entries {
+  instance_id String
+  id String [pk]
+  payload Json
+  created_at DateTime
+  ip_address String [not null, default: '']
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table flow_state {
+  id String [pk]
+  user_id String
+  auth_code String [not null]
+  code_challenge_method code_challenge_method [not null]
+  code_challenge String [not null]
+  provider_type String [not null]
+  provider_access_token String
+  provider_refresh_token String
+  created_at DateTime
+  updated_at DateTime
+  authentication_method String [not null]
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table identities {
+  id String [not null]
+  user_id String [not null]
+  identity_data Json [not null]
+  provider String [not null]
+  last_sign_in_at DateTime
+  created_at DateTime
+  updated_at DateTime
+  email String
+  users users [not null]
+
+  indexes {
+    (provider, id) [pk]
+  }
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table instances {
+  id String [pk]
+  uuid String
+  raw_base_config String
+  created_at DateTime
+  updated_at DateTime
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table mfa_amr_claims {
+  session_id String [not null]
+  created_at DateTime [not null]
+  updated_at DateTime [not null]
+  authentication_method String [not null]
+  id String [pk]
+  sessions sessions [not null]
+
+  indexes {
+    (session_id, authentication_method) [unique]
+  }
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table mfa_challenges {
+  id String [pk]
+  factor_id String [not null]
+  created_at DateTime [not null]
+  verified_at DateTime
+  ip_address String [not null]
+  mfa_factors mfa_factors [not null]
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table mfa_factors {
+  id String [pk]
+  user_id String [not null]
+  friendly_name String
+  factor_type factor_type [not null]
+  status factor_status [not null]
+  created_at DateTime [not null]
+  updated_at DateTime [not null]
+  secret String
+  mfa_challenges mfa_challenges [not null]
+  users users [not null]
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table refresh_tokens {
+  instance_id String
+  id BigInt [pk, increment]
+  token String [unique]
+  user_id String
+  revoked Boolean
+  created_at DateTime
+  updated_at DateTime
+  parent String
+  session_id String
+  sessions sessions
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table saml_providers {
+  id String [pk]
+  sso_provider_id String [not null]
+  entity_id String [unique, not null]
+  metadata_xml String [not null]
+  metadata_url String
+  attribute_mapping Json
+  created_at DateTime
+  updated_at DateTime
+  sso_providers sso_providers [not null]
+
+  Note: 'This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table saml_relay_states {
+  id String [pk]
+  sso_provider_id String [not null]
+  request_id String [not null]
+  for_email String
+  redirect_to String
+  from_ip_address String
+  created_at DateTime
+  updated_at DateTime
+  sso_providers sso_providers [not null]
+
+  Note: 'This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table schema_migrations {
+  version String [pk]
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table sessions {
+  id String [pk]
+  user_id String [not null]
+  created_at DateTime
+  updated_at DateTime
+  factor_id String
+  aal aal_level
+  not_after DateTime
+  mfa_amr_claims mfa_amr_claims [not null]
+  refresh_tokens refresh_tokens [not null]
+  users users [not null]
+
+  Note: 'This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments'
+}
+
+Table sso_domains {
+  id String [pk]
+  sso_provider_id String [not null]
+  domain String [not null]
+  created_at DateTime
+  updated_at DateTime
+  sso_providers sso_providers [not null]
+
+  Note: 'This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.'
+}
+
+Table sso_providers {
+  id String [pk]
+  resource_id String
+  created_at DateTime
+  updated_at DateTime
+  saml_providers saml_providers [not null]
+  saml_relay_states saml_relay_states [not null]
+  sso_domains sso_domains [not null]
+
+  Note: 'This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.'
+}
+
+Table users {
+  instance_id String
+  id String [pk]
+  aud String
+  role String
+  email String
+  encrypted_password String
+  email_confirmed_at DateTime
+  invited_at DateTime
+  confirmation_token String
+  confirmation_sent_at DateTime
+  recovery_token String
+  recovery_sent_at DateTime
+  email_change_token_new String
+  email_change String
+  email_change_sent_at DateTime
+  last_sign_in_at DateTime
+  raw_app_meta_data Json
+  raw_user_meta_data Json
+  is_super_admin Boolean
+  created_at DateTime
+  updated_at DateTime
+  phone String [unique]
+  phone_confirmed_at DateTime
+  phone_change String [default: '']
+  phone_change_token String [default: '']
+  phone_change_sent_at DateTime
+  confirmed_at DateTime
+  email_change_token_current String [default: '']
+  email_change_confirm_status Int [default: 0]
+  banned_until DateTime
+  reauthentication_token String [default: '']
+  reauthentication_sent_at DateTime
+  is_sso_user Boolean [not null, default: false]
+  deleted_at DateTime
+  identities identities [not null]
+  mfa_factors mfa_factors [not null]
+  sessions sessions [not null]
+  user user
+
+  Note: 'This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.'
+}
+
+Table user {
+  id String [pk]
+  first_name String
+  last_name String
+  users users [not null]
+}
+
+Enum aal_level {
+  aal1
+  aal2
+  aal3
+}
+
+Enum code_challenge_method {
+  s256
+  plain
+}
+
+Enum factor_status {
+  unverified
+  verified
+}
+
+Enum factor_type {
+  totp
+  webauthn
+}
+
+Ref: identities.user_id > users.id [delete: Cascade]
+
+Ref: mfa_amr_claims.session_id > sessions.id [delete: Cascade]
+
+Ref: mfa_challenges.factor_id > mfa_factors.id [delete: Cascade]
+
+Ref: mfa_factors.user_id > users.id [delete: Cascade]
+
+Ref: refresh_tokens.session_id > sessions.id [delete: Cascade]
+
+Ref: saml_providers.sso_provider_id > sso_providers.id [delete: Cascade]
+
+Ref: saml_relay_states.sso_provider_id > sso_providers.id [delete: Cascade]
+
+Ref: sessions.user_id > users.id [delete: Cascade]
+
+Ref: sso_domains.sso_provider_id > sso_providers.id [delete: Cascade]
+
+Ref: user.id - users.id [delete: Cascade]

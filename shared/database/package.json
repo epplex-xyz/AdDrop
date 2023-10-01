@@ -5,6 +5,7 @@
   "scripts": {
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
+    "db:pull": "prisma db pull",
     "dev": "pnpm prisma studio --port 5556"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
     "dotenv-cli": "latest"
   },
   "devDependencies": {
+    "prisma-dbml-generator": "^0.10.0",
     "prisma": "^5.1.1",
     "typescript": "^5.1.3"
   }
