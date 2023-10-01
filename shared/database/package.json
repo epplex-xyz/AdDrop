@@ -3,8 +3,8 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
+    "db:generate": "prisma generate && prisma format",
+    "db:push": "prisma db push --skip-generate --accept-data-loss",
     "db:pull": "prisma db pull",
     "dev": "pnpm prisma studio --port 5556"
   },

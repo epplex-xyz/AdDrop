@@ -278,10 +278,26 @@ model users {
 }
 
 model user {
-  id         String  @id @db.Uuid
-  first_name String?
-  last_name  String?
-  users      users   @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id       String @id @db.Uuid
+  username String
+  handle   String @unique
+  avatar   String @default("")
+
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  lastActiveAt DateTime?
+  preferences  Preference[]
+  mainWallet   String       @unique
+
+  users users @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+enum Preference {
+  NFT
+  DEFI
+  ART
 
   @@schema("public")
 }

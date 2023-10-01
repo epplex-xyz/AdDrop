@@ -237,9 +237,21 @@ This model contains an expression index which requires additional setup for migr
 
 Table user {
   id String [pk]
-  first_name String
-  last_name String
+  username String [not null]
+  handle String [unique, not null]
+  avatar String [not null, default: '']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  lastActiveAt DateTime
+  preferences Preference[] [not null]
+  mainWallet String [unique, not null]
   users users [not null]
+}
+
+Enum Preference {
+  NFT
+  DEFI
+  ART
 }
 
 Enum aal_level {
