@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 
-
 export const AlegreyaBoldItalic = localFont({
     preload: true,
     display: "swap",

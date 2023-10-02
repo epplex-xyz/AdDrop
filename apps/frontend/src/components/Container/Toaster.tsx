@@ -1,3 +1,4 @@
+"use client";
 import { Toaster } from "react-hot-toast";
 import React from "react";
 import { useTheme } from "@mui/material/styles";

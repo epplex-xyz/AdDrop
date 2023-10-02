@@ -1,42 +1,62 @@
 {
-    "include": [
-      "src",
-      "pages",
-      "client",
-      "utils"
+  "include": [
+    "src",
+    "pages",
+    "client",
+    "utils",
+    "app",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "public"
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
     ],
-    "exclude": [
-      "node_modules",
-      "public"
+    "downlevelIteration": true,
+    "target": "es6",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@public/*": [
+        "public/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@content/*": [
+        "src/content/*"
+      ]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "compilerOptions": {
-        "skipLibCheck": true,
-        "typeRoots": [
-          "./node_modules/@types",
-          "./src/@types"
-        ],
-        "downlevelIteration": true,
-        "target": "es6",
-        "allowJs": true,
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
-        "noImplicitAny": false,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "preserve",
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "@public/*": ["public/*"],
-            "@components/*": ["src/components/*"],
-            "@styles/*": ["src/styles/*"]
-        },
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "incremental": true
-    }
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  }
 }

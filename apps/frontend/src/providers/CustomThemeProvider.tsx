@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import {ThemeProvider} from '@mui/material/styles';
 import {PaletteMode} from "@mui/material";
@@ -8,7 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-export const CustomThemeProvider = ({children, cache}) => {
+export const CustomThemeProvider = ({children}) => {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const initial = prefersDarkMode ? 'dark' : 'light';
     const [mode, setMode] = React.useState<PaletteMode>(initial);
@@ -28,13 +30,22 @@ export const CustomThemeProvider = ({children, cache}) => {
     );
 
     return (
-        <CacheProvider value={cache}>
-            <ColorModeContext.Provider value={colorMode}>
-                <ThemeProvider theme={colorModeTheme}>
-                    <CssBaseline/>
-                    {children}
-                </ThemeProvider>
-            </ColorModeContext.Provider>
-        </CacheProvider>
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={colorModeTheme}>
+                <CssBaseline/>
+                {children}
+            </ThemeProvider>
+        </ColorModeContext.Provider>
     );
+
+    // return (
+    //     <CacheProvider value={cache}>
+    //         <ColorModeContext.Provider value={colorMode}>
+    //             <ThemeProvider theme={colorModeTheme}>
+    //                 <CssBaseline/>
+    //                 {children}
+    //             </ThemeProvider>
+    //         </ColorModeContext.Provider>
+    //     </CacheProvider>
+    // );
 };

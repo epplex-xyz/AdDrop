@@ -1,3 +1,4 @@
+"use client";
 import React, { useCallback, useMemo } from "react";
 import { WalletError } from "@solana/wallet-adapter-base";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";

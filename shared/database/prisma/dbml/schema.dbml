@@ -237,6 +237,7 @@ This model contains an expression index which requires additional setup for migr
 
 Table user {
   id String [pk]
+  users users [not null]
   username String [not null]
   handle String [unique, not null]
   avatar String [not null, default: '']
@@ -244,14 +245,57 @@ Table user {
   updatedAt DateTime [not null]
   lastActiveAt DateTime
   preferences Preference[] [not null]
+  engagements engagement [not null]
+  rewards tokenAmount [not null]
   mainWallet String [unique, not null]
-  users users [not null]
 }
 
-Enum Preference {
-  NFT
-  DEFI
-  ART
+Table tokenAmount {
+  address String [pk]
+  amount Int [not null]
+  user user
+  userId String
+  campaign campaign [not null]
+}
+
+Table campaign {
+  id Int [pk, increment]
+  company company [not null]
+  companyId Int [not null]
+  description String [not null]
+  title String [not null]
+  endTimestamp DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  escrow String [unique, not null]
+  deposit tokenAmount [not null]
+  tokenAmountAddress String [not null]
+  engagement engagement [not null]
+}
+
+Table company {
+  id Int [pk, increment]
+  name String [not null]
+  twitter String [not null]
+  website String [not null]
+  description String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  campaign campaign [not null]
+}
+
+Table engagement {
+  id Int [pk, increment]
+  user user [not null]
+  userId String [not null]
+  campaign campaign [not null]
+  campaignId Int [not null]
+  engagementDuration Int [not null]
+  finishedTimestamp DateTime [default: `now()`, not null]
+
+  indexes {
+    (userId, campaignId) [unique]
+  }
 }
 
 Enum aal_level {
@@ -275,6 +319,12 @@ Enum factor_type {
   webauthn
 }
 
+Enum Preference {
+  NFT
+  DEFI
+  ART
+}
+
 Ref: identities.user_id > users.id [delete: Cascade]
 
 Ref: mfa_amr_claims.session_id > sessions.id [delete: Cascade]
@@ -294,3 +344,13 @@ Ref: sessions.user_id > users.id [delete: Cascade]
 Ref: sso_domains.sso_provider_id > sso_providers.id [delete: Cascade]
 
 Ref: user.id - users.id [delete: Cascade]
+
+Ref: tokenAmount.userId > user.id
+
+Ref: campaign.companyId > company.id
+
+Ref: campaign.tokenAmountAddress > tokenAmount.address
+
+Ref: engagement.userId > user.id
+
+Ref: engagement.campaignId > campaign.id

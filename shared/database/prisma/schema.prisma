@@ -277,7 +277,6 @@ model users {
   @@schema("auth")
 }
 
-
 enum aal_level {
   aal1
   aal2
@@ -306,7 +305,6 @@ enum factor_type {
 
   @@schema("auth")
 }
-
 
 model user {
   id           String        @id @db.Uuid

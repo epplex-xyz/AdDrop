@@ -8,12 +8,12 @@ import { useMobileOverlay } from "./MobileOverlay";
 import { HeaderLogo } from "./HeaderElements";
 import { ButtonLink } from "src/components/Buttons/LinkButton";
 import { ButtonConfig } from "src/components/Buttons/ButtonConfig";
-import { useRouter } from "next/router";
 import { MyMountedWalletButton } from "@components/Buttons/MyWalletConnectButton";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {IconButton} from "@mui/material";
 import Button from "@mui/material/Button";
 import {paletteLight} from "@styles/palette";
+import {usePathname} from "next/navigation";
 function HeaderLeft({TriggerButton}: {TriggerButton: () => React.ReactNode}) {
     return (
         <Box
@@ -77,15 +77,15 @@ function HeaderRight({Component}: {Component: React.ReactNode}) {
 export function Header({ headerPosition }) {
     const {OverlayComponent, TriggerButton} = useMobileOverlay();
 
-    const router = useRouter();
+    const path = usePathname();
 
     let RightComponent: React.ReactNode;
     let LeftComponent: React.ReactNode;
 
-    if (router.asPath === "/demo") {
+    if (path === "/demo") {
         RightComponent = <MyMountedWalletButton/>;
         LeftComponent = <HeaderLeft TriggerButton={TriggerButton}/>
-    } else if (router.asPath === "/signup") {
+    } else if (path === "/signup") {
         LeftComponent = <HeaderBack/>
         RightComponent = <></>
     } else {

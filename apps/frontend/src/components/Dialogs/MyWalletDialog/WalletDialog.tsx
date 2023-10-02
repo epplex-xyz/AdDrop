@@ -1,6 +1,7 @@
 import {Close as CloseIcon, ExpandLess as CollapseIcon, ExpandMore as ExpandIcon} from '@mui/icons-material';
 import type {DialogProps, Theme} from '@mui/material';
-import {Button, Collapse, Dialog, DialogContent, DialogTitle, IconButton, List, ListItem, styled,} from '@mui/material';
+import {Button, Collapse, Dialog, DialogContent, IconButton, List, ListItem} from '@mui/material';
+import { styled } from "@mui/material/styles";
 import type {WalletName} from '@solana/wallet-adapter-base';
 import {WalletReadyState} from '@solana/wallet-adapter-base';
 import {useWallet, Wallet} from '@solana/wallet-adapter-react';
