@@ -3,13 +3,18 @@ import { Text } from "src/components/Text/TextComponent";
 
 type ButtonConfigKeys = "login" | "signup" | "createProfile" | "createCompany";
 
+function ButtonText({children}) {
+    return <Text.Subtitle1>{children}</Text.Subtitle1>
+
+}
+
 export const ButtonConfig: Record<ButtonConfigKeys, ButtonLinkProps> = {
     login: {
         variant: "contained",
         href: "/demo",
-        children: <Text.H6>
+        children: <ButtonText>
             LOG IN
-        </Text.H6>,
+        </ButtonText>,
         sx: {
             paddingX: '32px',
         }
@@ -17,9 +22,9 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonLinkProps> = {
     signup: {
         variant: "contained",
         href: "/signup",
-        children: <Text.H6>
+        children: <ButtonText>
             SIGN UP
-        </Text.H6>,
+        </ButtonText>,
         sx: {
             paddingX: '32px',
         },
@@ -27,21 +32,23 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonLinkProps> = {
     createProfile: {
         variant: "contained",
         href: "/signup/user",
-        children: <Text.H6>
+        children: <ButtonText>
             CREATE USER PROFILE
-        </Text.H6>,
+        </ButtonText>,
         sx: {
-            paddingX: '32px',
+            paddingX: '16px',
+            width: "100%"
         },
     },
     createCompany: {
         variant: "contained",
         href: "/signup/company",
-        children: <Text.H6>
+        children: <ButtonText>
             CREATE COMPANY PROFILE
-        </Text.H6>,
+        </ButtonText>,
         sx: {
-            paddingX: '32px',
+            paddingX: '16px',
+            width: "100%"
         },
     },
 };

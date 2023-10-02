@@ -5,6 +5,7 @@ import { ButtonLink } from "src/components/Buttons/LinkButton";
 import { ButtonConfig } from "src/components/Buttons/ButtonConfig";
 import Image from "next/image";
 import React from "react";
+// import PaperPlane from "../../../public/icons/paperPlane.svg"
 
 function LandingText(){
     return (
@@ -14,6 +15,7 @@ function LandingText(){
             </Text.H2>
             <Text.H6>
                 Earn rewards for engaging with ads!
+                {/*<PaperPlane/>*/}
             </Text.H6>
         </div>
     );

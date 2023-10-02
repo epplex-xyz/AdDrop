@@ -8,7 +8,7 @@ export function SignUpPage({...props}: BoxProps){
     return (
         <div className="flex flex-col w-full h-screen justify-center">
             <Section {...props}>
-                <div className={"flex flex-col items-center gap-y-8"}>
+                <div className={"flex flex-col items-center gap-y-8 max-w-[280px]"}>
                     <ButtonLink {...ButtonConfig.createProfile}/>
                     <ButtonLink {...ButtonConfig.createCompany}/>
                 </div>
