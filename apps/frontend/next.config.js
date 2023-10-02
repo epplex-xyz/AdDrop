@@ -32,6 +32,8 @@ const nextConfig = {
             use: ["@svgr/webpack"],
         });
 
+        config.externals.push("pino-pretty", "lokijs", "encoding");
+
         config.resolve.extensions.push('.ts', '.tsx');
 
         return config;
