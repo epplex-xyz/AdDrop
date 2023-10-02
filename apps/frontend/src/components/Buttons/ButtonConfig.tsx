@@ -4,7 +4,7 @@ import { Text } from "src/components/Text/TextComponent";
 type ButtonConfigKeys = "login" | "signup" | "createProfile" | "createCompany";
 
 function ButtonText({children}) {
-    return <Text.Subtitle1>{children}</Text.Subtitle1>
+    return <Text.Subtitle1>{children}</Text.Subtitle1>;
 
 }
 

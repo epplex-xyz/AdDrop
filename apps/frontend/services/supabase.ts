@@ -19,10 +19,10 @@ export async function signInWithOAuth() {
     const { data, error } = await Supabase.auth.signInWithOAuth({
         provider: 'twitter',
         // options: {redirectTo: "/"}
-    })
-    console.log("signIn res", data, error)
+    });
+    console.log("signIn res", data, error);
 
-    if (error) throw error
+    if (error) throw error;
 
-    return data
+    return data;
 }

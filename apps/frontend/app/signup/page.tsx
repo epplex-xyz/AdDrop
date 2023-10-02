@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Screen from "@components/layout/Screen";
 import React from "react";
 import {SignUpPage} from "../../src/content/Signup/SignUpPage";

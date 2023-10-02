@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import type {Metadata} from "next";
 import {Main} from "../src/content/Home/Main";
@@ -24,8 +24,8 @@ export default function Home() {
     const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
 
     return (
-      <Screen headerPosition={isMobile ? "static" : "relative"}>
-          <Main/>
-      </Screen>
+        <Screen headerPosition={isMobile ? "static" : "relative"}>
+            <Main/>
+        </Screen>
     );
 }

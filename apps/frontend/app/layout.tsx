@@ -1,4 +1,4 @@
-import "@styles/globals.scss"
+import "@styles/globals.scss";
 import * as font from "@styles/fonts";
 import {CustomThemeProvider} from "../src/providers/CustomThemeProvider";
 import MyWalletProvider from "../src/providers/MyWalletProvider";
@@ -55,5 +55,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </CustomThemeProvider>
             </body>
         </html>
-    )
+    );
 }

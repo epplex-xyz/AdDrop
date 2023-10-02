@@ -82,7 +82,7 @@ export class Program2 {
 
         let tx;
         try {
-            tx = await sendAndConfirmRawTransaction(this.connection, transaction, payer, this.wallet, [mint]);;
+            tx = await sendAndConfirmRawTransaction(this.connection, transaction, payer, this.wallet, [mint]);
             console.log("tx", tx);
         } catch (e) {
             console.log("Failed to send tx", e);

@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "PORT=5555 next start",
     "prod": "yarn build && yarn start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fix:lint": "npx eslint --fix ."
   },
   "dependencies": {
     "@addrop/database": "workspace:^",

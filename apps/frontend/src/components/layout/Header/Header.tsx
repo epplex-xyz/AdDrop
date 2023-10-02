@@ -40,7 +40,7 @@ function HeaderLeft({TriggerButton}: {TriggerButton: () => React.ReactNode}) {
     );
 }
 
-function HeaderBack({}) {
+function HeaderBack() {
     return (
         <Box
             component="div"
@@ -84,13 +84,13 @@ export function Header({ headerPosition }) {
 
     if (path === "/demo") {
         RightComponent = <MyMountedWalletButton/>;
-        LeftComponent = <HeaderLeft TriggerButton={TriggerButton}/>
+        LeftComponent = <HeaderLeft TriggerButton={TriggerButton}/>;
     } else if (path === "/signup") {
-        LeftComponent = <HeaderBack/>
-        RightComponent = <></>
+        LeftComponent = <HeaderBack/>;
+        RightComponent = <></>;
     } else {
         RightComponent = <ButtonLink {...ButtonConfig.login}/>;
-        LeftComponent = <></>
+        LeftComponent = <></>;
     }
 
 
