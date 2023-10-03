@@ -11,13 +11,15 @@ import Button from "@mui/material/Button";
 import {useWallet} from "@solana/wallet-adapter-react";
 import {backendRequest, requestWrapper} from "@constants/endpoints";
 import CircularProgress from "@mui/material/CircularProgress";
+import {useRouter} from "next/navigation";
+// import {useRouter} from "next/router";
 
 export function SignUpUser({...props}: BoxProps) {
     const {button, data} = useXButton();
     const {publicKey} = useWallet()
     const [loading, setLoading] = React.useState(false);
+    const router = useRouter();
 
-    console.log("data", data)
     const handleCreate = async () => {
         // TODO how to detect if anything is null and throw that error
         // burger bob twitter connect is small
@@ -33,8 +35,10 @@ export function SignUpUser({...props}: BoxProps) {
         });
         const res = await requestWrapper(() => request);
         setLoading(false)
-        // needs to add redirect
-        console.log("res", res)
+
+        if (res) {
+            router.push(`/profile/${data?.user_metadata.user_name}`)
+        }
     }
 
     return (
