@@ -148,18 +148,6 @@ export const MyWalletConnectButton: FC<ButtonProps> = ({
                     </Button>
                 </WalletMenuItem>
                 <Collapse in={!!anchor}>
-                    <Link href="/receipts">
-                        <WalletActionMenuItem
-                            onClick={() => {
-                                setAnchor(undefined);
-                            }}
-                        >
-                            <ListItemIcon>
-                                <LunchDiningIcon />
-                            </ListItemIcon>
-                            My burgers
-                        </WalletActionMenuItem>
-                    </Link>
                     {/*<SingleDivider/>*/}
                     <WalletActionMenuItem
                         onClick={async () => {
