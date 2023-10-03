@@ -2,7 +2,7 @@ import { Section } from "src/components/Container/Section";
 import { BoxProps } from "@mui/material/Box";
 import { Text } from "src/components/Text/TextComponent";
 import { ButtonLink } from "src/components/Buttons/LinkButton";
-import { ButtonConfig } from "src/components/Buttons/ButtonConfig";
+import { ButtonLinkConfig } from "@components/Buttons/ButtonLinkConfig";
 import Image from "next/image";
 import React from "react";
 // import PaperPlane from "../../../public/icons/paperPlane.svg"
@@ -35,8 +35,8 @@ export function LandingPage({...props}: BoxProps){
                 <LandingText/>
 
                 <div className={"flex gap-x-6"}>
-                    <ButtonLink {...ButtonConfig.login}/>
-                    <ButtonLink {...ButtonConfig.signup}/>
+                    <ButtonLink {...ButtonLinkConfig.login}/>
+                    <ButtonLink {...ButtonLinkConfig.signup}/>
                 </div>
             </div>
         </Section>

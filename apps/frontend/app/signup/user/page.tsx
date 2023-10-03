@@ -1,12 +1,12 @@
 "use client";
 import Screen from "@components/layout/Screen";
 import React from "react";
-import {SignUpPage} from "@content/Signup/SignUpPage";
+import {SignUpUser} from "@content/Signup/SignUpUser";
 
-export default function SignUp() {
+export default function SignUpUserPage() {
     return (
         <Screen>
-            <SignUpPage/>
+            <SignUpUser/>
         </Screen>
     );
 }
