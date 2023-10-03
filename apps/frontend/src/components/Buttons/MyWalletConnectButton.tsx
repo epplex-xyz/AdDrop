@@ -11,6 +11,7 @@ import {WalletDialogButton} from "../Dialogs/MyWalletDialog/WalletDialogButton";
 import {PublicKey} from "@solana/web3.js";
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import { useIsMounted } from "../../hooks/useIsMounted";
+import {SatoshiBold} from "@styles/fonts";
 
 const StyledMenu = styled(Menu)(({ theme }: { theme: Theme }) => ({
     '& .MuiList-root': {
@@ -201,14 +202,24 @@ export const MyWalletConnectButton: FC<ButtonProps> = ({
     );
 };
 
+export const ConnectButton = styled(MyWalletConnectButton)(({theme}) => ({
+    fontSize: '16px',
+    '& .MuiButton-root': {
+        marginLeft: "20px !important"
+    },
+    '& .MuiButtonBase-root-MuiButton-root': {
+        marginLeft: "20px !important"
+    }
+}));
+
 export const MyMountedWalletButton: FC<ButtonProps> = ({children, ...props}) => {
     const isMounted = useIsMounted();
 
     return (<>
         {isMounted &&
-            <MyWalletConnectButton {...props}>
+            <ConnectButton {...props} className={`${SatoshiBold.className}`}>
                 {children}
-            </MyWalletConnectButton>
+            </ConnectButton>
         }
     </>);
 };

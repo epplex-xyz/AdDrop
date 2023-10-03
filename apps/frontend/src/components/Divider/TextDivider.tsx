@@ -10,7 +10,7 @@ export function TextDivider({children, uppercase = true}) {
             <Box
                 component={"div"}
                 height={"3px"}
-                bgcolor={"background.paper"}
+                bgcolor={"text.primary"}
                 width={"100%"}
             />
         </div>

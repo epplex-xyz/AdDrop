@@ -7,13 +7,14 @@ import AppBar from "@mui/material/AppBar";
 import { useMobileOverlay } from "./MobileOverlay";
 import { HeaderLogo } from "./HeaderElements";
 import { ButtonLink } from "src/components/Buttons/LinkButton";
-import { ButtonConfig } from "src/components/Buttons/ButtonConfig";
+import { ButtonLinkConfig } from "@components/Buttons/ButtonLinkConfig";
 import { MyMountedWalletButton } from "@components/Buttons/MyWalletConnectButton";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {IconButton} from "@mui/material";
 import Button from "@mui/material/Button";
 import {paletteLight} from "@styles/palette";
 import {usePathname} from "next/navigation";
+import {RoundIconButton} from "@components/Buttons/RoundIconButton";
 function HeaderLeft({TriggerButton}: {TriggerButton: () => React.ReactNode}) {
     return (
         <Box
@@ -52,9 +53,9 @@ function HeaderBack() {
                 component="div"
                 display={"flex"}
             >
-                <IconButton href={"/"}>
+                <RoundIconButton href={"/"}>
                     <ArrowBackIcon/>
-                </IconButton>
+                </RoundIconButton>
             </Box>
         </Box>
     );
@@ -89,7 +90,7 @@ export function Header({ headerPosition }) {
         LeftComponent = <HeaderBack/>;
         RightComponent = <></>;
     } else {
-        RightComponent = <ButtonLink {...ButtonConfig.login}/>;
+        RightComponent = <ButtonLink {...ButtonLinkConfig.login}/>;
         LeftComponent = <></>;
     }
 

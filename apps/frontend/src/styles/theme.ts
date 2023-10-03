@@ -75,20 +75,7 @@ const theme = (colorMode: PaletteMode) => responsiveFontSizes(
                         borderRadius: style.borderRadiusMd,
                         minWidth: 5,
                         textTransform: "none",
-                        color: paletteLight.primary.main,
-                    },
-                },
-            },
-            MuiIconButton: {
-                styleOverrides: {
-                    root: {
-                        backgroundColor: paletteLight.primary.main,
                         color: paletteLight.text.primary,
-                        border: `2px solid ${paletteLight.text.primary}`,
-                        boxShadow: `3px 3px ${paletteLight.text.primary}`,
-                        "&:hover": {
-                            boxShadow: `3px 3px ${paletteLight.text.primary}80`
-                        }
                     },
                 },
             },
