@@ -5,6 +5,7 @@ import { ButtonLink } from "src/components/Buttons/LinkButton";
 import { ButtonLinkConfig } from "@components/Buttons/ButtonLinkConfig";
 import Image from "next/image";
 import React from "react";
+import {LogoAnimation} from "@content/Home/LogoAnimation";
 // import PaperPlane from "../../../public/icons/paperPlane.svg"
 
 function LandingText(){
@@ -25,13 +26,14 @@ export function LandingPage({...props}: BoxProps){
     return (
         <Section {...props}>
             <div className={"flex flex-col items-center gap-y-8"}>
-                <Image
-                    src={"/logos/frontPageLogo.png"}
-                    alt="FrontPageLogo"
-                    width={200}
-                    height={200}
-                    priority={true}
-                />
+                <LogoAnimation/>
+                {/*<Image*/}
+                {/*    src={"/logos/frontPageLogo.png"}*/}
+                {/*    alt="FrontPageLogo"*/}
+                {/*    width={200}*/}
+                {/*    height={200}*/}
+                {/*    priority={true}*/}
+                {/*/>*/}
                 <LandingText/>
 
                 <div className={"flex gap-x-6"}>

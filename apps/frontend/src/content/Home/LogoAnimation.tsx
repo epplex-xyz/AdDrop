@@ -9,54 +9,28 @@ const container = {
         opacity: 1,
         transition: {
             delay: 1,
-            staggerChildren: 0.2,
-            delayChildren: 1.2
+            // staggerChildren: 0.2,
+            // delayChildren: 1.2
         }
     }
 };
 
-const container2 = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            delay: 1.6,
-            staggerChildren: 0.2,
-            delayChildren: 1.6
-        }
-    }
-};
-
-const itemE = (offset) => {
-    return {
-        hidden: {
-            opacity: 0,
-            x: -90 + offset,
-        },
-        show: {
-            opacity: 1,
-            x: 90 + offset,
-            transition: {
-                duration: 1,
-                ease: [0.02, 0.6, 0.01, 0.91]
-            }
-        }
-    };
-};
 
 const itemP = (offset) => {
     return {
         hidden: {
-            opacity: 0,
-            x: 120 + offset,
-            y: -200
+            opacity: 1,
+            rotate: [0, 0],
+            x: [0, 0],
+            y: [0, 0],
         },
         show: {
             opacity: 1,
-            x: 20 + offset,
-            y: 0,
+            rotate: [360, 360],
+            x: [0, 60],
+            y: [0, -60],
             transition: {
-                duration: 1,
+                duration: 2,
                 ease: [0.02, 0.6, 0.01, 0.91]
             }
         }
@@ -67,10 +41,7 @@ const itemP = (offset) => {
 export function LogoAnimation() {
     const mobileFactor = 1;
 
-    const AR = 125/48;
-    const ARp1 = 136/175;
-    const ARp2 = 97/110;
-    const sizeE = 50 * mobileFactor;
+    const sizeE = 100 * mobileFactor;
     const sizeP1 = 165 * mobileFactor;
     const sizeP2 = 112 * mobileFactor;
     const sizes = {
@@ -84,29 +55,23 @@ export function LogoAnimation() {
         p2: -40
     };
 
-    const eLogo = <Image
-        src={"/logos/animation/e.png"}
-        alt={"logo"}
-        height={sizes.e}
-        width={sizes.e * AR}
-    />;
-    const p1Logo = <Image
-        src={"/logos/animation/p1.png"}
+    const logoPlate = <Image
+        src={"/logos/animation/logoPlate.png"}
         alt={"logo"}
         height={sizes.p1}
-        width={sizes.p1 * ARp1}
+        width={sizes.p1}
     />;
-    const p2Logo = <Image
-        src={"/logos/animation/p2.png"}
+    const logoArrow = <Image
+        src={"/logos/animation/logoArrow.png"}
         alt={"logo"}
-        height={sizes.p2}
-        width={sizes.p2 * ARp2}
+        height={sizes.e}
+        width={sizes.e}
     />;
 
     return (
         <Box
             component={"div"}
-            className={"sm:mt-[100px] mt-[50px]"}
+            // className={"sm:mt-[100px] mt-[50px]"}
             sx={{
                 width: "100%",
                 position: "relative",
@@ -117,33 +82,28 @@ export function LogoAnimation() {
         >
             {/* E part */}
             <motion.div
-                variants={container}
+                // variants={container}
+                className={"flex justify-center relative"}
                 initial="hidden"
                 animate="show"
             >
-                <motion.div variants={itemE(0)}>
-                    {eLogo}
-                </motion.div>
-                <motion.div variants={itemE(-55)}>
-                    {eLogo}
-                </motion.div>
-                <motion.div variants={itemE(-65)}>
-                    {eLogo}
-                </motion.div>
-            </motion.div>
-
-            {/* P part */}
-            <motion.div
-                variants={container2}
-                initial="hidden"
-                animate="show"
-                className="flex flex-row"
-            >
-                <motion.div variants={itemP(offset.p1)}>
-                    {p1Logo}
-                </motion.div>
-                <motion.div variants={itemP(offset.p2)}>
-                    {p2Logo}
+                {logoPlate}
+                <motion.div
+                    // variants={container}
+                    initial="hidden"
+                    animate="show"
+                    style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)"
+                    }}
+                >
+                    <motion.div
+                        variants={itemP(offset.p1)}
+                    >
+                        {logoArrow}
+                    </motion.div>
                 </motion.div>
             </motion.div>
         </Box>
