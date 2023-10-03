@@ -12,8 +12,9 @@ type ButtonLinkConfigKeys =
     | "linkWallet"
 
 type ButtonConfigKeys =
-    | "linkX"
+    "linkX"
     | "linkWallet"
+    | "userCreate"
 
 function ButtonText({children}) {
     return <Text.Subtitle1>{children}</Text.Subtitle1>;
@@ -85,11 +86,7 @@ export const ButtonLinkConfig: Record<ButtonLinkConfigKeys, ButtonLinkProps> = {
 
 export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
     linkX: {
-        onClick: async () => { await signInWithOAuth("/signup/user") },
         variant: "contained",
-        children: <ButtonText>
-            LINK X
-        </ButtonText>,
         sx: {
             paddingX: '16px',
         },
@@ -97,6 +94,12 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
     linkWallet: {
         children: <ButtonText>
             LINK WALLET
+        </ButtonText>,
+    },
+    userCreate: {
+        variant: "contained",
+        children: <ButtonText>
+            CREATE USER
         </ButtonText>,
     },
 };

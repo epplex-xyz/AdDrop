@@ -3,6 +3,7 @@
     "src",
     "pages",
     "client",
+    "constants",
     "utils",
     "app",
     "services",
@@ -40,6 +41,9 @@
       ],
       "@services/*": [
         "services/*"
+      ],
+      "@constants/*": [
+        "constants/*"
       ],
       "@components/*": [
         "src/components/*"

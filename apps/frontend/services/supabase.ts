@@ -1,5 +1,4 @@
 import {createClient} from "@supabase/supabase-js";
-import {useEffect} from "react";
 
 export const Supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -15,10 +14,12 @@ export const Supabase = createClient(
 // useEffect(() => {
 //     test().then()
 // }, [])
-export async function signInWithOAuth() {
+
+export async function signInWithOAuth(redirectUrl: string = "/") {
     const { data, error } = await Supabase.auth.signInWithOAuth({
         provider: 'twitter',
-        // options: {redirectTo: "/"}
+        options: {
+            redirectTo: redirectUrl}
     });
     console.log("signIn res", data, error);
 

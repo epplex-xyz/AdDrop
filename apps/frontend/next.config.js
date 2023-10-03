@@ -16,12 +16,16 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "arweave.net",
+                hostname: "*",
                 port: "*",
                 pathname: "/**/*",
             },
         ],
-        domains: ["arweave.net", "shdw-drive.genesysgo.net"]
+        domains: [
+            "arweave.net",
+            "shdw-drive.genesysgo.net",
+            "pbs.twimg.com"
+        ]
     },
     publicRuntimeConfig: {
         NODE_ENV: process.env.NODE_ENV,

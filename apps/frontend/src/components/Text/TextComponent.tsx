@@ -111,7 +111,7 @@ function Subtitle1(props: Omit<TextProps, "variant">) {
 }
 
 function Body1(props: Omit<TextProps, "variant">) {
-    const { color, children } = props;
+    const { color = "text.primary", children } = props;
     return (
         <Text {...props} variant="body1" color={color}>
             {children}

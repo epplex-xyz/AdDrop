@@ -11,14 +11,15 @@ export function Label({children}: { children: React.ReactNode }) {
             display={"flex"}
             flexDirection={"column"}
             alignSelf={"center"}
-            color={"primary.main"}
             sx={{
                 borderRadius: style.borderRadiusMd,
                 boxShadow: (theme) => `inset 0 0 0 1px ${theme.palette.text.primary}`,
             }}
             padding={"8px 16px"}
         >
-            {children}
+            <Text.Body2>
+                {children}
+            </Text.Body2>
         </Box>
     );
 }

@@ -52,7 +52,8 @@
     "tailwindcss": "^3.3.3",
     "tweetnacl": "^1.0.3",
     "web-vitals": "^3.4.0",
-    "zod": "^3.22.2"
+    "zod": "^3.22.2",
+    "zustand": "^4.4.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
@@ -88,6 +89,8 @@
     ]
   },
   "browser": {
+    "fs": false,
+    "path": false,
     "os": false,
     "child_process": false,
     "dns": false,
