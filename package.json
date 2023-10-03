@@ -12,7 +12,7 @@
     "fe:build": "dotenv -- turbo run build --filter addrop-frontend",
     "be": "pnpm run dev --filter addrop-backend",
     "be:build": "turbo run build --filter addrop-backend",
-    "be:dev": "turbo run dev --filter addrop-backend",
+    "be:dev": "dotenv -- turbo run dev:db --filter @addrop/database && turbo run dev --filter addrop-backend",
     "be:start": "pnpm run start --filter addrop-backend",
     "postinstall": "dotenv -- turbo run db:generate",
     "db:pull": "dotenv -- turbo run db:pull",

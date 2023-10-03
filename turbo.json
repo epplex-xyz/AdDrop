@@ -12,6 +12,9 @@
     "db:pull": {
       "cache": false
     },
+    "dev:db": {
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]

@@ -16,10 +16,13 @@
 //     config({path: process.cwd() + "/.env"});
 // }
 
-export * from '@prisma/client'
+// module.exports = require('@prisma/client');
+
 
 import { PrismaClient } from '@prisma/client'
 import { config } from 'dotenv';
+// const { PrismaClient } = require('@prisma/client');
+// const { config } = require('dotenv');
 
 config();
 declare global {
@@ -37,4 +40,7 @@ if (typeof window === "undefined") {
     prisma = global.prisma;
   }
 }
+
 export { prisma };
+export * from '@prisma/client'
+// module.exports = { prisma };
