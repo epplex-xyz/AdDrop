@@ -2,7 +2,7 @@ import { dummyProducts } from './products';
 import * as dotenv from 'dotenv';
 import { USDC_PRICE } from './prices';
 import {SphereService} from "../../src/sphere/sphere.service";
-import {ProductService} from "../../src/product/product.service";
+import {UserService} from "../../src/product/user.service";
 dotenv.config({ path: '.env' });
 
 async function createPaymentLink(sphereService) {
@@ -22,7 +22,7 @@ async function createPaymentLink(sphereService) {
 
 const main = async () => {
     const sphereService = new SphereService();
-    const productService = new ProductService(sphereService);
+    const productService = new UserService(sphereService);
 
     // Create product and price
     // 1:1 relationship between product and price

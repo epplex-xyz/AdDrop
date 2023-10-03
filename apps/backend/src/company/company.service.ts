@@ -5,7 +5,7 @@ import { GetProductParams } from './dto/get-product-params';
 import { ReturnProductDTO } from './dto/product.dto';
 
 @Injectable()
-export class ProductService {
+export class CompanyService {
     constructor() {}
 
     async create(createProductDto: CreateProductDto) {

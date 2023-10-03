@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { ProductService } from './product.service';
+import { CompanyService } from './company.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductParams } from './dto/get-product-params';
 import { ReturnProductDTO } from './dto/product.dto';
 
-@Controller('product')
-export class ProductController {
-    constructor(private readonly productService: ProductService) {}
+@Controller('company')
+export class CompanyController {
+    constructor(private readonly productService: CompanyService) {}
 
     @Post('create')
     async create(
