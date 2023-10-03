@@ -16,7 +16,8 @@
     "be:start": "pnpm run start --filter addrop-backend",
     "postinstall": "dotenv -- turbo run db:generate",
     "db:pull": "dotenv -- turbo run db:pull",
-    "db:push": "dotenv -- turbo run db:push"
+    "db:push": "dotenv -- turbo run db:push",
+    "db:migrate": "dotenv -- turbo run db:migrate"
   },
   "workspaces": [
     "apps/*",

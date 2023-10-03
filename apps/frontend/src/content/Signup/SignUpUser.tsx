@@ -19,6 +19,9 @@ export function SignUpUser({...props}: BoxProps) {
 
     console.log("data", data)
     const handleCreate = async () => {
+        // TODO how to detect if anything is null and throw that error
+        // burger bob twitter connect is small
+        console.log()
         setLoading(true);
         const request = backendRequest.createUser({
             id: data?.id,

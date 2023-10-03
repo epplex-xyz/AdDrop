@@ -7,8 +7,10 @@
     "db:generate": "prisma generate && prisma format",
     "db:push": "prisma db push --skip-generate --accept-data-loss",
     "db:pull": "prisma db pull",
+    "db:migrate": "prisma migrate dev",
     "studio": "pnpm prisma studio --port 5556",
-    "dev:db": "tsc -p tsconfig.json "
+    "dev:db": "tsc -p tsconfig.json"
+
   },
   "dependencies": {
     "@prisma/client": "^5.3.1",

@@ -7,12 +7,12 @@ export class UserService {
     constructor() {}
 
     async create(createProductDto: any) {
+        console.log("user1", createProductDto);
         let res;
         try {
+            const test = await prisma.e
             const user = await prisma.user.create({
                 data: {
-                    engagements: [],
-                    rewards: [],
                     ...createProductDto
                 }
             })

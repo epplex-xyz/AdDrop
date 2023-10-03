@@ -228,14 +228,14 @@ Table users {
   identities identities [not null]
   mfa_factors mfa_factors [not null]
   sessions sessions [not null]
-  user user
+  user User
 
   Note: 'This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.'
 }
 
-Table user {
+Table User {
   id String [pk]
   users users [not null]
   username String [not null]
@@ -245,22 +245,23 @@ Table user {
   updatedAt DateTime [not null]
   lastActiveAt DateTime
   preferences Preference[] [not null]
-  engagements engagement [not null]
-  rewards tokenAmount [not null]
+  engagements Engagement [not null]
+  rewards TokenAmount [not null]
   mainWallet String [unique, not null]
 }
 
-Table tokenAmount {
-  address String [pk]
+Table TokenAmount {
+  id Int [pk, increment]
+  address String [unique, not null]
   amount Int [not null]
-  user user
-  userId String
-  campaign campaign [not null]
+  user User [not null]
+  userId String [not null]
+  campaign Campaign [not null]
 }
 
-Table campaign {
+Table Campaign {
   id Int [pk, increment]
-  company company [not null]
+  company Company [not null]
   companyId Int [not null]
   description String [not null]
   title String [not null]
@@ -268,12 +269,12 @@ Table campaign {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   escrow String [unique, not null]
-  deposit tokenAmount [not null]
+  deposit TokenAmount [not null]
   tokenAmountAddress String [not null]
-  engagement engagement [not null]
+  engagement Engagement [not null]
 }
 
-Table company {
+Table Company {
   id Int [pk, increment]
   name String [not null]
   twitter String [not null]
@@ -281,14 +282,14 @@ Table company {
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  campaign campaign [not null]
+  campaign Campaign [not null]
 }
 
-Table engagement {
+Table Engagement {
   id Int [pk, increment]
-  user user [not null]
+  user User [not null]
   userId String [not null]
-  campaign campaign [not null]
+  campaign Campaign [not null]
   campaignId Int [not null]
   engagementDuration Int [not null]
   finishedTimestamp DateTime [default: `now()`, not null]
@@ -343,14 +344,14 @@ Ref: sessions.user_id > users.id [delete: Cascade]
 
 Ref: sso_domains.sso_provider_id > sso_providers.id [delete: Cascade]
 
-Ref: user.id - users.id [delete: Cascade]
+Ref: User.id - users.id [delete: Cascade]
 
-Ref: tokenAmount.userId > user.id
+Ref: TokenAmount.userId > User.id
 
-Ref: campaign.companyId > company.id
+Ref: Campaign.companyId > Company.id
 
-Ref: campaign.tokenAmountAddress > tokenAmount.address
+Ref: Campaign.tokenAmountAddress > TokenAmount.address
 
-Ref: engagement.userId > user.id
+Ref: Engagement.userId > User.id
 
-Ref: engagement.campaignId > campaign.id
+Ref: Engagement.campaignId > Campaign.id
