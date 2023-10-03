@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [".env", "tsconfig.json"],
-  "globalEnv": ["NEXT_PUBLIC_SOLANA_RPC"],
+  "globalEnv": ["NEXT_PUBLIC_SOLANA_RPC", "NODE_ENV"],
   "pipeline": {
     "db:generate": {
       "cache": false
@@ -11,6 +11,10 @@
     },
     "db:pull": {
       "cache": false
+    },
+    "db:migrate": {
+      "cache": false,
+      "env": ["NODE_ENV"]
     },
     "dev:db": {
       "cache": false
