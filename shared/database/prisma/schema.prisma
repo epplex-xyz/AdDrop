@@ -367,7 +367,7 @@ model company {
 model engagement {
   id                 Int      @id @default(autoincrement())
   user               user     @relation(fields: [userId], references: [id])
-  userId             String
+  userId             String   @db.Uuid
   campaign           campaign @relation(fields: [campaignId], references: [id])
   campaignId         Int
   engagementDuration Int
