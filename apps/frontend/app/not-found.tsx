@@ -15,7 +15,6 @@ export default function PageNotFound() {
                 <Text.H6
                     sx={{ textAlign: "center", marginX: "16px" }}
                 >
-                    Oops! Not yet implemented:
                     Oops! Not yet implemented: <i>{path}</i>
                 </Text.H6>
             </div>

@@ -10,7 +10,6 @@ export class UserService {
         console.log("user1", createProductDto);
         let res;
         try {
-            const test = await prisma.e
             const user = await prisma.user.create({
                 data: {
                     ...createProductDto
