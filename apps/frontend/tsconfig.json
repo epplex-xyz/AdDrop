@@ -5,6 +5,7 @@
     "client",
     "utils",
     "app",
+    "services",
     ".next/types/**/*.ts"
   ],
   "exclude": [
@@ -37,6 +38,9 @@
       "@public/*": [
         "public/*"
       ],
+      "@services/*": [
+        "services/*"
+      ],
       "@components/*": [
         "src/components/*"
       ],
@@ -45,7 +49,7 @@
       ],
       "@content/*": [
         "src/content/*"
-      ]
+      ],
     },
     "lib": [
       "dom",

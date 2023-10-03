@@ -23,8 +23,8 @@
     "@mui/icons-material": "^5.14.9",
     "@mui/lab": "^5.0.0-alpha.145",
     "@mui/material": "^5.14.10",
-    "@mui/styles": "^5.14.10",
     "@mui/x-date-pickers": "^5.0.20",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^5.3.1",
     "@shadow-drive/sdk": "^5.0.0",
     "@solana/spl-token": "^0.3.8",
     "@solana/wallet-adapter-base": "^0.9.23",
@@ -88,8 +88,6 @@
     ]
   },
   "browser": {
-    "fs": false,
-    "path": false,
     "os": false,
     "child_process": false,
     "dns": false,

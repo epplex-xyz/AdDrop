@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const plugin = require("@prisma/nextjs-monorepo-workaround-plugin");
 const path = require("path");
 
 const nextConfig = {
@@ -25,7 +26,16 @@ const nextConfig = {
     publicRuntimeConfig: {
         NODE_ENV: process.env.NODE_ENV,
     },
-    webpack(config) {
+    // You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file
+    transpilePackages: ["@addrop/database"],
+    webpack: (config, { isServer }) => {
+        if (!isServer) {
+            config.resolve.fallback.fs = false;
+        }
+
+        if (isServer) {
+            config.plugins = [...config.plugins, new plugin.PrismaPlugin()];
+        }
         config.module.rules.push({
             test: /\.svg$/i,
             issuer: /\.[jt]sx?$/,
