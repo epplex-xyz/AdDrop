@@ -1,3 +1,5 @@
+// https://github.dev/alitnk/nestjs-prisma-monorepo/tree/main/libs
+
 // cannot use on client-side https://github.com/prisma/prisma/issues/6219
 
 // import { PrismaClient } from '@prisma/client'

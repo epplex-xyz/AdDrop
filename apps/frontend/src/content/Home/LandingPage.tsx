@@ -26,14 +26,14 @@ export function LandingPage({...props}: BoxProps){
     return (
         <Section {...props}>
             <div className={"flex flex-col items-center gap-y-8"}>
-                <LogoAnimation/>
-                {/*<Image*/}
-                {/*    src={"/logos/frontPageLogo.png"}*/}
-                {/*    alt="FrontPageLogo"*/}
-                {/*    width={200}*/}
-                {/*    height={200}*/}
-                {/*    priority={true}*/}
-                {/*/>*/}
+                {/*<LogoAnimation/>*/}
+                <Image
+                    src={"/logos/frontPageLogo.png"}
+                    alt="FrontPageLogo"
+                    width={200}
+                    height={200}
+                    priority={true}
+                />
                 <LandingText/>
 
                 <div className={"flex gap-x-6"}>
