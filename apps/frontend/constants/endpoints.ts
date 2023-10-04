@@ -10,17 +10,23 @@ interface EndpointConfig {
 
 interface Endpoints {
     createUser: EndpointConfig;
+    createCompany: EndpointConfig;
 
 }
 
 enum BackendEndpoints {
     createUser = "/user/create",
+    createCompany = "/company/create",
 }
 
 export const backendEndpoints: Endpoints = {
     createUser: {
         method: 'POST',
         url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.createUser}`,
+    },
+    createCompany: {
+        method: 'POST',
+        url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.createCompany}`,
     },
 };
 
@@ -72,7 +78,7 @@ export async function requestWrapper(request: () => Promise<Response>) {
             throw new Error(data.error);
         }
     } catch (err) {
-        throw new Error(`Failed ${err}`);
+        console.log(`Failed ${err}`);
     }
 }
 
@@ -80,5 +86,10 @@ export const backendRequest = {
     createUser: (body) => {
         const { method, url } = backendEndpoints.createUser;
         return fetch(url, options(method, body));
+    },
+    createCompany: (body) => {
+        const { method, url } = backendEndpoints.createCompany;
+        return fetch(url, options(method, body));
     }
+
 };

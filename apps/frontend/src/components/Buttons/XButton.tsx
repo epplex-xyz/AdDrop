@@ -6,10 +6,10 @@ import {useState} from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Image from "next/image";
 
-export function XButton({content, setLoading}) {
+export function XButton({content, setLoading, redirect}: {content: any, setLoading: any, redirect: string}) {
     const handleClick = async () => {
         setLoading(true);
-        await signInWithOAuth(process.env.NEXT_PUBLIC_URL + "/signup/user")
+        await signInWithOAuth(process.env.NEXT_PUBLIC_URL + redirect)
         setLoading(false);
     }
 
@@ -23,7 +23,7 @@ export function XButton({content, setLoading}) {
     );
 }
 
-export function useXButton() {
+export function useXButton({redirect = "/signup/user"}: {redirect?: string}) {
     const {authenticated, data} = useIsAuthenticated();
     const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,7 @@ export function useXButton() {
     }
 
     return {
-        button: <XButton content = {content} setLoading={setLoading}/>,
+        button: <XButton content = {content} setLoading={setLoading} redirect={redirect}/>,
         data
     };
 }

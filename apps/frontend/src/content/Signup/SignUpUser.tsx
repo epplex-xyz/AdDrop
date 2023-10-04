@@ -12,9 +12,10 @@ import {useWallet} from "@solana/wallet-adapter-react";
 import {backendRequest, requestWrapper} from "@constants/endpoints";
 import CircularProgress from "@mui/material/CircularProgress";
 import {useRouter} from "next/navigation";
+import toast from "react-hot-toast";
 
 export function SignUpUser({...props}: BoxProps) {
-    const {button, data} = useXButton();
+    const {button, data} = useXButton({});
     const {publicKey} = useWallet()
     const [loading, setLoading] = React.useState(false);
     const router = useRouter();
@@ -35,6 +36,8 @@ export function SignUpUser({...props}: BoxProps) {
 
         if (res) {
             router.push(`/profile/${data?.user_metadata.user_name}`)
+        } else {
+            toast.error("User creation failed");
         }
     }
 

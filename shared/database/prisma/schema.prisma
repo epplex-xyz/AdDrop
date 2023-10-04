@@ -337,7 +337,7 @@ model TokenAmount {
 model Campaign {
   id                 Int          @id @default(autoincrement())
   company            Company      @relation(fields: [companyId], references: [id])
-  companyId          Int
+  companyId          String       @db.Uuid
   description        String
   title              String
   endTimestamp       DateTime
@@ -353,10 +353,12 @@ model Campaign {
 }
 
 model Company {
-  id          Int        @id @default(autoincrement())
-  name        String
+  id          String     @id @db.Uuid
+  username    String
+  handle      String     @unique
+  avatar      String     @default("")
   twitter     String
-  website     String
+  website     String     @default("")
   description String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

@@ -8,7 +8,7 @@ interface Props {
 export default function UserPage({ params: { username } }: Props) {
   return (
     <Screen>
-        User {username}
+        Company {username}
     </Screen>
   );
 };
