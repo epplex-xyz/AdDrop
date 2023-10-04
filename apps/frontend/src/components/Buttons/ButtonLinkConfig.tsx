@@ -9,6 +9,7 @@ type ButtonLinkConfigKeys =
     | "createCompany"
     | "linkX"
     | "linkWallet"
+    | "createCampaign"
 
 
 export function ButtonText({children}) {
@@ -75,6 +76,17 @@ export const ButtonLinkConfig: Record<ButtonLinkConfigKeys, ButtonLinkProps> = {
         </ButtonText>,
         sx: {
             paddingX: '16px',
+        },
+    },
+    createCampaign: {
+        variant: "contained",
+        href: "/campaign/create",
+        children: <ButtonText>
+            CREATE CAMPAIGN
+        </ButtonText>,
+        sx: {
+            paddingX: '16px',
+            width: "100%"
         },
     },
 };

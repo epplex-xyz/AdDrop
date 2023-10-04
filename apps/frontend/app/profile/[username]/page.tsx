@@ -6,6 +6,7 @@ interface Props {
 }
 
 export default function UserPage({ params: { username } }: Props) {
+    // Todo: check auth
   return (
     <Screen>
         User {username}
