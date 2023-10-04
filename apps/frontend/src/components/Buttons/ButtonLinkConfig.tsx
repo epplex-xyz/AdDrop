@@ -1,7 +1,6 @@
 import { ButtonLinkProps } from "src/components/Buttons/LinkButton";
 import { Text } from "src/components/Text/TextComponent";
 import {ButtonProps} from "@mui/material/Button";
-import {signInWithOAuth} from "../../../services/supabase";
 
 type ButtonLinkConfigKeys =
     "login"
@@ -11,12 +10,8 @@ type ButtonLinkConfigKeys =
     | "linkX"
     | "linkWallet"
 
-type ButtonConfigKeys =
-    "linkX"
-    | "linkWallet"
-    | "userCreate"
 
-function ButtonText({children}) {
+export function ButtonText({children}) {
     return <Text.Subtitle1>{children}</Text.Subtitle1>;
 
 }
@@ -84,6 +79,13 @@ export const ButtonLinkConfig: Record<ButtonLinkConfigKeys, ButtonLinkProps> = {
     },
 };
 
+type ButtonConfigKeys =
+    "linkX"
+    | "linkWallet"
+    | "userCreate"
+    | "companyCreate"
+
+
 export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
     linkX: {
         variant: "contained",
@@ -100,6 +102,15 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
         variant: "contained",
         children: <ButtonText>
             CREATE USER
+        </ButtonText>,
+    },
+    companyCreate: {
+        variant: "contained",
+        sx: {
+            marginTop: "32px",
+        },
+        children: <ButtonText>
+            CREATE COMPANY
         </ButtonText>,
     },
 };

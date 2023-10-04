@@ -7,17 +7,19 @@ import style from "../../styles/style.module.scss";
 const Input = styled(TextField)(({theme }) => ({
     '& .MuiTextField-root': {
         display: 'contents',
+
     },
     '& .MuiInputBase-input': {
         padding: '0px',
-        color: theme.palette.secondary.main,
+        color: theme.palette.text.primary,
         textAlign: "center",
     },
     '& .MuiOutlinedInput-root': {
         // backgroundColor: theme.palette.secondary.main,
         color: theme.palette.secondary.main,
         borderWidth: '0px',
-        boxShadow: `inset 0 0 0 1px ${theme.palette.text.primary}`
+        boxShadow: `inset 0 0 0 1px ${theme.palette.text.primary}`,
+        borderRadius: style.borderRadiusMd,
     },
     "& .MuiOutlinedInput-notchedOutline": {
         border: "none"
@@ -28,7 +30,7 @@ export function StandardInput({placeholder, height = "undefined", ...props}): {i
     const [input, setInput] = useState("");
 
     const handleSearchChange = (e) => {
-        setInput(e.target.value);// }
+        setInput(e.target.value);
     };
 
     const inputComponent = <Input
@@ -37,7 +39,6 @@ export function StandardInput({placeholder, height = "undefined", ...props}): {i
         placeholder={placeholder}
         onChange={handleSearchChange}
         sx={{
-            borderRadius: style.borderRadiusMd,
             textAlign: "center",
             '& .MuiInputBase-input': {
                 height: height,

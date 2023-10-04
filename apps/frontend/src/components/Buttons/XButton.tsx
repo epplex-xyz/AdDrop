@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import {useIsAuthenticated} from "../../hooks/useIsAuthenticated";
-import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
+import {ButtonConfig, ButtonText} from "@components/Buttons/ButtonLinkConfig";
 import {signInWithOAuth} from "@services/supabase";
 import {useState} from "react";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -43,7 +43,9 @@ export function useXButton() {
                     marginRight: "8px"
                 }}
             />
-            {data.user_metadata.full_name}
+            <ButtonText>
+                {data.user_metadata.full_name}
+            </ButtonText>
         </>
     } else {
         content = "Link X";
