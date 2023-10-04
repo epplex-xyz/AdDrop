@@ -1,19 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-// import { SphereService } from '../sphere/sphere.service';
-import { GetProductParams } from './dto/get-product-params';
-import { ReturnProductDTO } from './dto/product.dto';
+import {prisma} from "@addrop/database";
 
 @Injectable()
 export class CompanyService {
     constructor() {}
 
-    async create(createProductDto: CreateProductDto) {
-        return 1 as any;
+    async create(createCompanyDto: any) {
+        let res;
+        try {
+            console.log("createCompanyDto", createCompanyDto);
+            const company = await prisma.company.create({
+                data: {
+                    ...createCompanyDto
+                }
+            })
+            console.log("company", company);
+            res = true
+        } catch (e) {
+            console.log("e company", e);
+            res = false
+        }
+        return {data: res}
     }
 
-    async findAll(query: GetProductParams): Promise<any[]> {
-        return 1 as any;
-        // const comics = await this.productService.findAll(query);
-    }
 }

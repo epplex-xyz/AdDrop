@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import config from './configs/config';
 import { SecurityConfig, ThrottleConfig } from './configs/config.interface';
 import { UserModule } from './user/user.module';
+import {CompanyModule} from "./company/company.module";
 // import {TrpcModule} from "./trpc/trpc.module";
 
 @Module({
@@ -48,7 +49,7 @@ import { UserModule } from './user/user.module';
             },
         }),
         UserModule,
-        // TrpcModule,
+        CompanyModule,
     ],
     controllers: [AppController],
     providers: [AppService],

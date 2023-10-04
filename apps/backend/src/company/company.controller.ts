@@ -1,24 +1,14 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { CompanyService } from './company.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { GetProductParams } from './dto/get-product-params';
-import { ReturnProductDTO } from './dto/product.dto';
+import {Body, Controller, Post} from '@nestjs/common';
+import {CompanyService} from './company.service';
 
 @Controller('company')
 export class CompanyController {
-    constructor(private readonly productService: CompanyService) {}
+    constructor(private readonly companyService: CompanyService) {}
 
     @Post('create')
     async create(
-        @Body() createProductDto: CreateProductDto,
-    ): Promise<ReturnProductDTO> {
-        return await this.productService.create(createProductDto);
-    }
-
-    @Get('get')
-    async findAll(
-        @Query() query: GetProductParams,
-    ): Promise<ReturnProductDTO[]> {
-        return await this.productService.findAll(query);
+        @Body() createCompanyDto: any,
+    ): Promise<{data: boolean}> {
+        return await this.companyService.create(createCompanyDto);
     }
 }

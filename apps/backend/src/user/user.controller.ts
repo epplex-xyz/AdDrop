@@ -9,15 +9,8 @@ export class UserController {
 
     @Post('create')
     async create(
-        @Body() createProductDto: any,
+        @Body() createUserDto: any,
     ): Promise<{data: boolean}> {
-        return await this.userService.create(createProductDto);
-    }
-
-    @Get('get')
-    async findAll(
-        @Query() query: GetProductParams,
-    ): Promise<ReturnProductDTO[]> {
-        return await this.userService.findAll(query);
+        return await this.userService.create(createUserDto);
     }
 }
