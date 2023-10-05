@@ -96,6 +96,7 @@ type ButtonConfigKeys =
     | "linkWallet"
     | "userCreate"
     | "companyCreate"
+    | "nextStep"
 
 
 export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
@@ -123,6 +124,12 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
         },
         children: <ButtonText>
             CREATE COMPANY
+        </ButtonText>,
+    },
+    nextStep: {
+        variant: "contained",
+        children: <ButtonText>
+            NEXT STEP
         </ButtonText>,
     },
 };

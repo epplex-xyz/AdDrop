@@ -5,10 +5,14 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 
+interface Props {
+    stepNames: string[]
+    stepComponents: ((buttonAction) => React.ReactNode)[]
+}
 
-
-export default function HorizontalNonLinearStepper({stepNames, stepComponents}: {stepNames: string[], stepComponents: React.ReactNode[]}) {
+export default function HorizontalNonLinearStepper({stepNames, stepComponents}: Props) {
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState<{
         [k: number]: boolean;
@@ -44,21 +48,26 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
         setActiveStep(step);
     };
 
-    const handleComplete = () => {
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-        handleNext();
-    };
+    // const handleComplete = () => {
+    //     const newCompleted = completed;
+    //     newCompleted[activeStep] = true;
+    //     setCompleted(newCompleted);
+    //     handleNext();
+    // };
 
-    const handleReset = () => {
-        setActiveStep(0);
-        setCompleted({});
-    };
 
     return (
         <>
-            <Stepper alternativeLabel nonLinear activeStep={activeStep}>
+            <Stepper
+                sx={{
+                    marginY: "16px",
+                    width: "100%",
+                    zIndex: 2,
+                }}
+                alternativeLabel
+                nonLinear
+                activeStep={activeStep}
+            >
                 {stepNames.map((label, index) => (
                     <Step key={label} completed={completed[index]}>
                         <StepButton
@@ -73,44 +82,14 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
                 ))}
             </Stepper>
 
-            <div>
-                {/*{allStepsCompleted() ? (*/}
-                {/*    <React.Fragment>*/}
-                {/*        <Typography sx={{ mt: 2, mb: 1 }}>*/}
-                {/*            All steps completed - you&apos;re finished*/}
-                {/*        </Typography>*/}
-                {/*        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>*/}
-                {/*            <Box sx={{ flex: '1 1 auto' }} />*/}
-                {/*            <Button onClick={handleReset}>Reset</Button>*/}
-                {/*        </Box>*/}
-                {/*    </React.Fragment>*/}
-                {/*) : (*/}
-                <React.Fragment>
-
-                    {/*Step {activeStep + 1}*/}
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        {/*<Box sx={{ flex: '1 1 auto' }} />*/}
-                        <Button onClick={handleNext}>
-                            Next {stepComponents[activeStep]}
-                        </Button>
-                        {/*{activeStep !== stepNames.length &&*/}
-                        {/*    (completed[activeStep] ? (*/}
-                        {/*        <Typography variant="caption" sx={{ display: 'inline-block' }}>*/}
-                        {/*            Step {activeStep + 1} already completed*/}
-                        {/*        </Typography>*/}
-                        {/*    ) : (*/}
-                        {/*        <Button onClick={handleComplete}>*/}
-                        {/*            {completedSteps() === totalSteps() - 1*/}
-                        {/*                ? 'Finish'*/}
-                        {/*                : 'Complete Step'}*/}
-                        {/*        </Button>*/}
-                        {/*    ))}*/}
-                    </Box>
-                </React.Fragment>
+            {/* Stepper Content*/}
+            <div className={"w-[90%]"}>
+                {stepComponents[activeStep](handleNext)}
             </div>
-            <Button onClick={handleNext}>
-                Next {stepComponents[activeStep]}
-            </Button>
+
+            {/* TODO can only press next if items are submitted properly*/}
+            {/* TODO icon shows completed and change to representative icons */}
+
         </>
     );
 }
