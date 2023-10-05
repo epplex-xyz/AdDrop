@@ -23,12 +23,9 @@ export function CampaignPage({...props}: BoxProps){
                     stepNames={steps}
                     stepComponents={[
                         (buttonAction) => <AdDetails buttonAction={buttonAction}/>,
-                        (buttonAction) => <AdDetails buttonAction={buttonAction}/>,
-                        (buttonAction) => <AdDetails buttonAction={buttonAction}/>,
-                        (buttonAction) => <AdDetails buttonAction={buttonAction}/>,
-                        // <Distribution/>,
-                        // <Survey/>,
-                        // <Review/>
+                        (buttonAction) => <Distribution buttonAction={buttonAction}/>,
+                        (buttonAction) => <Survey buttonAction={buttonAction}/>,
+                        (buttonAction) => <Review buttonAction={buttonAction}/>,
                     ]}
                 />
             </Section>

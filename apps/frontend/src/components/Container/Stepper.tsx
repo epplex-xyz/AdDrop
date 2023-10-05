@@ -1,11 +1,7 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 
 interface Props {
     stepNames: string[]
@@ -34,6 +30,8 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
         return completedSteps() === totalSteps();
     };
 
+
+
     const handleNext = () => {
         const newActiveStep =
             isLastStep() && !allStepsCompleted()
@@ -44,16 +42,18 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
         setActiveStep(newActiveStep);
     };
 
+    const handleComplete = () => {
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        handleNext();
+    };
+
     const handleStep = (step: number) => () => {
         setActiveStep(step);
     };
 
-    // const handleComplete = () => {
-    //     const newCompleted = completed;
-    //     newCompleted[activeStep] = true;
-    //     setCompleted(newCompleted);
-    //     handleNext();
-    // };
+
 
 
     return (
@@ -75,6 +75,9 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
                             disableRipple
                             color="inherit"
                             onClick={handleStep(index)}
+                            sx={{
+                                paddingRight: "0px",
+                            }}
                         >
                             {label}
                         </StepButton>
@@ -84,12 +87,10 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
 
             {/* Stepper Content*/}
             <div className={"w-[90%]"}>
-                {stepComponents[activeStep](handleNext)}
+                {stepComponents[activeStep](handleComplete)}
             </div>
 
-            {/* TODO can only press next if items are submitted properly*/}
             {/* TODO icon shows completed and change to representative icons */}
-
         </>
     );
 }

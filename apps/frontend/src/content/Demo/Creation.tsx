@@ -23,7 +23,7 @@ export function Creation() {
         {
             placeholder: '[{"trait_type": "background", "value": "blue"}]',
             width: "100%",
-            height: "200px"
+            height: "200px",
         }
     );
     const imageUpload = ImageUpload();
