@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import { Text } from "@components/Text/TextComponent";
 import style from "../../styles/style.module.scss";
 
-export function ImageUpload() {
-    const [selectedFile, setSelectedFile] = useState<File>(new File([], ""));
+export function ImageUpload(): {component: React.ReactNode, selectedFile: File} {
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleFileUpload = async (file) => {
         // Optional: Resize and compress the image
@@ -32,43 +32,89 @@ export function ImageUpload() {
         }
     };
 
-    const component = <Box
-        component={"div"}
-        sx={{
-            borderRadius: style.borderRadiusMd,
-            boxShadow: (theme) => `inset 0 0 0 1px ${theme.palette.text.primary}`,
-        }}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        minHeight={"300px"}
-        textAlign={"center"}
-        marginX={"8px"}
-    >
-        <Dropzone onDrop={(acceptedFiles) => setSelectedFile(acceptedFiles[0])}>
-            {({ getRootProps, getInputProps }) => (
-                <div{...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <Text.H6>
-                        Drag & drop an image
-                    </Text.H6>
-                    <Text.H6>
-                        or
-                    </Text.H6>
-                    <Text.H6>
-                        Click to select one
-                    </Text.H6>
+    // const component = <Box
+    //     component={"div"}
+    //     sx={{
+    //         borderRadius: style.borderRadiusMd,
+    //         boxShadow: (theme) => `inset 0 0 0 1px ${theme.palette.text.primary}`,
+    //     }}
+    //     display={"flex"}
+    //     flexDirection={"column"}
+    //     alignItems={"center"}
+    //     justifyContent={"center"}
+    //     minHeight={"200px"}
+    //     textAlign={"center"}
+    //     // marginX={"8px"}
+    // >
+    //     <Dropzone onDrop={(acceptedFiles) => setSelectedFile(acceptedFiles[0])}>
+    //         {({ getRootProps, getInputProps }) => (
+    //             <div{...getRootProps()}>
+    //                 <input {...getInputProps()} />
+    //                 <Text.Subtitle1>
+    //                     Drag & drop an image
+    //                 </Text.Subtitle1>
+    //                 <Text.Subtitle1>
+    //                     or
+    //                 </Text.Subtitle1>
+    //                 <Text.Subtitle1>
+    //                     Click to select one
+    //                 </Text.Subtitle1>
+    //             </div>
+    //         )}
+    //     </Dropzone>
+    //     {selectedFile && (
+    //         <div>
+    //             <img src={URL.createObjectURL(selectedFile)} alt="Selected" />
+    //         </div>
+    //     )}
+    // </Box>;
 
-                </div>
+    const component = <>
+        <Dropzone onDrop={(acceptedFiles) => setSelectedFile(acceptedFiles[0])}>
+            { ({ getRootProps, getInputProps }) => (
+                <Box
+                    component={"div"}
+                    sx={{
+                        borderRadius: style.borderRadiusMd,
+                        boxShadow: (theme) => `inset 0 0 0 1px ${theme.palette.text.primary}`,
+                    }}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    height={"150px"}
+                    width={"150px"}
+                    textAlign={"center"}
+                    {...getRootProps()}
+                >
+                    {selectedFile === null ?
+                        <>
+                            <input {...getInputProps()} />
+                            <Text.Subtitle1>
+                                Files: .png, .jpg, .mp4, <br/>
+                                Drag & drop <br/>
+                                or Click to select
+                            </Text.Subtitle1>
+                            {/*<Text.Subtitle1>*/}
+                            {/*    */}
+                            {/*</Text.Subtitle1>*/}
+                            {/*<Text.Subtitle1>*/}
+                            {/*    */}
+                            {/*</Text.Subtitle1>*/}
+                        </>
+                        : <img
+                            style={{
+                                width:"inherit",
+                                height:"inherit",
+                            }}
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                        />
+                    }
+                </Box>
             )}
         </Dropzone>
-        {selectedFile && (
-            <div>
-                <img src={URL.createObjectURL(selectedFile)} alt="Selected" />
-            </div>
-        )}
-    </Box>;
+    </>;
 
     return {component, selectedFile};
 }
