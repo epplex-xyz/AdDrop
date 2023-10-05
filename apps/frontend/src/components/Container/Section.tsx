@@ -13,6 +13,7 @@ export function Section({ children, ref, overflow="hidden", ...props }: BoxProps
             height={{sm: "100%", md: style.viewportHeight}}
             position={"relative"}
             display={"flex"}
+            flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"center"}
         >

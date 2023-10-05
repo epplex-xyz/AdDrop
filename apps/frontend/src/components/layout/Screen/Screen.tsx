@@ -3,7 +3,6 @@ import {Header} from "../Header";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import style from "../../../styles/style.module.scss";
-import palette from "../../../styles/palette.module.scss";
 
 const Base = styled(Box)(({ theme }) => ({
     position: "relative",
@@ -30,7 +29,10 @@ interface ScreenProps {
     admins?: string[];
 }
 
-export const Screen = ({ children, headerPosition = "fixed" }: ScreenProps) => {
+export const Screen = ({ children, headerPosition = "absolute" }: ScreenProps) => {
+    // const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
+    // header was previously fixed
+    // headerposition in burger app is static
     return (
         <Base>
             <Header headerPosition={headerPosition} />

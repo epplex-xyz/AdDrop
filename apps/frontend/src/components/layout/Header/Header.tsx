@@ -101,7 +101,7 @@ export function Header({ headerPosition }) {
                 color={"transparent"}
                 sx={{
                     boxShadow: "unset",
-                    zIndex: 10,
+                    zIndex: 1,
                 }}
                 position={headerPosition}
             >
