@@ -21,24 +21,38 @@ export function SignUpUser({...props}: BoxProps) {
     const router = useRouter();
 
     const handleCreate = async () => {
-        // TODO how to detect if anything is null and throw that error
-        setLoading(true);
-        const request = backendRequest.createUser({
-            id: data?.id,
-            username: data?.user_metadata.full_name,
-            avatar: data?.user_metadata.avatar_url,
-            handle: data?.user_metadata.user_name,
-            mainWallet: publicKey?.toString(),
-            preferences: []
-        });
-        const res = await requestWrapper(() => request);
-        setLoading(false)
+        try {
+            if (publicKey === null) {
+                throw new Error("Wallet not connected");
+            }
 
-        if (res) {
-            router.push(`/profile/${data?.user_metadata.user_name}`)
-        } else {
-            toast.error("User creation failed");
+            if (data === null) {
+                throw new Error("X not connected");
+            }
+
+            setLoading(true);
+            const request = backendRequest.createUser({
+                id: data.id,
+                username: data.user_metadata.full_name,
+                avatar: data.user_metadata.avatar_url,
+                handle: data.user_metadata.user_name,
+                mainWallet: publicKey.toString(),
+                // TODO: add preferences
+                preferences: []
+            });
+            const res = await requestWrapper(() => request);
+            setLoading(false)
+
+            if (res) {
+                toast.success("User creation success");
+                router.push(`/profile/${data.user_metadata.user_name}`)
+            } else {
+                toast.error("User creation failed");
+            }
+        } catch (e: any) {
+            toast.error(e.message);
         }
+
     }
 
     return (
