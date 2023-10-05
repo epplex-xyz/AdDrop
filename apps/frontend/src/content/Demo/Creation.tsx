@@ -40,6 +40,10 @@ export function Creation() {
                 throw new Error("Invalid time");
             }
 
+            if (imageUpload.selectedFile === null) {
+                throw new Error("No image uploaded");
+            }
+
             // Image upload
             const fileData = await imageUpload.selectedFile.arrayBuffer();
             const fileName = imageUpload.selectedFile.name;

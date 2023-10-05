@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import { Text } from "@components/Text/TextComponent";
 import style from "../../styles/style.module.scss";
 
-export function ImageUpload(): {component: React.ReactNode, selectedFile: File} {
+export function ImageUpload(): {component: React.ReactNode, selectedFile: File | null} {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleFileUpload = async (file) => {
