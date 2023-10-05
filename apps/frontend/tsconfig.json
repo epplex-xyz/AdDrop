@@ -7,6 +7,7 @@
     "utils",
     "app",
     "services",
+    "providers",
     ".next/types/**/*.ts"
   ],
   "exclude": [
@@ -42,8 +43,12 @@
       "@services/*": [
         "services/*"
       ],
+
       "@constants/*": [
         "constants/*"
+      ],
+      "@providers/*": [
+        "src/providers/*"
       ],
       "@components/*": [
         "src/components/*"

@@ -131,5 +131,8 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
         children: <ButtonText>
             NEXT STEP
         </ButtonText>,
+        sx: {
+            marginTop: "32px",
+        },
     },
 };

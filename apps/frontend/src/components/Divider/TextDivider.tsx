@@ -9,7 +9,7 @@ export function TextDivider({children, uppercase = true}) {
             </Text.Subtitle1>
             <Box
                 component={"div"}
-                height={"3px"}
+                height={"2px"}
                 bgcolor={"text.primary"}
                 width={"100%"}
             />

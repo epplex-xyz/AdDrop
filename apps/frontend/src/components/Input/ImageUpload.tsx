@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import { Text } from "@components/Text/TextComponent";
 import style from "../../styles/style.module.scss";
 
-export function ImageUpload(): {component: React.ReactNode, selectedFile: File | null} {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+export function ImageUpload(initialFile: File | null): {component: React.ReactNode, selectedFile: File | null} {
+    const [selectedFile, setSelectedFile] = useState<File | null>(initialFile);
 
     const handleFileUpload = async (file) => {
         // Optional: Resize and compress the image
@@ -91,7 +91,7 @@ export function ImageUpload(): {component: React.ReactNode, selectedFile: File |
                         <>
                             <input {...getInputProps()} />
                             <Text.Subtitle1>
-                                Files: .png, .jpg, .mp4, <br/>
+                                Formets: .png or.mp4, <br/>
                                 Drag & drop <br/>
                                 or Click to select
                             </Text.Subtitle1>
@@ -106,6 +106,7 @@ export function ImageUpload(): {component: React.ReactNode, selectedFile: File |
                             style={{
                                 width:"inherit",
                                 height:"inherit",
+                                borderRadius: style.borderRadiusMd,
                             }}
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"

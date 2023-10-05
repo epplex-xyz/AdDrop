@@ -26,8 +26,17 @@ const Input = styled(TextField)(({theme }) => ({
     }
 }));
 
-export function StandardInput({placeholder, height = "undefined", ...props}): {inputComponent: React.ReactNode, input: string} {
-    const [input, setInput] = useState("");
+interface Props  {
+    initialValue?: string;
+    height?: string;
+    width?: string;
+}
+export function StandardInput({
+    initialValue = "",
+    height = "undefined",
+    ...props
+}: Props & TextFieldProps): {inputComponent: React.ReactNode, input: string} {
+    const [input, setInput] = useState(initialValue);
 
     const handleSearchChange = (e) => {
         setInput(e.target.value);
@@ -36,14 +45,15 @@ export function StandardInput({placeholder, height = "undefined", ...props}): {i
     const inputComponent = <Input
         autoComplete="off"
         value={input}
-        placeholder={placeholder}
         onChange={handleSearchChange}
+        placeholder={props.placeholder}
+        multiline={props.multiline}
         sx={{
             textAlign: "center",
             '& .MuiInputBase-input': {
                 height: height,
             },
-            ...props,
+            width: props.width,
         }}
     />;
 
