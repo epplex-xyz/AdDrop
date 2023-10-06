@@ -86,6 +86,10 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
 
     const handleNextStep = () => {
         try {
+            if (rewardType.value !== RewardType.Survey) {
+                throw new Error(`Only survey rewards are supported`);
+            }
+
             let qs: Question[] = [];
             for (const [index, {questionInput, questionType}] of questions.entries()) {
                 if (questionInput === "") {
@@ -101,6 +105,7 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
                     question: questionInput as string
                 })
             }
+
             setReward({
                 type: RewardType.Survey,
                 questions: qs
@@ -112,55 +117,38 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
         }
     };
 
-    const rewardData = () => {
-        switch (rewardType.value) {
-            case RewardType.Voucher:
-                if (reward.type === RewardType.Voucher) {
-                    return reward
-                } else {
-                    return defaultVoucher
-                }
-            case RewardType.Access:
-                if (reward.type === RewardType.Access) {
-                    return reward
-                } else {
-                    return defaultAccess
-                }
-            case RewardType.Survey:
-                if (reward.type === RewardType.Survey) {
-                    return reward
-                } else {
-                    return defaultSurvey
-                }
+    const mainComponent = () => {
+        if (rewardType.value === RewardType.Survey) {
+            return (<>
+                <div className="flex justify-between w-full">
+                    <Text.Subtitle1>
+                        Question
+                    </Text.Subtitle1>
+
+                    <Text.Subtitle1>
+                        Question Type
+                    </Text.Subtitle1>
+                </div>
+
+                {questions.map(({component}, i) =>
+                    <React.Fragment key={i}>
+                        {component}
+                    </React.Fragment>
+                )}
+            </>);
+        } else if (rewardType.value === RewardType.Voucher) {
+            return <Text.Subtitle1>Vouchers are not yet supported</Text.Subtitle1>
+        } else if (rewardType.value === RewardType.Access) {
+            return <Text.Subtitle1>Access Tokens are not yet supported</Text.Subtitle1>
         }
-
-        throw new Error("Invalid reward type");
     }
-
 
     return (
         <div className="flex flex-col w-full items-center gap-y-4">
             <TextDivider>STEP 3 - REWARDS</TextDivider>
             {rewardType.component}
 
-
-            {/*{RewardQuestion(rewardData())}*/}
-
-            <div className="flex justify-between w-full">
-                {/*this should be a standard input text*/}
-                <Text.Subtitle1>
-                    Question
-                </Text.Subtitle1>
-
-                <Text.Subtitle1>
-                    Question Type
-                </Text.Subtitle1>
-            </div>
-            {questions.map( ({component}, i) =>
-                <React.Fragment key={i}>
-                    {component}
-                </React.Fragment>
-            )}
+            {mainComponent()}
 
             <Button
                 onClick={handleNextStep}
