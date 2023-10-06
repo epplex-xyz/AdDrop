@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import { persist } from "zustand/middleware";
+import {AccessFields, SurveyFields, VoucherFields} from "@constants/types";
 
 interface AdDetailsProps {
     image: File | null
@@ -34,9 +35,12 @@ const defaultData: Campaign = {
     distribution: defaultDistribution,
 };
 
+type RewardProps = SurveyFields | VoucherFields | AccessFields;
+
 export type Campaign = {
     adDetails: AdDetailsProps,
-    distribution: DistributionProps
+    distribution: DistributionProps,
+    reward: RewardProps
 
 }
 

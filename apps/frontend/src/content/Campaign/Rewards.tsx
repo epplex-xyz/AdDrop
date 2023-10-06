@@ -6,7 +6,7 @@ import useCampaginCreationStore from "@providers/CampaignCreationStore";
 import Button from "@mui/material/Button";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 
-export function Survey({buttonAction, ...props}: StepComponentProps){
+export function Rewards({buttonAction, ...props}: StepComponentProps){
     const { distribution } = useCampaginCreationStore((state) => state.data);
     const setDistribution = useCampaginCreationStore((state) => state.setDistribution);
 
@@ -24,11 +24,11 @@ export function Survey({buttonAction, ...props}: StepComponentProps){
         } catch (e: any) {
             toast.error(e.message);
         }
-    }
+    };
 
     return (
         <div className="flex flex-col w-full items-center gap-y-4">
-            <TextDivider>STEP 3 - SURVEY</TextDivider>
+            <TextDivider>STEP 3 - REWARDS</TextDivider>
 
             <Button
                 onClick={handleNextStep}
