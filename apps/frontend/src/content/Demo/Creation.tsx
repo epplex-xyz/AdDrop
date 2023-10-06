@@ -26,7 +26,7 @@ export function Creation() {
             height: "200px",
         }
     );
-    const imageUpload = ImageUpload();
+    const imageUpload = ImageUpload(null);
     const {program} = useProgramApis();
     const combinedDate = combineDateAndTime(date!.toDate(), time!.toDate());
     const unixTime = Math.floor(combinedDate.getTime() / 1000);

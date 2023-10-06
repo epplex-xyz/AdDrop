@@ -46,7 +46,6 @@ export const defaultSurvey: SurveyFields = {
     questions: [{
         questionType: QuestionType.YesNo,
         question: "Would you recommend this ad to a friend?",
-        answer: ""
     }]
 };
 
