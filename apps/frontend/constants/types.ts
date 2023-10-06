@@ -43,18 +43,18 @@ export const rewardList: string[] = ["SURVEY", "VOUCHER", "ACCESS TOKEN"];
 
 
 export enum QuestionType {
-    YesNo = 'Yes/No',
-    Poll = 'Poll',
-    FiveStar = '5 star rating',
-    TenNumber = '10 star rating',
-    FeedbackHundred = 'Feedback (100 characters)',
-    FeedbackFiveHundred = 'Feedback (500 characters)'
+    YesNo ,
+    Poll,
+    FiveStar,
+    TenNumber,
+    Feedback,
 }
 
-interface Question {
+export const questionTypes: string[] = Object.values(['Yes/No', 'Poll', '5 star rating', 'Rating (1-10)', 'Feedback']);
+
+export interface Question {
     questionType: QuestionType
     question: string
-    answer: string
 }
 
 export interface SurveyFields {

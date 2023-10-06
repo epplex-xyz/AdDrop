@@ -29,10 +29,10 @@ export function ImageUpload(initialFile: File | null): {component: React.ReactNo
                         <>
                             <input {...getInputProps()} />
                             <Text.Subtitle1>
-                                Formets: .png or.mp4, <br/>
                                 Drag & drop <br/>
                                 or Click to select
                             </Text.Subtitle1>
+                            <Text.Body2>(.png or.mp4)</Text.Body2>
                         </>
                         : <img
                             style={{

@@ -25,9 +25,11 @@ interface SelectProps<T> {
     options: T[],
     defaultValue: number,
     width?: string,
+
+    selectWidth?: string,
 }
 
-export function MySelect<T>({width = "undefined", options, defaultValue}: SelectProps<T>) {
+export function MySelect<T>({width = "undefined", selectWidth = "undefined", options, defaultValue}: SelectProps<T>) {
     const [value, setValue] = useState<number>(defaultValue);
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -60,6 +62,7 @@ export function MySelect<T>({width = "undefined", options, defaultValue}: Select
                 PaperProps: {
                     sx: {
                         maxHeight: "80px",
+                        width: selectWidth,
                     }
                 }
             }}

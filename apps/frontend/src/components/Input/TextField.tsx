@@ -7,12 +7,12 @@ import style from "../../styles/style.module.scss";
 const Input = styled(TextField)(({theme }) => ({
     '& .MuiTextField-root': {
         display: 'contents',
-
     },
     '& .MuiInputBase-input': {
         padding: '0px',
         color: theme.palette.text.primary,
         textAlign: "center",
+        fontSize: "14px"
     },
     '& .MuiOutlinedInput-root': {
         // backgroundColor: theme.palette.secondary.main,
