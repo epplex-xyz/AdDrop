@@ -34,12 +34,12 @@ export const defaultVoucher: VoucherFields = {
     type: RewardType.Voucher,
     discountAmount: 5,
     description: "5% off on all products",
-}
+};
 
 export const defaultAccess: AccessFields = {
     type: RewardType.Access,
     description: "Get 1 week free access to our Pro plan",
-}
+};
 
 export const defaultSurvey: SurveyFields = {
     type: RewardType.Survey,

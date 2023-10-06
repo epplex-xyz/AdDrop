@@ -1,7 +1,7 @@
 "use client";
 
 import Screen from "@components/layout/Screen";
-import {CompanyPage} from "@content/company/CompanyPage";
+import {CompanyPage} from "@content/Company/CompanyPage";
 interface Props {
   params: { username: string };
 }

@@ -29,14 +29,14 @@ function RewardQuestion(): {questionInput: string, questionType: QuestionType, c
         {question.inputComponent}
 
         {questionType.component}
-    </div>
+    </div>;
 
     return {
         questionInput: question.input,
         questionType: questionType.value,
         component
-    }
-};
+    };
+}
 
 export function Rewards({buttonAction, ...props}: StepComponentProps){
     const { reward } = useCampaginCreationStore((state) => state.data);
@@ -44,8 +44,8 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
 
     // TODO fillin the zustand store
     const questions = Array(3).fill(null).map( (i) => {
-        return RewardQuestion()
-    })
+        return RewardQuestion();
+    });
 
     const rewardType = MySelect({
         options: rewardList,
@@ -72,13 +72,13 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
                 qs.push({
                     questionType: questionType,
                     question: questionInput as string
-                })
+                });
             }
 
             setReward({
                 type: RewardType.Survey,
                 questions: qs
-            })
+            });
 
             buttonAction();
         } catch (e: any) {
@@ -106,11 +106,11 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
                 )}
             </>);
         } else if (rewardType.value === RewardType.Voucher) {
-            return <Text.Subtitle1>Vouchers are not yet supported</Text.Subtitle1>
+            return <Text.Subtitle1>Vouchers are not yet supported</Text.Subtitle1>;
         } else if (rewardType.value === RewardType.Access) {
-            return <Text.Subtitle1>Access Tokens are not yet supported</Text.Subtitle1>
+            return <Text.Subtitle1>Access Tokens are not yet supported</Text.Subtitle1>;
         }
-    }
+    };
 
     return (
         <div className="flex flex-col w-full items-center gap-y-4">
