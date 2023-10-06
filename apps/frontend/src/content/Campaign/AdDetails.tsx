@@ -56,13 +56,13 @@ export function AdDetails({buttonAction, ...props}: StepComponentProps ){
                 description: description.input,
                 name: nameInput.input,
                 symbol: symbolInput.input,
-            })
+            });
 
             buttonAction();
         } catch (e: any) {
             toast.error(e.message);
         }
-    }
+    };
 
     return (
         <div className="flex flex-col w-full items-center gap-y-4">

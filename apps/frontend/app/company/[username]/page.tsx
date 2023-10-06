@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Screen from "@components/layout/Screen";
 import {CompanyPage} from "@content/company/CompanyPage";
@@ -13,4 +13,4 @@ export default function UserPage({ params: { username } }: Props) {
             <CompanyPage/>
         </Screen>
     );
-};
+}

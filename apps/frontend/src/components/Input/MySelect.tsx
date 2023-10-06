@@ -29,8 +29,8 @@ interface SelectProps<T> {
 export function MySelect<T>({options, defaultValue}: SelectProps<T>) {
     const [value, setValue] = useState<number>(defaultValue);
     const handleChange = (e) => {
-        setValue(e.target.value)
-    }
+        setValue(e.target.value);
+    };
 
     {/* Index for input, adds a label above select field */}
     {/*<InputLabel className="text-xs" id="demo-simple-select-label">Token</InputLabel>*/}
@@ -81,7 +81,7 @@ export function MySelect<T>({options, defaultValue}: SelectProps<T>) {
                 ]
             )}
         </CustomSelectField>
-    </FormControl>
+    </FormControl>;
 
     return {
         component,

@@ -9,9 +9,9 @@ import Image from "next/image";
 export function XButton({content, setLoading, redirect}: {content: any, setLoading: any, redirect: string}) {
     const handleClick = async () => {
         setLoading(true);
-        await signInWithOAuth(process.env.NEXT_PUBLIC_URL + redirect)
+        await signInWithOAuth(process.env.NEXT_PUBLIC_URL + redirect);
         setLoading(false);
-    }
+    };
 
     return (
         <Button
@@ -30,7 +30,7 @@ export function useXButton({redirect = "/signup/user"}: {redirect?: string}) {
 
     let content;
     if (loading) {
-        content = <CircularProgress sx={{color: "text.primary"}} />
+        content = <CircularProgress sx={{color: "text.primary"}} />;
     } else if (authenticated) {
         content = <>
             <Image
@@ -46,7 +46,7 @@ export function useXButton({redirect = "/signup/user"}: {redirect?: string}) {
             <ButtonText>
                 {data.user_metadata.full_name}
             </ButtonText>
-        </>
+        </>;
     } else {
         content = "Link X";
     }

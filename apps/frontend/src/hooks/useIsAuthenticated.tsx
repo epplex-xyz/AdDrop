@@ -7,14 +7,14 @@ export function useIsAuthenticated() {
 
     const isAuthenticated = async () => {
         const res = await Supabase.auth.getSession();
-        console.log("Res", res)
+        console.log("Res", res);
         if (res?.data?.session === null) {
-            setAuthenticated(false)
+            setAuthenticated(false);
         } else {
-            setAuthenticated(true)
-            setData(res.data.session.user)
+            setAuthenticated(true);
+            setData(res.data.session.user);
         }
-    }
+    };
 
     useEffect(() => {
         isAuthenticated().then();

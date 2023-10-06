@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Screen from "@components/layout/Screen";
 import {CampaignPage} from "@content/Campaign/CampaignPage";
@@ -13,4 +13,4 @@ export default function CampaignCreate({ params: { username } }: Props) {
             <CampaignPage/>
         </Screen>
     );
-};
+}

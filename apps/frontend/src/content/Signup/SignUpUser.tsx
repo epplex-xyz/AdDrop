@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 
 export function SignUpUser({...props}: BoxProps) {
     const {button, data} = useXButton({});
-    const {publicKey} = useWallet()
+    const {publicKey} = useWallet();
     const [loading, setLoading] = React.useState(false);
     const router = useRouter();
 
@@ -41,11 +41,11 @@ export function SignUpUser({...props}: BoxProps) {
                 preferences: []
             });
             const res = await requestWrapper(() => request);
-            setLoading(false)
+            setLoading(false);
 
             if (res) {
                 toast.success("User creation success");
-                router.push(`/profile/${data.user_metadata.user_name}`)
+                router.push(`/profile/${data.user_metadata.user_name}`);
             } else {
                 toast.error("User creation failed");
             }
@@ -53,7 +53,7 @@ export function SignUpUser({...props}: BoxProps) {
             toast.error(e.message);
         }
 
-    }
+    };
 
     return (
         <div className="flex flex-col w-full h-screen justify-center">

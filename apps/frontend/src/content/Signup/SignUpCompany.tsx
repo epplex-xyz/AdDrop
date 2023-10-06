@@ -32,7 +32,7 @@ export function SignUpCompany({...props}: BoxProps) {
     const industry = MySelect({
         options: preferenceList,
         defaultValue: 0
-    })
+    });
     const [loading, setLoading] = React.useState(false);
     const router = useRouter();
 
@@ -50,15 +50,15 @@ export function SignUpCompany({...props}: BoxProps) {
             description: description.input,
         });
         const res = await requestWrapper(() => request);
-        setLoading(false)
+        setLoading(false);
 
-        console.log("res", res)
+        console.log("res", res);
         if (res) {
-            router.push(`/company/${data?.user_metadata.user_name}`)
+            router.push(`/company/${data?.user_metadata.user_name}`);
         } else {
-            toast.error("Company creation failed")
+            toast.error("Company creation failed");
         }
-    }
+    };
 
     return (
         <div className="flex flex-col w-full h-screen justify-center">

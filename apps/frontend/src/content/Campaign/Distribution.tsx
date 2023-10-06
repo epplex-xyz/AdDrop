@@ -47,13 +47,13 @@ export function Distribution({buttonAction, ...props}: StepComponentProps){
                 distributionDate: date.input,
                 userReach: userReach.input as unknown as number, //todo
                 userGroups: [],
-            })
+            });
 
             buttonAction();
         } catch (e: any) {
             toast.error(e.message);
         }
-    }
+    };
 
     return (
         <div className="flex flex-col w-full items-center gap-y-4">

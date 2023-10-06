@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Screen from "@components/layout/Screen";
 interface Props {
@@ -7,9 +7,9 @@ interface Props {
 
 export default function UserPage({ params: { username } }: Props) {
     // Todo: check auth
-  return (
-    <Screen>
+    return (
+        <Screen>
         User {username}
-    </Screen>
-  );
-};
+        </Screen>
+    );
+}

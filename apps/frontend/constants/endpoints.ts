@@ -1,6 +1,4 @@
-
 // this could go into the shared utils
-
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface EndpointConfig {
