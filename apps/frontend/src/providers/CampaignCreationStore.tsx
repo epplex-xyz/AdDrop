@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {persist} from "zustand/middleware";
-import {AccessFields, QuestionType, RewardType, SurveyFields, VoucherFields} from "@constants/types";
+import {AccessFields, QuestionType, RewardProps, RewardType, SurveyFields, VoucherFields} from "@constants/types";
 
 interface AdDetailsProps {
     image: File | null
@@ -30,7 +30,18 @@ const defaultDistribution: DistributionProps = {
     userGroups: [],
 };
 
-const defaultReward: SurveyFields = {
+export const defaultVoucher: VoucherFields = {
+    type: RewardType.Voucher,
+    discountAmount: 5,
+    description: "5% off on all products",
+}
+
+export const defaultAccess: AccessFields = {
+    type: RewardType.Access,
+    description: "Get 1 week free access to our Pro plan",
+}
+
+export const defaultSurvey: SurveyFields = {
     type: RewardType.Survey,
     questions: [{
         questionType: QuestionType.YesNo,
@@ -39,26 +50,24 @@ const defaultReward: SurveyFields = {
     }]
 };
 
-
 const defaultData: Campaign = {
     adDetails: defaultAdDetails,
     distribution: defaultDistribution,
-    reward: defaultReward
+    reward: defaultSurvey
 };
 
-type RewardProps = SurveyFields | VoucherFields | AccessFields;
 
 export type Campaign = {
     adDetails: AdDetailsProps,
     distribution: DistributionProps,
     reward: RewardProps
-
 }
 
 export type CampaignCreationStore = {
     data: Campaign
     setAdDetails: (newAdDetails: AdDetailsProps) => void;
     setDistribution: (newDistribution: DistributionProps) => void;
+    setReward: (newReward: RewardProps) => void;
     resetData: () => void;
 
 }
@@ -82,6 +91,14 @@ const useCampaginCreationStore = create<CampaignCreationStore>()(
                     data: {
                         ...state.data,
                         distribution: newDistribution,
+                    },
+                }));
+            },
+            setReward: (newReward) => {
+                set((state) => ({
+                    data: {
+                        ...state.data,
+                        reward: newReward,
                     },
                 }));
             },

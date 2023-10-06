@@ -24,9 +24,10 @@ const CustomSelectField = styled(Select)(({ theme }) => ({
 interface SelectProps<T> {
     options: T[],
     defaultValue: number,
+    width?: string,
 }
 
-export function MySelect<T>({options, defaultValue}: SelectProps<T>) {
+export function MySelect<T>({width = "undefined", options, defaultValue}: SelectProps<T>) {
     const [value, setValue] = useState<number>(defaultValue);
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -46,7 +47,8 @@ export function MySelect<T>({options, defaultValue}: SelectProps<T>) {
                 },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'text.primary'
-                }
+                },
+                width: width,
             }}
             MenuProps={{
                 sx: {
