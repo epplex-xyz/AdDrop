@@ -34,7 +34,7 @@ interface Question {
 
 export interface SurveyFields {
     type: RewardType.Survey;
-    questionType: Question[];
+    questions: Question[];
 }
 
 export interface VoucherFields {

@@ -1,6 +1,6 @@
 import {create} from 'zustand';
-import { persist } from "zustand/middleware";
-import {AccessFields, SurveyFields, VoucherFields} from "@constants/types";
+import {persist} from "zustand/middleware";
+import {AccessFields, QuestionType, RewardType, SurveyFields, VoucherFields} from "@constants/types";
 
 interface AdDetailsProps {
     image: File | null
@@ -30,9 +30,20 @@ const defaultDistribution: DistributionProps = {
     userGroups: [],
 };
 
+const defaultReward: SurveyFields = {
+    type: RewardType.Survey,
+    questions: [{
+        questionType: QuestionType.YesNo,
+        question: "Would you recommend the ad to a friend?",
+        answer: ""
+    }]
+};
+
+
 const defaultData: Campaign = {
     adDetails: defaultAdDetails,
     distribution: defaultDistribution,
+    reward: defaultReward
 };
 
 type RewardProps = SurveyFields | VoucherFields | AccessFields;
