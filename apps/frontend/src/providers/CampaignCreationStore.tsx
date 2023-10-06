@@ -45,7 +45,7 @@ export const defaultSurvey: SurveyFields = {
     type: RewardType.Survey,
     questions: [{
         questionType: QuestionType.YesNo,
-        question: "Would you recommend the ad to a friend?",
+        question: "Would you recommend this ad to a friend?",
         answer: ""
     }]
 };

@@ -6,14 +6,14 @@ import useCampaginCreationStore, {defaultAccess, defaultSurvey, defaultVoucher} 
 import Button from "@mui/material/Button";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import {MySelect} from "@components/Input/MySelect";
-import {getNumericReward, getStringReward, QuestionType, rewardList, RewardProps, RewardType} from "@constants/types";
+import {QuestionType, rewardList, RewardProps, RewardType} from "@constants/types";
 import {Text} from "@components/Text/TextComponent";
 
 
 function RewardInput(questionType: QuestionType) {
     switch (questionType) {
         case QuestionType.YesNo:
-            return <>YesNo</>
+            return <>Yes/No</>
         case QuestionType.Poll:
             return <>Poll</>
         case QuestionType.FiveStar:
@@ -46,9 +46,9 @@ function RewardQuestion(reward: RewardProps) {
             </>
 
         case RewardType.Voucher:
-            return <>voucher</>;
+            return <Text.Subtitle1>Vouchers are not yet supported</Text.Subtitle1>;
         case RewardType.Access:
-            return <>accces</>;
+            return <Text.Subtitle1>Access Tokens are not yet supported</Text.Subtitle1>;
         default:
             throw new Error('Invalid reward type');
     }
@@ -58,44 +58,12 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
     const { reward } = useCampaginCreationStore((state) => state.data);
     const setDistribution = useCampaginCreationStore((state) => state.setReward);
 
-    const industry = MySelect({
+    const rewardType = MySelect({
         options: rewardList,
-        // defaultValue: getNumericReward(reward.type),
         defaultValue: reward.type,
         width: "200px"
     });
 
-
-    console.log("reward", industry.value)
-
-    const rewardData = () => {
-        // const stringVal = getStringReward(industry.value);
-        const stringVal = industry.value;
-        console.log("stringVal", stringVal)
-        if (stringVal === RewardType.Voucher) {
-            if (reward.type === RewardType.Voucher) {
-                return reward
-            } else {
-                return defaultVoucher
-            }
-        }
-        if (stringVal === RewardType.Access) {
-            if (reward.type === RewardType.Access) {
-                return reward
-            } else {
-                return defaultAccess
-            }
-        }
-        if (stringVal === RewardType.Survey) {
-            if (reward.type === RewardType.Survey) {
-                return reward
-            } else {
-                return defaultSurvey
-            }
-        }
-
-        throw new Error("Invalid reward type");
-    }
 
     const handleNextStep = () => {
         try {
@@ -106,10 +74,37 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
         }
     };
 
+
+    const rewardData = () => {
+        switch (rewardType.value) {
+            case RewardType.Voucher:
+                if (reward.type === RewardType.Voucher) {
+                    return reward
+                } else {
+                    return defaultVoucher
+                }
+            case RewardType.Access:
+                if (reward.type === RewardType.Access) {
+                    return reward
+                } else {
+                    return defaultAccess
+                }
+            case RewardType.Survey:
+                if (reward.type === RewardType.Survey) {
+                    return reward
+                } else {
+                    return defaultSurvey
+                }
+        }
+
+        throw new Error("Invalid reward type");
+    }
+
+
     return (
         <div className="flex flex-col w-full items-center gap-y-4">
             <TextDivider>STEP 3 - REWARDS</TextDivider>
-            {industry.component}
+            {rewardType.component}
 
 
             {RewardQuestion(rewardData())}

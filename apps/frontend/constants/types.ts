@@ -39,7 +39,7 @@ export function getStringReward(index: number): string  {
 
     throw new Error('Invalid reward type');
 }
-export const rewardList: string[] = ["SURVEY", "VOUCHER", "ACCESS"];
+export const rewardList: string[] = ["SURVEY", "VOUCHER", "ACCESS TOKEN"];
 
 
 export enum QuestionType {
