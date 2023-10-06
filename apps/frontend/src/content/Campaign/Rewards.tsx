@@ -2,40 +2,13 @@ import React from "react";
 import {TextDivider} from "@components/Divider/TextDivider";
 import {StepComponentProps} from "@content/Campaign/StepTypes";
 import toast from "react-hot-toast";
-import useCampaginCreationStore, {defaultAccess, defaultSurvey, defaultVoucher} from "@providers/CampaignCreationStore";
+import useCampaginCreationStore from "@providers/CampaignCreationStore";
 import Button from "@mui/material/Button";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import {MySelect} from "@components/Input/MySelect";
 import {Question, QuestionType, questionTypes, rewardList, RewardType} from "@constants/types";
 import {Text} from "@components/Text/TextComponent";
 import {StandardInput} from "@components/Input/TextField";
-
-// function RewardQuestion(reward: RewardProps) {
-//     switch (reward.type) {
-//         case RewardType.Survey:
-//             return <>
-//                 {reward.questions.map( ({questionType, question, answer}, i) =>
-//                     <div className="flex justify-between w-full" key={i}>
-//                         {/*this should be a standard input text*/}
-//                         <Text.Subtitle1>
-//
-//                             {question}
-//                         </Text.Subtitle1>
-//
-//                         {/* This should be separate input types*/}
-//                         {RewardInput(questionType)}
-//                     </div>
-//                 )}
-//             </>
-//
-//         case RewardType.Voucher:
-//             return <Text.Subtitle1>Vouchers are not yet supported</Text.Subtitle1>;
-//         case RewardType.Access:
-//             return <Text.Subtitle1>Access Tokens are not yet supported</Text.Subtitle1>;
-//         default:
-//             throw new Error('Invalid reward type');
-//     }
-// }
 
 function RewardQuestion(): {questionInput: string, questionType: QuestionType, component: React.ReactNode} {
     const question = StandardInput({
@@ -73,10 +46,6 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
     const questions = Array(3).fill(null).map( (i) => {
         return RewardQuestion()
     })
-
-    // const [questions, setQuestions] = useState<Question[]>(
-    //     reward.type === RewardType.Survey ? reward.questions : []
-    // );
 
     const rewardType = MySelect({
         options: rewardList,
