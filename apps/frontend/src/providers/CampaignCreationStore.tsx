@@ -11,7 +11,7 @@ interface AdDetailsProps {
 // best to send as Datetime or unixtimestamp
 interface DistributionProps {
     distributionDate: string
-    minimumUserReach: number
+    userReach: number
     userGroups: string[]
 }
 
@@ -25,7 +25,7 @@ const defaultAdDetails: AdDetailsProps = {
 
 const defaultDistribution: DistributionProps = {
     distributionDate: '',
-    minimumUserReach: 0,
+    userReach: 0,
     userGroups: [],
 };
 

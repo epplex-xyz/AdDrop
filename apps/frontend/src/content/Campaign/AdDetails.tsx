@@ -9,16 +9,12 @@ import toast from "react-hot-toast";
 import {StepComponentProps} from "@content/Campaign/StepTypes";
 import useCampaginCreationStore from "@providers/CampaignCreationStore";
 
-
 export function AdDetails({buttonAction, ...props}: StepComponentProps ){
     const { adDetails } = useCampaginCreationStore((state) => state.data);
     const setAdDetails = useCampaginCreationStore((state) => state.setAdDetails);
 
 
-    // does this even accept File in zustand?
-    console.log("addeta", adDetails.image)
     const imageUpload = ImageUpload(null);
-
     const description = StandardInput({
         initialValue: adDetails.description,
         placeholder: 'Describe your campaign',
@@ -91,7 +87,6 @@ export function AdDetails({buttonAction, ...props}: StepComponentProps ){
             </div>
 
             <Button
-                 //todo: could also add a disabled clause
                 onClick={handleNextStep}
                 {...ButtonConfig.nextStep}
             />
