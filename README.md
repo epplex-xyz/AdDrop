@@ -1,33 +1,22 @@
 <h1 align="center">AdDrop | Hyperdrive Hackathon</h1>
 
-A digital emporium where mystery and luxury converge to redefine your online shopping journey.
 
-- The Amazon of Web3
-- The Taobao of Web3.
-- The vanilla-version of Silk Road (dark web)
+Insert description
 
-Entrepreneurs can establish their unique storefronts and offer a diverse array of legitimate products. Customers have the freedom to explore a vast assortment of goods and complete transactions using cryptocurrency, facilitated by the cutting-edge [Sphere Pay](https://spherepay.co/) system.
 
 ## Website
-[https://silk-street-frontend.vercel.app/](https://silk-street-frontend.vercel.app/) (responsiveness is bad)
+inset
 
 
-## Background & credits
-I wanted to learn NestJS as a backend, so I decided to do this project last minute the day before the OPOS deadline lol.
+## Background
+I finished building the epPlex<insert link> MVP, then I was looking for some use-cases and AdDrop came to mind with ephemeral NFTs as ads.
 
-Huge shoutout to the clean-code writer [Josip Volarevic](https://twitter.com/JosipVolarevic2) for open sourcing the dReader backend [https://github.com/d-reader-organization/d-reader-backend](https://github.com/d-reader-organization/d-reader-backend). This was a MAJOR help in my learning journey (pretty much copied everything from here xD).
+So for AdDrop I had to showcase epPlex, although I'm not strictly married to epNFTs for this idea.
 
-## Current implementation
-- Frontend and backend setup
-- Can create Sphere Products
-- Can display the products
-
-## Future work
-- Make frontend cleaner
-- Get search to work
-- Purchase products through Sphere
-- Merchant setup
-- And much more
+## MVP
+- Ad creator can create a campaign
+- AdDrop distributes epNFT
+- Ad consumer can answer survey to get rewards
 
 ## Tech stack
 - NFTs: epPlex
@@ -35,6 +24,6 @@ Huge shoutout to the clean-code writer [Josip Volarevic](https://twitter.com/Jos
 - NextJS Frontend (hosted on vercel)
 - Postgres DB (Supabase)
 
-## Credits
+Credits
 - [dReader](https://github.com/d-reader-organization) for providing NestJs inspiration
 - [Cubik](https://github.com/cubik-so) for providing monorepo inspiration
