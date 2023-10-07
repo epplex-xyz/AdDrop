@@ -79,7 +79,11 @@ export function SignUpCompany({...props}: BoxProps) {
 
                     {/*Submit button */}
                     {loading ?
-                        <CircularProgress sx={{color: "text.primary"}} />
+                        <Button>
+                            variant="contained"
+                            disabled={true}
+                            <CircularProgress sx={{color: "text.primary"}} />
+                        </Button>
                         : <Button
                             {...ButtonConfig.companyCreate}
                             onClick={handleCreate}

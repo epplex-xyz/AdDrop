@@ -29,10 +29,10 @@ const defaultAdDetails: AdDetailsProps = {
 };
 
 const defaultDistribution: DistributionProps = {
-    distributionDate: '',
-    duration: 1,
-    userReach: 0,
-    userGroups: [],
+    distributionDate: (new Date()).toISOString(),
+    duration: 0,
+    userReach: 100,
+    userGroups: [Preference.DEFI],
 };
 
 export const defaultVoucher: VoucherFields = {

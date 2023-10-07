@@ -9,12 +9,13 @@ interface EndpointConfig {
 interface Endpoints {
     createUser: EndpointConfig;
     createCompany: EndpointConfig;
-
+    createCampaign: EndpointConfig;
 }
 
 enum BackendEndpoints {
     createUser = "/user/create",
     createCompany = "/company/create",
+    createCampaign = "/campaign/create",
 }
 
 export const backendEndpoints: Endpoints = {
@@ -26,6 +27,11 @@ export const backendEndpoints: Endpoints = {
         method: 'POST',
         url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.createCompany}`,
     },
+    createCampaign: {
+        method: 'POST',
+        url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.createCampaign}`,
+    }
+
 };
 
 export const options = (
@@ -87,6 +93,10 @@ export const backendRequest = {
     },
     createCompany: (body) => {
         const { method, url } = backendEndpoints.createCompany;
+        return fetch(url, options(method, body));
+    },
+    createCampaign: (body) => {
+        const { method, url } = backendEndpoints.createCampaign;
         return fetch(url, options(method, body));
     }
 

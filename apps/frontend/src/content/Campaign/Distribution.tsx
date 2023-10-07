@@ -58,28 +58,28 @@ export function Distribution({buttonAction, ...props}: StepComponentProps){
         <div className="flex flex-col w-full items-center gap-y-4">
             <TextDivider>STEP 2 - Distribution</TextDivider>
 
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full items-center">
                 <Text.Subtitle1>
                     Distribution date
                 </Text.Subtitle1>
                 {date.component}
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full items-center">
                 <Text.Subtitle1>
                     Duration
                 </Text.Subtitle1>
                 {duration.component}
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full items-center">
                 <Text.Subtitle1>
                     Target user reach sd
                 </Text.Subtitle1>
                 {number.component}
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full items-center">
                 <Text.Subtitle1>
                     User group
                 </Text.Subtitle1>

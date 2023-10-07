@@ -51,7 +51,6 @@ export function NumberField({
             // console.log("focus", ticketNumbers.length - 1, index)
         }
     };
-    console.log("number", number)
 
     const component = <StyledTextField
         // autoFocus={ index === 0 } // Automatically focus the first one
@@ -74,10 +73,10 @@ export function NumberField({
             pattern: '[0-9]'
         }}
         onChange={(e) => onChangeTicketInput(e)}
-    />
+    />;
 
     return {
         component,
-        value: number}
+        value: number};
 
 }

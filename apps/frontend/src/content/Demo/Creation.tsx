@@ -15,7 +15,10 @@ import toast from "react-hot-toast";
 import { makeJson } from "../../../utils/metadata";
 
 export function Creation() {
-    const {component, date} = MyDatePicker({width: "150px"});
+    const {component, date} = MyDatePicker({
+        width: "150px",
+        defaultValue: new Date(),
+    });
     const {timeComponent, time} = MyTimePicker({width: "150px"});
     const nameInput = StandardInput({placeholder: "Name"});
     const symbolInput = StandardInput({placeholder: "Symbol"});

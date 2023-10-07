@@ -11,9 +11,14 @@ import {SingleDivider} from "@components/Divider/SingleDivider";
 import {MySelect} from "@components/Input/MySelect";
 import {tokenList} from "@constants/tokens";
 import {useIsAuthenticated} from "../../hooks/useIsAuthenticated";
+import CircularProgress from "@mui/material/CircularProgress";
+import {backendRequest} from "@constants/endpoints";
+import {preferenceList} from "@constants/preference";
 
 export function Review({buttonAction, ...props}: StepComponentProps){
     const { adDetails, distribution, reward } = useCampaginCreationStore((state) => state.data);
+    const [loading, setLoading] = React.useState(false);
+    // this needs to be middleware
     const {authenticated, data} = useIsAuthenticated();
 
     const tokenTypes = MySelect({
@@ -24,10 +29,48 @@ export function Review({buttonAction, ...props}: StepComponentProps){
         selectWidth: "80px"
     });
 
+    // Create campaign backend, send back pubkey
+    // initiate token transfer instruction
+    // send tx to backend
+    // backend checks if successful and then flips a switch on paid/notpaid
+    // create the image on shdw
+    const handleSubmit = async () => {
+        setLoading(true);
 
-    const handleSubmit = () => {
-        console.log("user",  data?.id)
-    }
+        if (reward.type !== RewardType.Survey) {
+            throw new Error("Only Survey Reward supported");
+        }
+
+
+        // TODO need an campaign title
+        const request = backendRequest.createCampaign({
+            campaignId: data?.id,
+            distributionDate: distribution.distributionDate,
+            duration: distribution.duration,
+            userReach: distribution.userReach,
+            userGroups: distribution.userGroups,
+
+            adName: adDetails.name,
+            adSymbol: adDetails.symbol,
+            adDescription: adDetails.description,
+
+            rewardType: reward.type,
+            rewardQuestions: reward.questions.map(({question}) =>  question),
+            rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
+
+
+            // username: data?.user_metadata.full_name,
+            // handle: data?.user_metadata.user_name,
+            // avatar: data?.user_metadata.avatar_url,
+            // twitter: `https://twitter.com/${data?.user_metadata.user_name}`,
+            // website: website.input,
+            // description: description.input,
+        });
+
+        console.log("user",  data?.id);
+        setLoading(false);
+    };
+    const distDate = new Date(distribution.distributionDate)
 
     const totalCost = 0.1 * distribution.userReach;
     const fees = 0.1 * totalCost;
@@ -53,12 +96,12 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                     />
 
                     <div className={"flex flex-col"}>
-                        <Text.Subtitle1>
+                        <Text.Body2>
                             {adDetails.name} {adDetails.symbol}
-                        </Text.Subtitle1>
-                        <Text.Subtitle1>
+                        </Text.Body2>
+                        <Text.Body2>
                             {adDetails.description}
-                        </Text.Subtitle1>
+                        </Text.Body2>
                     </div>
                 </div>
             </div>
@@ -84,13 +127,13 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 </div>
                 <div className={"flex flex-row justify-between items-center"}>
                     <Text.Body2>
-                        {distribution.distributionDate}
+                        {distDate.getFullYear()}-{distDate.getMonth() + 1}-{distDate.getDate()}
                     </Text.Body2>
                     <Text.Body2>
-                        {distribution.duration} day{distribution.duration > 1 ? "s" : ""}
+                        {(distribution.duration + 1)} day{(distribution.duration + 1) > 1 ? "s" : ""}
                     </Text.Body2>
                     <Text.Body2>
-                        {distribution.userGroups[0]}
+                        {preferenceList[distribution.userGroups[0]]}
                     </Text.Body2>
                     <Text.Body2>
                         {distribution.userReach}
@@ -159,10 +202,17 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             </div>
 
             <div className={"flex justify-center"}>
-                <Button
-                    onClick={handleSubmit}
-                    {...ButtonConfig.submitCampaign}
-                />
+                {loading ?
+                    <Button>
+                        variant="contained"
+                        disabled={true}
+                        <CircularProgress sx={{color: "text.primary"}} />
+                    </Button>
+                    : <Button
+                        onClick={handleSubmit}
+                        {...ButtonConfig.submitCampaign}
+                    />
+                }
             </div>
         </div>
     );
