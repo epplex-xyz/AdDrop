@@ -246,31 +246,41 @@ Table User {
   lastActiveAt DateTime
   preferences Preference[] [not null]
   engagements Engagement [not null]
-  rewards TokenAmount [not null]
   mainWallet String [unique, not null]
 }
 
-Table TokenAmount {
+Table Token {
   id Int [pk, increment]
   address String [unique, not null]
-  amount Int [not null]
-  user User [not null]
-  userId String [not null]
-  campaign Campaign [not null]
+  decimals Int [not null]
+  Campaign Campaign [not null]
 }
 
 Table Campaign {
   id Int [pk, increment]
   company Company [not null]
-  companyId String [not null]
-  description String [not null]
-  title String [not null]
-  endTimestamp DateTime [not null]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
-  escrow String [unique, not null]
-  deposit TokenAmount [not null]
-  tokenAmountAddress String [not null]
+  companyId String [not null]
+  distributionDate DateTime [not null]
+  duration Int [not null]
+  userReach Int [not null]
+  userGroups Preference[] [not null]
+  adDescription String [not null]
+  adName String [not null]
+  adSymbol String [not null]
+  adMedia String
+  rewardType RewardType [not null]
+  rewardQuestions String[] [not null]
+  rewardQuestionTypes Int[] [not null]
+  isPaid Boolean [not null, default: false]
+  paidTx String
+  paidTimestamp DateTime
+  token Token
+  tokenAddress String
+  tokenAmount Int
+  usdAmount Int
+  escrow String [unique]
+  pubkey String [unique]
   engagement Engagement [not null]
 }
 
@@ -323,9 +333,19 @@ Enum factor_type {
 }
 
 Enum Preference {
-  NFT
   DEFI
+  NFT
   ART
+  GAMING
+  MUSIC
+  SPORTS
+}
+
+Enum RewardType {
+  Click
+  Survey
+  Voucher
+  Access
 }
 
 Ref: identities.user_id > users.id [delete: Cascade]
@@ -348,11 +368,9 @@ Ref: sso_domains.sso_provider_id > sso_providers.id [delete: Cascade]
 
 Ref: User.id - users.id [delete: Cascade]
 
-Ref: TokenAmount.userId > User.id
-
 Ref: Campaign.companyId > Company.id
 
-Ref: Campaign.tokenAmountAddress > TokenAmount.address
+Ref: Campaign.tokenAddress > Token.address
 
 Ref: Engagement.userId > User.id
 
