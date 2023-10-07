@@ -34,9 +34,10 @@ export const StyledTextField = styled(TextField)(({theme }) => ({
 
 export function NumberField({
     height = "undefined",
-    width = "undefined"
+    width = "undefined",
+    defaultValue,
 }) {
-    const [number, setNumber] = useState(0);
+    const [number, setNumber] = useState<number>(defaultValue);
     const onChangeTicketInput = (e) => {
         if (/[0-9]/.test(Number(e.target.value).toString())) {
             // if (i < ticketNumbers.length - 1) {
