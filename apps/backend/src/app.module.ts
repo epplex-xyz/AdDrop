@@ -11,6 +11,7 @@ import config from './configs/config';
 import { SecurityConfig, ThrottleConfig } from './configs/config.interface';
 import { UserModule } from './user/user.module';
 import {CompanyModule} from "./company/company.module";
+import {CampaignModule} from "./campaign/campaign.module";
 // import {TrpcModule} from "./trpc/trpc.module";
 
 @Module({
@@ -48,6 +49,7 @@ import {CompanyModule} from "./company/company.module";
                 };
             },
         }),
+        CampaignModule,
         UserModule,
         CompanyModule,
     ],
