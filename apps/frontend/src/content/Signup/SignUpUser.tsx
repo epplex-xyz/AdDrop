@@ -5,7 +5,7 @@ import React from "react";
 import {TextDivider} from "@components/Divider/TextDivider";
 import {MyMountedWalletButton} from "@components/Buttons/MyWalletConnectButton";
 import {Label} from "@components/Container/Label";
-import {preferenceList} from "../../../constants/types";
+import {preferenceList} from "../../../constants/preference";
 import {useXButton} from "@components/Buttons/XButton";
 import Button from "@mui/material/Button";
 import {useWallet} from "@solana/wallet-adapter-react";

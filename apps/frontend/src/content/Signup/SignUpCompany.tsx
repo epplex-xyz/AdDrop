@@ -3,7 +3,7 @@ import {BoxProps} from "@mui/material/Box";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import React from "react";
 import {TextDivider} from "@components/Divider/TextDivider";
-import {preferenceList} from "../../../constants/types";
+import {preferenceList} from "../../../constants/preference";
 import {useXButton} from "@components/Buttons/XButton";
 import Button from "@mui/material/Button";
 import {backendRequest, requestWrapper} from "@constants/endpoints";

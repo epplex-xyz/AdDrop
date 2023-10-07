@@ -4,17 +4,34 @@ import {StepComponentProps} from "@content/Campaign/StepTypes";
 import useCampaginCreationStore from "@providers/CampaignCreationStore";
 import style from "@styles/style.module.scss";
 import {Text} from "@components/Text/TextComponent";
-import {RewardType} from "@constants/types";
+import {rewardList, RewardType} from "@constants/reward";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import Button from "@mui/material/Button";
 import {SingleDivider} from "@components/Divider/SingleDivider";
+import {MySelect} from "@components/Input/MySelect";
+import {tokenList} from "@constants/tokens";
+import {useIsAuthenticated} from "../../hooks/useIsAuthenticated";
 
 export function Review({buttonAction, ...props}: StepComponentProps){
     const { adDetails, distribution, reward } = useCampaginCreationStore((state) => state.data);
+    const {authenticated, data} = useIsAuthenticated();
 
+    const tokenTypes = MySelect({
+        options: tokenList,
+        defaultValue: 0,
+        height: "30px",
+        width: "80px",
+        selectWidth: "80px"
+    });
+
+
+    const handleSubmit = () => {
+        console.log("user",  data?.id)
+    }
 
     const totalCost = 0.1 * distribution.userReach;
     const fees = 0.1 * totalCost;
+
     return (
         <div className="flex flex-col w-full justify-center gap-y-2">
             <TextDivider>STEP 4 - REVIEW & PAY</TextDivider>
@@ -84,7 +101,7 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             {/* Survey */}
             <div>
                 <Text.Subtitle1 sx={{textDecoration: "underline"}}>
-                    Survey
+                    Reward ({rewardList[reward.type]})
                 </Text.Subtitle1>
                 {reward.type === RewardType.Survey &&
                     <>
@@ -133,15 +150,17 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                         {totalCost + fees}$
                     </Text.Body2>
                 </div>
-                <div className={"flex justify-end"}>
+                <div className={"flex justify-end items-center gap-x-2"}>
                     <Text.Body2>
-                        Pay in USDC
+                        Pay in
                     </Text.Body2>
+                    {tokenTypes.component}
                 </div>
             </div>
 
             <div className={"flex justify-center"}>
                 <Button
+                    onClick={handleSubmit}
                     {...ButtonConfig.submitCampaign}
                 />
             </div>

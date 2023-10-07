@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {persist} from "zustand/middleware";
-import {AccessFields, QuestionType, RewardProps, RewardType, SurveyFields, VoucherFields} from "@constants/types";
+import {AccessFields, QuestionType, RewardProps, RewardType, SurveyFields, VoucherFields} from "@constants/reward";
 
 interface AdDetailsProps {
     image: File | null

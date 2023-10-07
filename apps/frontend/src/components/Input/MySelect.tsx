@@ -24,12 +24,18 @@ const CustomSelectField = styled(Select)(({ theme }) => ({
 interface SelectProps<T> {
     options: T[],
     defaultValue: number,
+    height?: string,
     width?: string,
-
     selectWidth?: string,
 }
 
-export function MySelect<T>({width = "undefined", selectWidth = "undefined", options, defaultValue}: SelectProps<T>) {
+export function MySelect<T>({
+    width = "undefined",
+    selectWidth = "undefined",
+    height = undefined,
+    options,
+    defaultValue
+}: SelectProps<T>) {
     const [value, setValue] = useState<number>(defaultValue);
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -51,6 +57,7 @@ export function MySelect<T>({width = "undefined", selectWidth = "undefined", opt
                     borderColor: 'text.primary'
                 },
                 width: width,
+                height: height
             }}
             MenuProps={{
                 sx: {

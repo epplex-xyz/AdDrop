@@ -51,7 +51,7 @@ export function AdDetails({buttonAction, ...props}: StepComponentProps ){
                 throw new Error("Symbol not specified");
             }
 
-            console.log("url", imageUpload.temporaryUrl)
+            console.log("url", imageUpload.temporaryUrl);
             setAdDetails({
                 image: imageUpload.selectedFile,
                 temporaryUrl: imageUpload.temporaryUrl,

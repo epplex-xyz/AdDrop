@@ -6,7 +6,7 @@ import useCampaginCreationStore from "@providers/CampaignCreationStore";
 import Button from "@mui/material/Button";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import {MySelect} from "@components/Input/MySelect";
-import {Question, QuestionType, questionTypes, rewardList, RewardType} from "@constants/types";
+import {Question, QuestionType, questionTypes, rewardList, RewardType} from "@constants/reward";
 import {Text} from "@components/Text/TextComponent";
 import {StandardInput} from "@components/Input/TextField";
 
