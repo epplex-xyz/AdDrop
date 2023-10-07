@@ -19,6 +19,13 @@ export function Distribution({buttonAction, ...props}: StepComponentProps){
         height: "35px"
     });
 
+    // const date = StandardInput({
+    //     initialValue: distribution.distributionDate,
+    //     placeholder: "Name",
+    //     height: "35px"
+    // });
+
+
     // number based input
     const userReach = StandardInput({
         initialValue: "", // TODO
@@ -45,8 +52,9 @@ export function Distribution({buttonAction, ...props}: StepComponentProps){
 
             setDistribution({
                 distributionDate: date.input,
+                duration: 0,
                 userReach: userReach.input as unknown as number, //todo
-                userGroups: [],
+                userGroups: ["DEFI"],
             });
 
             buttonAction();
@@ -64,6 +72,13 @@ export function Distribution({buttonAction, ...props}: StepComponentProps){
                     Distribution date
                 </Text.Subtitle1>
                 {date.inputComponent}
+            </div>
+
+            <div className="flex justify-between w-full">
+                <Text.Subtitle1>
+                    Duration
+                </Text.Subtitle1>
+                {userReach.inputComponent}
             </div>
 
             <div className="flex justify-between w-full">

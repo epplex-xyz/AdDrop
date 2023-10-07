@@ -4,6 +4,7 @@ import {AccessFields, QuestionType, RewardProps, RewardType, SurveyFields, Vouch
 
 interface AdDetailsProps {
     image: File | null
+    temporaryUrl: string
     description: string
     name: string
     symbol: string
@@ -12,6 +13,7 @@ interface AdDetailsProps {
 // best to send as Datetime or unixtimestamp
 interface DistributionProps {
     distributionDate: string
+    duration: number
     userReach: number
     userGroups: string[]
 }
@@ -19,6 +21,7 @@ interface DistributionProps {
 
 const defaultAdDetails: AdDetailsProps = {
     image: null,
+    temporaryUrl: '',
     description: '',
     name: '',
     symbol: '',
@@ -26,6 +29,7 @@ const defaultAdDetails: AdDetailsProps = {
 
 const defaultDistribution: DistributionProps = {
     distributionDate: '',
+    duration: 1,
     userReach: 0,
     userGroups: [],
 };

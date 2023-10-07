@@ -97,6 +97,7 @@ type ButtonConfigKeys =
     | "userCreate"
     | "companyCreate"
     | "nextStep"
+    | "submitCampaign"
 
 
 export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
@@ -133,6 +134,15 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
         </ButtonText>,
         sx: {
             marginTop: "32px",
+        },
+    },
+    submitCampaign: {
+        variant: "contained",
+        children: <ButtonText>
+            SUBMIT & PAY
+        </ButtonText>,
+        sx: {
+            marginTop: "16px",
         },
     },
 };

@@ -11,7 +11,7 @@ const steps = [
     'Advert',
     'Distribution',
     'Rewards',
-    'Review'
+    'Review & Pay'
 ];
 
 

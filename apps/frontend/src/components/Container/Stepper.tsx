@@ -2,6 +2,7 @@ import * as React from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
+import {Text} from "@components/Text/TextComponent";
 
 interface Props {
     stepNames: string[]
@@ -30,8 +31,6 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
         return completedSteps() === totalSteps();
     };
 
-
-
     const handleNext = () => {
         const newActiveStep =
             isLastStep() && !allStepsCompleted()
@@ -52,9 +51,6 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
     const handleStep = (step: number) => () => {
         setActiveStep(step);
     };
-
-
-
 
     return (
         <>
@@ -79,7 +75,9 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
                                 paddingRight: "0px",
                             }}
                         >
-                            {label}
+                            <Text.Body2 sx={{fontSize: "12px"}}>
+                                {label}
+                            </Text.Body2>
                         </StepButton>
                     </Step>
                 ))}
@@ -89,8 +87,6 @@ export default function HorizontalNonLinearStepper({stepNames, stepComponents}: 
             <div className={"w-[90%]"}>
                 {stepComponents[activeStep](handleComplete)}
             </div>
-
-            {/* TODO icon shows completed and change to representative icons */}
         </>
     );
 }

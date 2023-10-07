@@ -4,9 +4,15 @@ import Box from "@mui/material/Box";
 import { Text } from "@components/Text/TextComponent";
 import style from "../../styles/style.module.scss";
 
-export function ImageUpload(initialFile: File | null): {component: React.ReactNode, selectedFile: File | null} {
+export function ImageUpload(initialFile: File | null): {
+    component: React.ReactNode,
+    selectedFile: File | null,
+    temporaryUrl: string
+} {
     const [selectedFile, setSelectedFile] = useState<File | null>(initialFile);
+    const url = selectedFile === null ? "" : URL.createObjectURL(selectedFile);
 
+    // TODO use next/image
     const component =
         <Dropzone onDrop={(acceptedFiles) => setSelectedFile(acceptedFiles[0])}>
             { ({ getRootProps, getInputProps }) => (
@@ -40,7 +46,7 @@ export function ImageUpload(initialFile: File | null): {component: React.ReactNo
                                 height:"inherit",
                                 borderRadius: style.borderRadiusMd,
                             }}
-                            src={URL.createObjectURL(selectedFile)}
+                            src={url}
                             alt="Selected"
                         />
                     }
@@ -48,5 +54,9 @@ export function ImageUpload(initialFile: File | null): {component: React.ReactNo
             )}
         </Dropzone>;
 
-    return {component, selectedFile};
+    return {
+        component,
+        selectedFile,
+        temporaryUrl: url
+    };
 }
