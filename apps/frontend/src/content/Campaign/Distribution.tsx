@@ -1,60 +1,51 @@
 import React from "react";
 import {TextDivider} from "@components/Divider/TextDivider";
 import {StepComponentProps} from "@content/Campaign/StepTypes";
-import {StandardInput} from "@components/Input/TextField";
 import useCampaginCreationStore from "@providers/CampaignCreationStore";
 import Button from "@mui/material/Button";
 import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import {Text} from "@components/Text/TextComponent";
 import toast from "react-hot-toast";
+import {MySelect} from "@components/Input/MySelect";
+import {preferenceList} from "@constants/preference";
+import {NumberField} from "@components/Input/Number";
+import {MyDatePicker} from "@components/Input/DatePicker";
+import {durationList} from "@constants/duration";
 
 export function Distribution({buttonAction, ...props}: StepComponentProps){
     const { distribution } = useCampaginCreationStore((state) => state.data);
     const setDistribution = useCampaginCreationStore((state) => state.setDistribution);
-
-    // TODO need proper date
-    const date = StandardInput({
-        initialValue: distribution.distributionDate,
-        placeholder: "Name",
-        height: "35px"
+    const date = MyDatePicker({
+        width: "150px",
+        defaultValue: distribution.distributionDate
+    });
+    const number = NumberField({
+        height: "35px",
+        defaultValue: distribution.userReach
     });
 
-    // const date = StandardInput({
-    //     initialValue: distribution.distributionDate,
-    //     placeholder: "Name",
-    //     height: "35px"
-    // });
-
-
-    // number based input
-    const userReach = StandardInput({
-        initialValue: "", // TODO
-        placeholder: "Name",
-        height: "35px"
+    const duration = MySelect({
+        options: durationList,
+        defaultValue: distribution.duration
     });
 
-    // TODO handle usergroups
+    const userPreference = MySelect({
+        options: preferenceList,
+        defaultValue: distribution.userGroups[0]
+    });
 
     const handleNextStep = () => {
         try {
-            if (date.input === "") {
+            if (date.date === null) {
                 throw new Error("No distribution date provided");
             }
-
-            if (userReach.input === "") {
-                throw new Error("Minimum user reach not provided");
-            }
-
-            // TOOD user group
-            // if (=== "") {
-            //     throw new Error("Minimum user reach not provided");
-            // }
+            // Might need to do more errorhandling here
 
             setDistribution({
-                distributionDate: date.input,
-                duration: 0,
-                userReach: userReach.input as unknown as number, //todo
-                userGroups: ["DEFI"],
+                distributionDate: date.date.toISOString(),
+                duration: duration.value,
+                userReach: number.value,
+                userGroups: [userPreference.value],
             });
 
             buttonAction();
@@ -71,28 +62,28 @@ export function Distribution({buttonAction, ...props}: StepComponentProps){
                 <Text.Subtitle1>
                     Distribution date
                 </Text.Subtitle1>
-                {date.inputComponent}
+                {date.component}
             </div>
 
             <div className="flex justify-between w-full">
                 <Text.Subtitle1>
                     Duration
                 </Text.Subtitle1>
-                {userReach.inputComponent}
+                {duration.component}
             </div>
 
             <div className="flex justify-between w-full">
                 <Text.Subtitle1>
-                    Target user reach
+                    Target user reach sd
                 </Text.Subtitle1>
-                {userReach.inputComponent}
+                {number.component}
             </div>
 
             <div className="flex justify-between w-full">
                 <Text.Subtitle1>
-                    User groups
+                    User group
                 </Text.Subtitle1>
-                {userReach.inputComponent}
+                {userPreference.component}
             </div>
 
             <Button

@@ -6,9 +6,12 @@ import { TextField } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
 
-export function MyDatePicker({width}) {
+export function MyDatePicker({
+    width,
+    defaultValue
+}) {
     const [date, setDate] = React.useState<Dayjs | null>(
-        dayjs(new Date()),
+        dayjs(new Date(defaultValue)),
     );
 
     const handleChange = (newValue: Dayjs | null) => {
@@ -77,5 +80,5 @@ export function MyDatePicker({width}) {
         />
     </LocalizationProvider>;
 
-    return ({dateComponent, date });
+    return ({component: dateComponent, date });
 }

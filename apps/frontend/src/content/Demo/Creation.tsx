@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import { makeJson } from "../../../utils/metadata";
 
 export function Creation() {
-    const {dateComponent, date} = MyDatePicker({width: "150px"});
+    const {component, date} = MyDatePicker({width: "150px"});
     const {timeComponent, time} = MyTimePicker({width: "150px"});
     const nameInput = StandardInput({placeholder: "Name"});
     const symbolInput = StandardInput({placeholder: "Symbol"});
@@ -123,7 +123,7 @@ export function Creation() {
             <TextDivider>Ephemerality</TextDivider>
 
             <div className="flex flex-row justify-evenly">
-                {dateComponent}
+                {component}
 
                 {timeComponent}
             </div>

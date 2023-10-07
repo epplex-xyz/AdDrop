@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import {persist} from "zustand/middleware";
 import {AccessFields, QuestionType, RewardProps, RewardType, SurveyFields, VoucherFields} from "@constants/reward";
+import {Preference} from "@constants/preference";
 
 interface AdDetailsProps {
     image: File | null
@@ -15,7 +16,7 @@ interface DistributionProps {
     distributionDate: string
     duration: number
     userReach: number
-    userGroups: string[]
+    userGroups: Preference[]
 }
 
 
