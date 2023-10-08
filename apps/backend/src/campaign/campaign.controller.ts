@@ -7,8 +7,8 @@ export class CampaignController {
 
     @Post('create')
     async create(
-        @Body() createCompanyDto: any,
+        @Body() createCampaign: any,
     ): Promise<{data: any}> {
-        return await this.campaignService.create(createCompanyDto);
+        return await this.campaignService.create(createCampaign);
     }
 }

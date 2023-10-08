@@ -41,13 +41,13 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             throw new Error("Only Survey Reward supported");
         }
 
-        console.log
+        console.log("distribution", data?.id);
         if (data?.id === undefined) {
             throw new Error("Creator not authenticated");
         }
 
         const request = backendRequest.createCampaign({
-            campaignId: data?.id,
+            companyId: data?.id,
             distributionDate: distribution.distributionDate,
             duration: distribution.duration,
             userReach: distribution.userReach,
@@ -61,13 +61,6 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             rewardQuestions: reward.questions.map(({question}) =>  question),
             rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
 
-
-            // username: data?.user_metadata.full_name,
-            // handle: data?.user_metadata.user_name,
-            // avatar: data?.user_metadata.avatar_url,
-            // twitter: `https://twitter.com/${data?.user_metadata.user_name}`,
-            // website: website.input,
-            // description: description.input,
         });
         const res = await requestWrapper(() => request);
 

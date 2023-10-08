@@ -342,10 +342,9 @@ Enum Preference {
 }
 
 Enum RewardType {
-  Click
-  Survey
-  Voucher
-  Access
+  SURVEY
+  VOUCHER
+  ACCESS
 }
 
 Ref: identities.user_id > users.id [delete: Cascade]

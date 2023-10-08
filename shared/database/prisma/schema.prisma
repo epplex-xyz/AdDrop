@@ -406,10 +406,9 @@ enum Preference {
 }
 
 enum RewardType {
-  Click
-  Survey
-  Voucher
-  Access
+  SURVEY
+  VOUCHER
+  ACCESS
 
   @@schema("public")
 }

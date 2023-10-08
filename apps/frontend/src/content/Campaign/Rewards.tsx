@@ -10,9 +10,11 @@ import {Question, QuestionType, questionTypes, rewardList, RewardType} from "@co
 import {Text} from "@components/Text/TextComponent";
 import {StandardInput} from "@components/Input/TextField";
 
-function RewardQuestion(): {questionInput: string, questionType: QuestionType, component: React.ReactNode} {
+function RewardQuestion({defaultQuestion = "", defaultQuestionType = 0}: {defaultQuestion?: string, defaultQuestionType?: number}):
+    {questionInput: string, questionType: QuestionType, component: React.ReactNode}
+{
     const question = StandardInput({
-        initialValue: "",
+        initialValue: defaultQuestion,
         multiline: true,
         placeholder: "What's your question?",
         height: "35px"
@@ -20,7 +22,7 @@ function RewardQuestion(): {questionInput: string, questionType: QuestionType, c
 
     const questionType = MySelect({
         options: questionTypes,
-        defaultValue: 0,
+        defaultValue: defaultQuestionType,
         width: "120px",
         selectWidth: "120px"
     });
@@ -44,7 +46,10 @@ export function Rewards({buttonAction, ...props}: StepComponentProps){
 
     // TODO fillin the zustand store
     const questions = Array(3).fill(null).map( (i) => {
-        return RewardQuestion();
+        return RewardQuestion({
+            // defaultQuestion: reward.type === RewardType.Survey ? reward.questions[i].question : "",
+            // defaultQuestionType: reward.type === RewardType.Survey ? reward.questions[i].questionType : 0
+        });
     });
 
     const rewardType = MySelect({

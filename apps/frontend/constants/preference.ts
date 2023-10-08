@@ -7,6 +7,6 @@ export enum Preference {
     SPORTS,
 }
 
-export const preferenceList: string[] = ["DeFi", "NFT", "Art", "Gaming", "Music", "Sports"];
+export const preferenceList: string[] = ["DEFI", "NFT", "AART", "GAMING", "MUSIC", "SPORTS"];
 
 
