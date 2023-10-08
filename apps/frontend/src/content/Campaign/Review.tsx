@@ -12,7 +12,7 @@ import {MySelect} from "@components/Input/MySelect";
 import {tokenList} from "@constants/tokens";
 import {useIsAuthenticated} from "../../hooks/useIsAuthenticated";
 import CircularProgress from "@mui/material/CircularProgress";
-import {backendRequest} from "@constants/endpoints";
+import {backendRequest, requestWrapper} from "@constants/endpoints";
 import {preferenceList} from "@constants/preference";
 
 export function Review({buttonAction, ...props}: StepComponentProps){
@@ -41,8 +41,11 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             throw new Error("Only Survey Reward supported");
         }
 
+        console.log
+        if (data?.id === undefined) {
+            throw new Error("Creator not authenticated");
+        }
 
-        // TODO need an campaign title
         const request = backendRequest.createCampaign({
             campaignId: data?.id,
             distributionDate: distribution.distributionDate,
@@ -66,7 +69,9 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             // website: website.input,
             // description: description.input,
         });
+        const res = await requestWrapper(() => request);
 
+        console.log("request", res);
         console.log("user",  data?.id);
         setLoading(false);
     };
@@ -97,7 +102,7 @@ export function Review({buttonAction, ...props}: StepComponentProps){
 
                     <div className={"flex flex-col"}>
                         <Text.Body2>
-                            {adDetails.name} {adDetails.symbol}
+                            {adDetails.name} ({adDetails.symbol})
                         </Text.Body2>
                         <Text.Body2>
                             {adDetails.description}

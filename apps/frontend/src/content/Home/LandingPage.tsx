@@ -5,8 +5,10 @@ import { ButtonLink } from "src/components/Buttons/LinkButton";
 import { ButtonLinkConfig } from "@components/Buttons/ButtonLinkConfig";
 import Image from "next/image";
 import React from "react";
-import {LogoAnimation} from "@content/Home/LogoAnimation";
-// import PaperPlane from "../../../public/icons/paperPlane.svg"
+import {useXButton} from "@components/Buttons/XButton";
+import {useRouter} from "next/navigation";
+import {backendRequest, requestWrapper} from "@constants/endpoints";
+import toast from "react-hot-toast";
 
 function LandingText(){
     return (
@@ -23,6 +25,42 @@ function LandingText(){
 }
 
 export function LandingPage({...props}: BoxProps){
+    // Login flow
+    // user authorises twitter
+    // check if user exists in db, if in user db, redirect to user page
+    // if in company db, redirect to company page
+
+    // LOL this is  unsafe cus anyone could login,
+    // need to setup a PW
+    const router = useRouter();
+
+    const {button, data} = useXButton({redirect: "/"});
+
+    const test = async () => {
+        try {
+            const request = backendRequest.checkAccount({
+                id: data.id,
+            });
+
+            const res = await requestWrapper(() => request);
+            console.log("result", res)
+            if (res === null) {
+                throw new Error("Profile not found");
+            }
+
+            router.push(`/${res}/${data.user_metadata.user_name}`);
+        } catch (e: any) {
+            console.log("error", e)
+            toast.error(e.message);
+        }
+    }
+
+    React.useEffect(() => {
+        if (data?.id !== undefined){
+            test().then()
+        }
+    },[data])
+
     return (
         <Section {...props}>
             <div className={"flex flex-col items-center gap-y-8"}>
@@ -37,7 +75,8 @@ export function LandingPage({...props}: BoxProps){
                 <LandingText/>
 
                 <div className={"flex gap-x-6"}>
-                    <ButtonLink {...ButtonLinkConfig.login}/>
+                    {/*<ButtonLink {...ButtonLinkConfig.login}/>*/}
+                    {button}
                     <ButtonLink {...ButtonLinkConfig.signup}/>
                 </div>
             </div>

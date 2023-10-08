@@ -20,7 +20,7 @@ export function ButtonText({children}) {
 export const ButtonLinkConfig: Record<ButtonLinkConfigKeys, ButtonLinkProps> = {
     login: {
         variant: "contained",
-        href: "/demo",
+        href: "/login",
         children: <ButtonText>
             LOG IN
         </ButtonText>,
