@@ -10,12 +10,14 @@ interface Endpoints {
     createUser: EndpointConfig;
     createCompany: EndpointConfig;
     createCampaign: EndpointConfig;
+    checkAccount: EndpointConfig;
 }
 
 enum BackendEndpoints {
     createUser = "/user/create",
     createCompany = "/company/create",
     createCampaign = "/campaign/create",
+    checkAccount = "/user/check",
 }
 
 export const backendEndpoints: Endpoints = {
@@ -30,6 +32,10 @@ export const backendEndpoints: Endpoints = {
     createCampaign: {
         method: 'POST',
         url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.createCampaign}`,
+    },
+    checkAccount: {
+        method: 'POST',
+        url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.checkAccount}`,
     }
 
 };
@@ -98,6 +104,10 @@ export const backendRequest = {
     createCampaign: (body) => {
         const { method, url } = backendEndpoints.createCampaign;
         return fetch(url, options(method, body));
-    }
+    },
+    checkAccount: (body) => {
+        const { method, url } = backendEndpoints.checkAccount;
+        return fetch(url, options(method, body));
+    },
 
 };

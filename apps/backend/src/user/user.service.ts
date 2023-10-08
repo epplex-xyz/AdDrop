@@ -21,4 +21,36 @@ export class UserService {
         return {data: res}
     }
 
+    async checkAccount(createUserDto: any): Promise<any> {
+        let res: string | null;
+        try {
+            console.log("createUserDto", createUserDto)
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: createUserDto.id
+                }
+            })
+
+            console.log("user", user);
+            const company = await prisma.company.findUnique({
+                where: {
+                    id: createUserDto.id
+                }
+            })
+            console.log("company", company);
+
+            if (user !== null) {
+                res = "profile"
+            } else if (company !== null) {
+                res = "company"
+            } else {
+                res = null
+            }
+        } catch (e) {
+            console.log("error", e)
+            res = null
+        }
+
+        return {data: res}
+    }
 }

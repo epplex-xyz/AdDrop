@@ -13,4 +13,11 @@ export class UserController {
     ): Promise<{data: boolean}> {
         return await this.userService.create(createUserDto);
     }
+
+    @Post('check')
+    async checkAccount(
+        @Body() createUserDto: any,
+    ): Promise<{data: boolean}> {
+        return await this.userService.checkAccount(createUserDto);
+    }
 }
