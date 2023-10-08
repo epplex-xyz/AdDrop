@@ -52,7 +52,6 @@ export function SignUpCompany({...props}: BoxProps) {
         const res = await requestWrapper(() => request);
         setLoading(false);
 
-        console.log("res", res);
         if (res) {
             router.push(`/company/${data?.user_metadata.user_name}`);
         } else {

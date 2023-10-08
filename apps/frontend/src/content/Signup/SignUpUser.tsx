@@ -15,7 +15,7 @@ import {useRouter} from "next/navigation";
 import toast from "react-hot-toast";
 
 export function SignUpUser({...props}: BoxProps) {
-    const {button, data} = useXButton({});
+    const {button, data} = useXButton({redirect: "/signup/user"});
     const {publicKey} = useWallet();
     const [loading, setLoading] = React.useState(false);
     const router = useRouter();

@@ -43,12 +43,17 @@ export function useXButton({redirect = "/signup/user"}: {redirect?: string}) {
                     marginRight: "8px"
                 }}
             />
+            {/*{ redirect === "/"*/}
+            {/*    ? <>{data.user_metadata.full_name}</> :*/}
             <ButtonText>
                 {data.user_metadata.full_name}
             </ButtonText>
+            {/*}*/}
         </>;
     } else {
-        content = "Link X";
+        content = <ButtonText>
+            {redirect === "/"  ?  "LOG IN" : "LINK X"}
+        </ButtonText>;
     }
 
     return {

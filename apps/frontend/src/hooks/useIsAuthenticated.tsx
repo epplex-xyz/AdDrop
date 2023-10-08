@@ -7,7 +7,6 @@ export function useIsAuthenticated() {
 
     const isAuthenticated = async () => {
         const res = await Supabase.auth.getSession();
-        console.log("Res", res);
         if (res?.data?.session === null) {
             setAuthenticated(false);
         } else {
