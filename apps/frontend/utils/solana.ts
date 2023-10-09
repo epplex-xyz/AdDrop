@@ -1,4 +1,12 @@
-import { Connection, Keypair, PublicKey, Transaction, TransactionSignature } from "@solana/web3.js";
+import {
+    Commitment,
+    Connection,
+    Keypair,
+    PublicKey, SystemProgram,
+    Transaction,
+    TransactionInstruction,
+    TransactionSignature
+} from "@solana/web3.js";
 import {
     AccountLayout,
     createMintToInstruction,
@@ -8,11 +16,177 @@ import {
     getAssociatedTokenAddressSync,
     createAssociatedTokenAccountInstruction,
     ASSOCIATED_TOKEN_PROGRAM_ID,
+    createTransferInstruction,
+    TOKEN_PROGRAM_ID,
+    getAccount,
+    TokenAccountNotFoundError,
+    TokenInvalidAccountOwnerError,
+    createCloseAccountInstruction, createTransferCheckedInstruction, createSyncNativeInstruction
 } from "@solana/spl-token";
 import { Token22Layout, Token22 } from "../client/types/token22";
 import { AnchorWallet } from "@solana/wallet-adapter-react";
 import { COMMITMENT, CONFIRM_OPTIONS } from "../client/constants";
+import {Account} from "@solana/spl-token/src/state/account";
 
+const NATIVE_MINT = new PublicKey('So11111111111111111111111111111111111111112');
+
+export async function createWrappedUserInstructions(
+    connection: Connection,
+    payer: PublicKey,
+    amount: number,
+    user?: Keypair
+): Promise<[TransactionInstruction[], PublicKey] | PublicKey> {
+    const owner =  payer;
+    const associatedAddress = getAssociatedTokenAddressSync(owner, NATIVE_MINT);
+    const associatedAccountInfo = connection.getAccountInfo(associatedAddress);
+    if (!associatedAccountInfo) {
+        return associatedAddress;
+    }
+
+    const ephemeralAccount = Keypair.generate();
+    const ephemeralWallet = getAssociatedTokenAddressSync(
+        ephemeralAccount.publicKey, NATIVE_MINT
+    );
+
+    const ixs = [
+        createAssociatedTokenAccountInstruction(
+            payer,
+            ephemeralWallet,
+            ephemeralAccount.publicKey,
+            NATIVE_MINT
+        ),
+        SystemProgram.transfer({
+            fromPubkey: owner,
+            toPubkey: ephemeralWallet,
+            lamports: amount,
+        }),
+        createSyncNativeInstruction(ephemeralWallet),
+        createTransferInstruction(
+            ephemeralWallet,
+            associatedAddress,
+            ephemeralAccount.publicKey,
+            amount
+        ),
+        createCloseAccountInstruction(
+            ephemeralWallet,
+            owner,
+            ephemeralAccount.publicKey
+        ),
+    ]
+
+    return [ixs, associatedAddress]
+}
+export async function tryCreateATAIx2(
+    connection: Connection,
+    payer: PublicKey,
+    owner: PublicKey,
+    mint: PublicKey,
+    allowOwnerOffCurve = false,
+    commitment: Commitment = COMMITMENT,
+    programId = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId = ASSOCIATED_TOKEN_PROGRAM_ID
+): Promise<[TransactionInstruction, PublicKey] | PublicKey | undefined> {
+    const ata = getAssociatedTokenAddressSync(mint, owner, allowOwnerOffCurve, programId, associatedTokenProgramId);
+
+    try {
+        await getAccount(connection, ata, commitment, programId);
+        console.log(`Token account already exists: ${ata.toString()} for token ${mint.toString()}`);
+        return ata;
+
+    } catch (error: unknown) {
+        // TokenAccountNotFoundError can be possible if the associated address has already received some lamports,
+        // becoming a system account. Assuming program derived addressing is safe, this is the only case for the
+        // TokenInvalidAccountOwnerError in this code path.
+        if (error instanceof TokenAccountNotFoundError || error instanceof TokenInvalidAccountOwnerError) {
+            const ix = createAssociatedTokenAccountInstruction(
+                payer,
+                ata,
+                owner,
+                mint,
+                programId,
+                associatedTokenProgramId
+            );
+            return [ix, ata];
+        } else {
+            throw error;
+        }
+    }
+}
+
+
+export async function tokenTransfer(
+    connection: Connection,
+    payer: PublicKey,
+    destination: PublicKey,
+    amount: number,
+    token: PublicKey,
+    tokenDecimals: number,
+) {
+    let ixs: TransactionInstruction[] = [];
+
+    let sourceAta: PublicKey;
+    const isSOL = token.toString() === NATIVE_MINT.toString();
+    if (isSOL) {
+        const tempRes = await createWrappedUserInstructions(connection, payer, amount);
+        if (Array.isArray(tempRes)) {
+            const [tempIxs, ata] = tempRes!;
+            sourceAta = ata;
+            ixs.push(...tempIxs);
+        } else {
+            sourceAta = tempRes;
+        }
+    } else {
+        const resSource = await tryCreateATAIx2(connection, payer, payer, token);
+        if (resSource === undefined) {
+            throw new Error("try create source ATA failed");
+        } else if (Array.isArray(resSource)) {
+            const [ix, ata] = resSource;
+            sourceAta = ata;
+            ixs.push(ix);
+        } else {
+            sourceAta = resSource;
+        }
+    }
+
+    let destinationAta: PublicKey
+    const resDestination = await tryCreateATAIx2(connection, payer, destination, token);
+    if (resDestination === undefined) {
+        throw new Error("try create destination ATA failed");
+    } else if (Array.isArray(resDestination)) {
+        const [ix, ata] = resDestination;
+        destinationAta = ata;
+        ixs.push(ix);
+    } else {
+        destinationAta = resDestination;
+    }
+
+    // const transferInstruction = createTransferInstruction(
+    //     sourceAta,
+    //     destinationAta,
+    //     payer,
+    //     amount,
+    //     [],
+    // );
+
+
+    const transferInstruction = createTransferCheckedInstruction(
+        sourceAta,
+        token,
+        destinationAta,
+        payer,
+        amount,
+        tokenDecimals,
+        []
+    );
+    ixs.push(transferInstruction);
+
+
+    if (isSOL) {
+        ixs.push(createCloseAccountInstruction(sourceAta, payer, payer));
+    }
+
+    return ixs
+}
 
 async function getAccountInfo(connection: Connection, mint: PublicKey): Promise<Token22> {
     const info = await connection.getAccountInfo(mint);
