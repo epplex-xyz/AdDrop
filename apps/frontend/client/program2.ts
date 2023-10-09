@@ -7,13 +7,12 @@ import {
 } from "@solana/web3.js";
 import { createProgram, EphemeralityProgram } from "./types/programTypes";
 import {AnchorProvider, Wallet} from "@coral-xyz/anchor";
-import { mintToIx, sendAndConfirmRawTransaction } from "../utils/solana";
-import { CONFIRM_OPTIONS } from "./constants";
+import {mintToIx, sendAndConfirmRawTransaction, tokenTransfer} from "../utils/solana";
+import {COMMITMENT, CONFIRM_OPTIONS} from "./constants";
 import {
     ExtensionType,
     getMintLen,
     getOrCreateAssociatedTokenAccount,
-    mintTo,
     TOKEN_2022_PROGRAM_ID,
 } from "@solana/spl-token";
 import {BN} from "@coral-xyz/anchor";
@@ -24,7 +23,6 @@ export class Program2 {
     program: EphemeralityProgram;
 
     wallet: Wallet;
-
 
     constructor(
         wallet: AnchorWallet,
@@ -128,5 +126,45 @@ export class Program2 {
         );
         return programDelegate;
     }
+
+    async createPayment(
+        destination: PublicKey,
+        amount: number,
+        token: PublicKey,
+        tokenDec: number
+    ) {
+        const ixs = await tokenTransfer(
+            this.connection,
+            this.wallet.publicKey,
+            destination,
+            amount,
+            token,
+            tokenDec
+        )
+        const tx = new Transaction().add(...ixs);
+        const latestBlockhash = await this.connection.getLatestBlockhash(COMMITMENT);
+        tx.recentBlockhash = latestBlockhash.blockhash;
+        tx.lastValidBlockHeight = latestBlockhash.lastValidBlockHeight;
+        tx.feePayer = this.wallet.publicKey;
+
+        const signedTx = await this.wallet.signTransaction(tx)
+        //
+        // const txId = await this.connection.sendRawTransaction(signedTx.serialize(), {skipPreflight: true});
+        //
+        // console.log("ts",txId)
+        // const res = (
+        //     await this.connection.confirmTransaction(
+        //         {
+        //             signature: txId,
+        //             blockhash: latestBlockhash.blockhash,
+        //             lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+        //         },
+        //         "confirmed"
+        //     )
+        // );
+
+        return {serialisedTx: signedTx.serialize(), blockhash: latestBlockhash}
+    }
+
 
 }

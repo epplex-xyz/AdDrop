@@ -10,13 +10,16 @@ interface Endpoints {
     createUser: EndpointConfig;
     createCompany: EndpointConfig;
     createCampaign: EndpointConfig;
+    finaliseCampaign: EndpointConfig;
     checkAccount: EndpointConfig;
+
 }
 
 enum BackendEndpoints {
     createUser = "/user/create",
     createCompany = "/company/create",
     createCampaign = "/campaign/create",
+    finaliseCampaign = "/campaign/finalise",
     checkAccount = "/user/check",
 }
 
@@ -33,10 +36,14 @@ export const backendEndpoints: Endpoints = {
         method: 'POST',
         url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.createCampaign}`,
     },
+    finaliseCampaign: {
+        method: 'POST',
+        url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.finaliseCampaign}`,
+    },
     checkAccount: {
         method: 'POST',
         url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}${BackendEndpoints.checkAccount}`,
-    }
+    },
 
 };
 
@@ -109,5 +116,21 @@ export const backendRequest = {
         const { method, url } = backendEndpoints.checkAccount;
         return fetch(url, options(method, body));
     },
+    finaliseCampaign: (body) => {
+        const { method, url } = backendEndpoints.finaliseCampaign;
+        return fetch(url, options(method, body));
+    },
 
 };
+
+export const birdeyeApi = (token) => `https://public-api.birdeye.so/public/price?address=${token}`
+
+export interface ApiResult {
+    data: {
+        value: number
+        updateUnixTime: number
+        updateHumanTime: string
+    },
+    success: boolean
+
+}

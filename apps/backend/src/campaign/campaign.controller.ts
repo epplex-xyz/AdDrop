@@ -11,4 +11,11 @@ export class CampaignController {
     ): Promise<{data: any}> {
         return await this.campaignService.create(createCampaign);
     }
+
+    @Post('finalise')
+    async finalise(
+        @Body() finaliseCampaign: any,
+    ): Promise<{data: any}> {
+        return await this.campaignService.finalise(finaliseCampaign);
+    }
 }

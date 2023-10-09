@@ -37,8 +37,9 @@ export async function createWrappedUserInstructions(
     user?: Keypair
 ): Promise<[TransactionInstruction[], PublicKey] | PublicKey> {
     const owner =  payer;
-    const associatedAddress = getAssociatedTokenAddressSync(owner, NATIVE_MINT);
+    const associatedAddress = getAssociatedTokenAddressSync(NATIVE_MINT, owner);
     const associatedAccountInfo = connection.getAccountInfo(associatedAddress);
+    console.log("amount", associatedAccountInfo, amount)
     if (!associatedAccountInfo) {
         return associatedAddress;
     }
@@ -51,27 +52,27 @@ export async function createWrappedUserInstructions(
     const ixs = [
         createAssociatedTokenAccountInstruction(
             payer,
-            ephemeralWallet,
-            ephemeralAccount.publicKey,
+            associatedAddress,
+            owner,
             NATIVE_MINT
         ),
         SystemProgram.transfer({
             fromPubkey: owner,
-            toPubkey: ephemeralWallet,
+            toPubkey: associatedAddress,
             lamports: amount,
         }),
-        createSyncNativeInstruction(ephemeralWallet),
-        createTransferInstruction(
-            ephemeralWallet,
-            associatedAddress,
-            ephemeralAccount.publicKey,
-            amount
-        ),
-        createCloseAccountInstruction(
-            ephemeralWallet,
-            owner,
-            ephemeralAccount.publicKey
-        ),
+        createSyncNativeInstruction(associatedAddress),
+        // createTransferInstruction(
+        //     ephemeralWallet,
+        //     associatedAddress,
+        //     ephemeralAccount.publicKey,
+        //     amount
+        // ),
+        // createCloseAccountInstruction(
+        //     ephemeralWallet,
+        //     owner,
+        //     ephemeralAccount.publicKey
+        // ),
     ]
 
     return [ixs, associatedAddress]
@@ -160,24 +161,24 @@ export async function tokenTransfer(
         destinationAta = resDestination;
     }
 
-    // const transferInstruction = createTransferInstruction(
-    //     sourceAta,
-    //     destinationAta,
-    //     payer,
-    //     amount,
-    //     [],
-    // );
-
-
-    const transferInstruction = createTransferCheckedInstruction(
+    const transferInstruction = createTransferInstruction(
         sourceAta,
-        token,
         destinationAta,
         payer,
         amount,
-        tokenDecimals,
-        []
+        [],
     );
+
+
+    // const transferInstruction = createTransferCheckedInstruction(
+    //     sourceAta,
+    //     token,
+    //     destinationAta,
+    //     payer,
+    //     amount,
+    //     tokenDecimals,
+    //     []
+    // );
     ixs.push(transferInstruction);
 
 

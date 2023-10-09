@@ -9,25 +9,39 @@ import {ButtonConfig} from "@components/Buttons/ButtonLinkConfig";
 import Button from "@mui/material/Button";
 import {SingleDivider} from "@components/Divider/SingleDivider";
 import {MySelect} from "@components/Input/MySelect";
-import {tokenList} from "@constants/tokens";
+import {tokenDecimals, tokenKeys, tokenList} from "@constants/tokens";
 import {useIsAuthenticated} from "../../hooks/useIsAuthenticated";
 import CircularProgress from "@mui/material/CircularProgress";
-import {backendRequest, requestWrapper} from "@constants/endpoints";
+import {ApiResult, backendRequest, birdeyeApi, requestWrapper} from "@constants/endpoints";
 import {preferenceList} from "@constants/preference";
+import {PublicKey} from "@solana/web3.js";
+import {useWallet} from "@solana/wallet-adapter-react";
+import {MyMountedWalletButton} from "@components/Buttons/MyWalletConnectButton";
+import {useProgramApis} from "@providers/ProgramApisProvider";
+import {roundNumber} from "../../../utils/general";
 
 export function Review({buttonAction, ...props}: StepComponentProps){
     const { adDetails, distribution, reward } = useCampaginCreationStore((state) => state.data);
     const [loading, setLoading] = React.useState(false);
     // this needs to be middleware
     const {authenticated, data} = useIsAuthenticated();
+    const {program} = useProgramApis()
+    const wallet = useWallet()
+
+    console.log("wallet", wallet)
 
     const tokenTypes = MySelect({
         options: tokenList,
-        defaultValue: 0,
+        defaultValue: 1,
         height: "30px",
         width: "80px",
         selectWidth: "80px"
     });
+
+    const distDate = new Date(distribution.distributionDate)
+    const cost = 0.1 * distribution.userReach;
+    const fees = 0.1 * cost;
+    const totalCost = cost + fees;
 
     // Create campaign backend, send back pubkey
     // initiate token transfer instruction
@@ -37,41 +51,93 @@ export function Review({buttonAction, ...props}: StepComponentProps){
     const handleSubmit = async () => {
         setLoading(true);
 
-        if (reward.type !== RewardType.Survey) {
-            throw new Error("Only Survey Reward supported");
+        try {
+            if (reward.type !== RewardType.Survey) {
+                throw new Error("Only Survey Reward supported");
+            }
+
+            if (data?.id === undefined) {
+                throw new Error("Creator not authenticated");
+            }
+            if (wallet?.publicKey === null) {
+                throw new Error("Wallet not connected");
+            }
+
+            // escrow
+            // const initRequest = backendRequest.createCampaign({
+            //     companyId: data?.id,
+            //     distributionDate: distribution.distributionDate,
+            //     duration: distribution.duration,
+            //     userReach: distribution.userReach,
+            //     userGroups: distribution.userGroups,
+            //
+            //     adName: adDetails.name,
+            //     adSymbol: adDetails.symbol,
+            //     adDescription: adDetails.description,
+            //
+            //     rewardType: reward.type,
+            //     rewardQuestions: reward.questions.map(({question}) =>  question),
+            //     rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
+            // });
+            // const initRes = await requestWrapper(() => initRequest);
+            //
+            // console.log("request", initRes);
+            // if (initRes === null) {
+            //     throw new Error("Campaign creation failed");
+            // }
+            // const escrowPubkey = new PublicKey(res);
+
+            const escrowPubkey = new PublicKey("Ewv8PayjkyeVFuhLMxBdF4nsyyMKRa8NK3JCMeHP1pC2")
+            const token = tokenKeys[tokenTypes.value];
+            const tokenDec = tokenDecimals[tokenTypes.value];
+            const tokenReq = await fetch(birdeyeApi(token.toString()));
+            const tokenRes: ApiResult = await tokenReq.json();
+            const tokenCosts = Math.floor((totalCost / tokenRes.data.value) * (10 ** tokenDec));
+            const {serialisedTx, blockhash} = await program.createPayment(
+                escrowPubkey,
+                tokenCosts,
+                token,
+                tokenDec
+            );
+
+            const finaliseRequest = backendRequest.finaliseCampaign({
+                blockhash: blockhash,
+                serialisedTx: serialisedTx,
+                payer: wallet.publicKey.toString(),
+                tokenAddress: token.toString(),
+                tokenAmount: tokenCosts,
+                usdAmount: totalCost,
+            });
+            const finaliseRes = await requestWrapper(() => finaliseRequest);
+
+            console.log("res", finaliseRes)
+        } catch (e) {
+            console.log("error", e)
+        } finally {
+            setLoading(false);
         }
 
-        console.log("distribution", data?.id);
-        if (data?.id === undefined) {
-            throw new Error("Creator not authenticated");
-        }
-
-        const request = backendRequest.createCampaign({
-            companyId: data?.id,
-            distributionDate: distribution.distributionDate,
-            duration: distribution.duration,
-            userReach: distribution.userReach,
-            userGroups: distribution.userGroups,
-
-            adName: adDetails.name,
-            adSymbol: adDetails.symbol,
-            adDescription: adDetails.description,
-
-            rewardType: reward.type,
-            rewardQuestions: reward.questions.map(({question}) =>  question),
-            rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
-
-        });
-        const res = await requestWrapper(() => request);
-
-        console.log("request", res);
-        console.log("user",  data?.id);
-        setLoading(false);
     };
-    const distDate = new Date(distribution.distributionDate)
 
-    const totalCost = 0.1 * distribution.userReach;
-    const fees = 0.1 * totalCost;
+    let walletButton;
+    if (!wallet.connected) {
+        walletButton = <MyMountedWalletButton>
+            CONNECT WALLET
+        </MyMountedWalletButton>
+    } else if (loading) {
+        walletButton =
+            <Button
+                variant={"contained"}
+                disabled={true}
+            >
+            <CircularProgress sx={{color: "text.primary"}} />
+        </Button>
+    } else {
+        walletButton = <Button
+            onClick={handleSubmit}
+            {...ButtonConfig.submitCampaign}
+        />
+    }
 
     return (
         <div className="flex flex-col w-full justify-center gap-y-2">
@@ -171,7 +237,7 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                         User reach
                     </Text.Body2>
                     <Text.Body2>
-                        0.1$ x {distribution.userReach} = {totalCost}$
+                        0.1$ x {distribution.userReach} = {cost}$
                     </Text.Body2>
                 </div>
                 <div className={"flex justify-between"}>
@@ -179,7 +245,7 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                         AdDrop fee (10%)
                     </Text.Body2>
                     <Text.Body2>
-                        {fees}$
+                        {roundNumber(fees)}$
                     </Text.Body2>
                 </div>
                 <SingleDivider/>
@@ -188,7 +254,7 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                         Total
                     </Text.Body2>
                     <Text.Body2>
-                        {totalCost + fees}$
+                        {roundNumber(totalCost)}$
                     </Text.Body2>
                 </div>
                 <div className={"flex justify-end items-center gap-x-2"}>
@@ -199,18 +265,8 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 </div>
             </div>
 
-            <div className={"flex justify-center"}>
-                {loading ?
-                    <Button>
-                        variant="contained"
-                        disabled={true}
-                        <CircularProgress sx={{color: "text.primary"}} />
-                    </Button>
-                    : <Button
-                        onClick={handleSubmit}
-                        {...ButtonConfig.submitCampaign}
-                    />
-                }
+            <div className={"flex justify-center mt-4"}>
+                {walletButton}
             </div>
         </div>
     );
