@@ -31,7 +31,7 @@ const defaultAdDetails: AdDetailsProps = {
 const defaultDistribution: DistributionProps = {
     distributionDate: (new Date()).toISOString(),
     duration: 0,
-    userReach: 100,
+    userReach: 1,
     userGroups: [Preference.DEFI],
 };
 

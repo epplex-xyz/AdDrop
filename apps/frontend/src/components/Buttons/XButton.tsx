@@ -27,7 +27,6 @@ export function useXButton({redirect = "/signup/user"}: {redirect?: string}) {
     const {authenticated, data} = useIsAuthenticated();
     const [loading, setLoading] = useState(false);
 
-
     let content;
     if (loading) {
         content = <CircularProgress sx={{color: "text.primary"}} />;

@@ -281,6 +281,7 @@ Table Campaign {
   usdAmount Int
   escrow String [unique]
   pubkey String [unique]
+  payer String
   engagement Engagement [not null]
 }
 

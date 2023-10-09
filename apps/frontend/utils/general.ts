@@ -44,3 +44,7 @@ export function addExtension(originalString, newExtension) {
 
     return parts.join('.');
 }
+
+export function roundNumber(num, fractions = 2) {
+    return Math.round(num * 10 ** fractions + Number.EPSILON ) / 10 ** fractions;
+}

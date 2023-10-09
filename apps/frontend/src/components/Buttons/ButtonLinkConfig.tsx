@@ -141,8 +141,5 @@ export const ButtonConfig: Record<ButtonConfigKeys, ButtonProps> = {
         children: <ButtonText>
             SUBMIT & PAY
         </ButtonText>,
-        sx: {
-            marginTop: "16px",
-        },
     },
 };

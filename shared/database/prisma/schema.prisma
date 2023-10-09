@@ -359,6 +359,7 @@ model Campaign {
   usdAmount     Int?
   escrow        String?   @unique // keypair
   pubkey        String?   @unique
+  payer         String?
 
   engagement Engagement[]
 
