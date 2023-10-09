@@ -10,6 +10,7 @@ export class CampaignService {
 
     async create(createCampaignDto: any) {
         let res: string | null;
+        let campaignId: number | null;
         try {
             // could just send these over as strings
             createCampaignDto.userGroups = createCampaignDto.userGroups.map(
@@ -19,21 +20,25 @@ export class CampaignService {
             )
             createCampaignDto.rewardType = rewardList[createCampaignDto.rewardType]
 
-            const campaign = await prisma.campaign.create({
-                data: {
-                    ...createCampaignDto
-                }
-            })
-            // escrow keypair and pubkey should be stored already
             const escrowKeypair = Keypair.generate();
             res = escrowKeypair.publicKey.toString()
-            console.log("asf", campaign);
+            const campaign = await prisma.campaign.create({
+                data: {
+                    ...createCampaignDto,
+                    escrowPubkey: escrowKeypair.publicKey.toString(),
+                    escrowPrivatekey: escrowKeypair.secretKey.toString(),
+                }
+            })
+
+            campaignId = campaign.id
+            console.log("result", campaign);
         } catch (e) {
             console.log("e company", e);
             res = null
         }
+
         return {
-            data: {publicKey: res}
+            data: {publicKey: res, campaignId: campaignId}
         }
     }
 

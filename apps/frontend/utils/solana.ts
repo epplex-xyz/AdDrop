@@ -38,42 +38,33 @@ export async function createWrappedUserInstructions(
 ): Promise<[TransactionInstruction[], PublicKey] | PublicKey> {
     const owner =  payer;
     const associatedAddress = getAssociatedTokenAddressSync(NATIVE_MINT, owner);
-    const associatedAccountInfo = connection.getAccountInfo(associatedAddress);
-    console.log("amount", associatedAccountInfo, amount)
-    if (!associatedAccountInfo) {
-        return associatedAddress;
-    }
+    const associatedAccountInfo = await connection.getAccountInfo(associatedAddress);
+    console.log("info", associatedAccountInfo);
 
-    const ephemeralAccount = Keypair.generate();
-    const ephemeralWallet = getAssociatedTokenAddressSync(
-        ephemeralAccount.publicKey, NATIVE_MINT
-    );
-
-    const ixs = [
-        createAssociatedTokenAccountInstruction(
-            payer,
-            associatedAddress,
-            owner,
-            NATIVE_MINT
-        ),
+    const preix =  [
         SystemProgram.transfer({
             fromPubkey: owner,
             toPubkey: associatedAddress,
             lamports: amount,
         }),
         createSyncNativeInstruction(associatedAddress),
-        // createTransferInstruction(
-        //     ephemeralWallet,
-        //     associatedAddress,
-        //     ephemeralAccount.publicKey,
-        //     amount
-        // ),
-        // createCloseAccountInstruction(
-        //     ephemeralWallet,
-        //     owner,
-        //     ephemeralAccount.publicKey
-        // ),
     ]
+
+    let ixs: TransactionInstruction[] = [];
+    if (associatedAccountInfo) {
+        console.log("sdfsd")
+        ixs.push(...preix);
+    } else {
+        ixs.push(...[
+            createAssociatedTokenAccountInstruction(
+                payer,
+                associatedAddress,
+                owner,
+                NATIVE_MINT
+            ),
+            ...preix
+        ])
+    }
 
     return [ixs, associatedAddress]
 }

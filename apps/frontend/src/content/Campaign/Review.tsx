@@ -23,6 +23,7 @@ import {roundNumber} from "../../../utils/general";
 export function Review({buttonAction, ...props}: StepComponentProps){
     const { adDetails, distribution, reward } = useCampaginCreationStore((state) => state.data);
     const [loading, setLoading] = React.useState(false);
+
     // this needs to be middleware
     const {authenticated, data} = useIsAuthenticated();
     const {program} = useProgramApis()
@@ -64,30 +65,30 @@ export function Review({buttonAction, ...props}: StepComponentProps){
             }
 
             // escrow
-            // const initRequest = backendRequest.createCampaign({
-            //     companyId: data?.id,
-            //     distributionDate: distribution.distributionDate,
-            //     duration: distribution.duration,
-            //     userReach: distribution.userReach,
-            //     userGroups: distribution.userGroups,
-            //
-            //     adName: adDetails.name,
-            //     adSymbol: adDetails.symbol,
-            //     adDescription: adDetails.description,
-            //
-            //     rewardType: reward.type,
-            //     rewardQuestions: reward.questions.map(({question}) =>  question),
-            //     rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
-            // });
-            // const initRes = await requestWrapper(() => initRequest);
-            //
-            // console.log("request", initRes);
-            // if (initRes === null) {
-            //     throw new Error("Campaign creation failed");
-            // }
-            // const escrowPubkey = new PublicKey(res);
+            const initRequest = backendRequest.createCampaign({
+                companyId: data?.id,
+                distributionDate: distribution.distributionDate,
+                duration: distribution.duration,
+                userReach: distribution.userReach,
+                userGroups: distribution.userGroups,
 
-            const escrowPubkey = new PublicKey("Ewv8PayjkyeVFuhLMxBdF4nsyyMKRa8NK3JCMeHP1pC2")
+                adName: adDetails.name,
+                adSymbol: adDetails.symbol,
+                adDescription: adDetails.description,
+
+                rewardType: reward.type,
+                rewardQuestions: reward.questions.map(({question}) =>  question),
+                rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
+            });
+            const initRes = await requestWrapper(() => initRequest);
+
+            console.log("request", initRes);
+            if (initRes === null) {
+                throw new Error("Campaign creation failed");
+            }
+
+            const escrowPubkey = new PublicKey(initRes.publicKey);
+            console.log("here", escrowPubkey.toString())
             const token = tokenKeys[tokenTypes.value];
             const tokenDec = tokenDecimals[tokenTypes.value];
             const tokenReq = await fetch(birdeyeApi(token.toString()));
@@ -99,8 +100,10 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 token,
                 tokenDec
             );
+            console.log("her afetere")
 
             const finaliseRequest = backendRequest.finaliseCampaign({
+                campaignId: initRes.campaignId,
                 blockhash: blockhash,
                 serialisedTx: serialisedTx,
                 payer: wallet.publicKey.toString(),

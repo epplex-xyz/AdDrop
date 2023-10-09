@@ -279,8 +279,8 @@ Table Campaign {
   tokenAddress String
   tokenAmount Int
   usdAmount Int
-  escrow String [unique]
-  pubkey String [unique]
+  escrowPrivatekey String [unique]
+  escrowPubkey String [unique]
   payer String
   engagement Engagement [not null]
 }

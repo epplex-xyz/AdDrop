@@ -350,16 +350,16 @@ model Campaign {
   rewardQuestions     String[]
   rewardQuestionTypes Int[] //need enum
 
-  isPaid        Boolean   @default(false)
-  paidTx        String?
-  paidTimestamp DateTime?
-  token         Token?    @relation(fields: [tokenAddress], references: [address])
-  tokenAddress  String?
-  tokenAmount   Int?
-  usdAmount     Int?
-  escrow        String?   @unique // keypair
-  pubkey        String?   @unique
-  payer         String?
+  isPaid           Boolean   @default(false)
+  paidTx           String?
+  paidTimestamp    DateTime?
+  token            Token?    @relation(fields: [tokenAddress], references: [address])
+  tokenAddress     String?
+  tokenAmount      Int?
+  usdAmount        Int?
+  escrowPrivatekey String?   @unique // keypair
+  escrowPubkey     String?   @unique
+  payer            String?
 
   engagement Engagement[]
 
