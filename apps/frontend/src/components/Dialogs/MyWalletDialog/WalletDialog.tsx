@@ -10,8 +10,6 @@ import React, {useCallback, useMemo, useState} from 'react';
 import {useWalletDialog} from "./MyWalletDialogProvider";
 import {WalletListItem} from "./WalletListItem";
 import Box from "@mui/material/Box";
-import NormalLogo from "../../../../public/logos/normallogo.svg";
-import { Text } from "src/components/Text/TextComponent";
 import Image from "next/image";
 
 const RootDialog = styled(Dialog)(({ theme }: { theme: Theme }) => ({

@@ -32,12 +32,12 @@ export const WalletListItem: FC<WalletListItemProps> = ({ onClick, wallet, ...pr
             <Button {...buttonProps}>
                 <div style={{ columnGap: "8px", display: "flex", alignItems: "center", fontSize: "16px" }}>
                     <WalletIcon wallet={wallet} />
-                    <Text.H6 color={"text.secondary"}>
+                    <Text.H6>
                         {wallet.adapter.name}
                     </Text.H6>
                 </div>
                 <div>
-                    <Text.Body2 color={"text.secondary"}>
+                    <Text.Body2>
                         {wallet.readyState === WalletReadyState.Installed ? "INSTALLED" : "REDIRECT"}
                     </Text.Body2>
                 </div>
