@@ -19,7 +19,6 @@ export class CampaignService {
                 }
             )
             createCampaignDto.rewardType = rewardList[createCampaignDto.rewardType]
-
             const escrowKeypair = Keypair.generate();
             res = escrowKeypair.publicKey.toString()
             const campaign = await prisma.campaign.create({
@@ -43,15 +42,13 @@ export class CampaignService {
     }
 
     async finalise(finaliseCampaign: any) {
-        let res: string | null;
+        let res: boolean = false;
         try {
-            // could just send these over as strings
             console.log("fina", finaliseCampaign);
             const connection = new Connection("https://api.devnet.solana.com")
             const txId = await connection.sendRawTransaction(finaliseCampaign.serialisedTx, {skipPreflight: true});
 
-            console.log("ts",txId)
-            const res = (
+            const txRes = (
                 await connection.confirmTransaction(
                     {
                         signature: txId,
@@ -61,23 +58,33 @@ export class CampaignService {
                     "confirmed"
                 )
             );
+            console.log("res", txRes)
+            if (txRes.value.err !== null) {
+                throw txRes.value.err;
+            }
 
-            console.log("res", res)
-            // const campaign = await prisma.campaign.create({
-            //     data: {
-            //         ...createCampaignDto
-            //     }
-            // })
-            // // escrow keypair and pubkey should be stored already
-            // const escrowKeypair = Keypair.generate();
-            // res = escrowKeypair.publicKey.toString()
-            // console.log("asf", campaign);
+            const campaign = await prisma.campaign.update({
+                where: {
+                    id: finaliseCampaign.campaignId
+                },
+                data: {
+                    isPaid: true,
+                    paidTx: txId,
+                    paidTimestamp: new Date(),
+                    tokenAddress: finaliseCampaign.tokenAddress,
+                    tokenAmount: finaliseCampaign.tokenAmount,
+                    usdAmount: finaliseCampaign.usdAmount,
+                    payer: finaliseCampaign.payer,
+                }
+            })
+            console.log("campagin", campaign);
+            res = true
         } catch (e) {
             console.log("e company", e);
-            res = null
         }
+
         return {
-            data: {publicKey: res}
+            data: {result: res}
         }
     }
 }

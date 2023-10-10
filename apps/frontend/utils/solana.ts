@@ -26,10 +26,10 @@ import {
 import { Token22Layout, Token22 } from "../client/types/token22";
 import { AnchorWallet } from "@solana/wallet-adapter-react";
 import { COMMITMENT, CONFIRM_OPTIONS } from "../client/constants";
-import {Account} from "@solana/spl-token/src/state/account";
 
 const NATIVE_MINT = new PublicKey('So11111111111111111111111111111111111111112');
 
+// https://solanacookbook.com/references/token.html#add-balance
 export async function createWrappedUserInstructions(
     connection: Connection,
     payer: PublicKey,
@@ -39,9 +39,8 @@ export async function createWrappedUserInstructions(
     const owner =  payer;
     const associatedAddress = getAssociatedTokenAddressSync(NATIVE_MINT, owner);
     const associatedAccountInfo = await connection.getAccountInfo(associatedAddress);
-    console.log("info", associatedAccountInfo);
 
-    const preix =  [
+    const preIx =  [
         SystemProgram.transfer({
             fromPubkey: owner,
             toPubkey: associatedAddress,
@@ -52,8 +51,7 @@ export async function createWrappedUserInstructions(
 
     let ixs: TransactionInstruction[] = [];
     if (associatedAccountInfo) {
-        console.log("sdfsd")
-        ixs.push(...preix);
+        ixs.push(...preIx);
     } else {
         ixs.push(...[
             createAssociatedTokenAccountInstruction(
@@ -62,7 +60,7 @@ export async function createWrappedUserInstructions(
                 owner,
                 NATIVE_MINT
             ),
-            ...preix
+            ...preIx
         ])
     }
 
@@ -84,7 +82,6 @@ export async function tryCreateATAIx2(
         await getAccount(connection, ata, commitment, programId);
         console.log(`Token account already exists: ${ata.toString()} for token ${mint.toString()}`);
         return ata;
-
     } catch (error: unknown) {
         // TokenAccountNotFoundError can be possible if the associated address has already received some lamports,
         // becoming a system account. Assuming program derived addressing is safe, this is the only case for the
@@ -160,7 +157,6 @@ export async function tokenTransfer(
         [],
     );
 
-
     // const transferInstruction = createTransferCheckedInstruction(
     //     sourceAta,
     //     token,
@@ -171,7 +167,6 @@ export async function tokenTransfer(
     //     []
     // );
     ixs.push(transferInstruction);
-
 
     if (isSOL) {
         ixs.push(createCloseAccountInstruction(sourceAta, payer, payer));

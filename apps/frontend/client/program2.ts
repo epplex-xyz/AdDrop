@@ -148,23 +148,10 @@ export class Program2 {
         tx.feePayer = this.wallet.publicKey;
 
         const signedTx = await this.wallet.signTransaction(tx)
-        //
-        // const txId = await this.connection.sendRawTransaction(signedTx.serialize(), {skipPreflight: true});
-        //
-        // console.log("ts",txId)
-        // const res = (
-        //     await this.connection.confirmTransaction(
-        //         {
-        //             signature: txId,
-        //             blockhash: latestBlockhash.blockhash,
-        //             lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-        //         },
-        //         "confirmed"
-        //     )
-        // );
 
-        return {serialisedTx: signedTx.serialize(), blockhash: latestBlockhash}
+        return {
+            serialisedTx: signedTx.serialize(),
+            blockhash: latestBlockhash
+        }
     }
-
-
 }

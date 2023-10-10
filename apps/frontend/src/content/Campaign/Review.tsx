@@ -19,17 +19,22 @@ import {useWallet} from "@solana/wallet-adapter-react";
 import {MyMountedWalletButton} from "@components/Buttons/MyWalletConnectButton";
 import {useProgramApis} from "@providers/ProgramApisProvider";
 import {roundNumber} from "../../../utils/general";
+import toast from "react-hot-toast";
 
+// 1. Create campaign backend, generate escrow keypair and send pubkey to frontend
+// 2. Initate token transfer on frontend and sign
+// 3. Send tx to backend for finalisation
+// 4. backend  flips a switch on paid/notpaid
+
+// Alternatively should maybe create the tx on the backend as well
+// then send the tx to frontend, let user sign
 export function Review({buttonAction, ...props}: StepComponentProps){
     const { adDetails, distribution, reward } = useCampaginCreationStore((state) => state.data);
     const [loading, setLoading] = React.useState(false);
-
     // this needs to be middleware
     const {authenticated, data} = useIsAuthenticated();
     const {program} = useProgramApis()
     const wallet = useWallet()
-
-    console.log("wallet", wallet)
 
     const tokenTypes = MySelect({
         options: tokenList,
@@ -44,11 +49,6 @@ export function Review({buttonAction, ...props}: StepComponentProps){
     const fees = 0.1 * cost;
     const totalCost = cost + fees;
 
-    // Create campaign backend, send back pubkey
-    // initiate token transfer instruction
-    // send tx to backend
-    // backend checks if successful and then flips a switch on paid/notpaid
-    // create the image on shdw
     const handleSubmit = async () => {
         setLoading(true);
 
@@ -64,7 +64,6 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 throw new Error("Wallet not connected");
             }
 
-            // escrow
             const initRequest = backendRequest.createCampaign({
                 companyId: data?.id,
                 distributionDate: distribution.distributionDate,
@@ -81,14 +80,12 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 rewardQuestionTypes: reward.questions.map(({questionType}) => questionType),
             });
             const initRes = await requestWrapper(() => initRequest);
-
-            console.log("request", initRes);
+            console.log("init", initRes);
             if (initRes === null) {
                 throw new Error("Campaign creation failed");
             }
 
             const escrowPubkey = new PublicKey(initRes.publicKey);
-            console.log("here", escrowPubkey.toString())
             const token = tokenKeys[tokenTypes.value];
             const tokenDec = tokenDecimals[tokenTypes.value];
             const tokenReq = await fetch(birdeyeApi(token.toString()));
@@ -100,7 +97,6 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 token,
                 tokenDec
             );
-            console.log("her afetere")
 
             const finaliseRequest = backendRequest.finaliseCampaign({
                 campaignId: initRes.campaignId,
@@ -112,14 +108,17 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 usdAmount: totalCost,
             });
             const finaliseRes = await requestWrapper(() => finaliseRequest);
-
-            console.log("res", finaliseRes)
+            console.log("finalise", finaliseRes)
+            if (finaliseRes.result) {
+                toast.success("Campaign created successfully");
+            } else {
+                toast.error("Campaign creation failed");
+            }
         } catch (e) {
             console.log("error", e)
         } finally {
             setLoading(false);
         }
-
     };
 
     let walletButton;

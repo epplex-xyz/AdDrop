@@ -350,6 +350,8 @@ model Campaign {
   rewardQuestions     String[]
   rewardQuestionTypes Int[] //need enum
 
+  escrowPrivatekey String?   @unique // keypair
+  escrowPubkey     String?   @unique
   isPaid           Boolean   @default(false)
   paidTx           String?
   paidTimestamp    DateTime?
@@ -357,8 +359,6 @@ model Campaign {
   tokenAddress     String?
   tokenAmount      Int?
   usdAmount        Int?
-  escrowPrivatekey String?   @unique // keypair
-  escrowPubkey     String?   @unique
   payer            String?
 
   engagement Engagement[]
