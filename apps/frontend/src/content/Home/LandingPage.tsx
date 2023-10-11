@@ -43,23 +43,23 @@ export function LandingPage({...props}: BoxProps){
                 id: data.id,
             });
             const res = await requestWrapper(() => request);
-            console.log("result", res)
+            console.log("result", res);
             if (res === null) {
                 throw new Error("Profile not found");
             }
 
             router.push(`/${res}/${data.user_metadata.user_name}`);
         } catch (e: any) {
-            console.log("error", e)
+            console.log("error", e);
             toast.error(e.message);
         }
-    }
+    };
 
     React.useEffect(() => {
         if (data?.id !== undefined){
-            test().then()
+            test().then();
         }
-    },[data])
+    },[data]);
 
     return (
         <Section {...props}>

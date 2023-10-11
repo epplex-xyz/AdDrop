@@ -140,18 +140,18 @@ export class Program2 {
             amount,
             token,
             tokenDec
-        )
+        );
         const tx = new Transaction().add(...ixs);
         const latestBlockhash = await this.connection.getLatestBlockhash(COMMITMENT);
         tx.recentBlockhash = latestBlockhash.blockhash;
         tx.lastValidBlockHeight = latestBlockhash.lastValidBlockHeight;
         tx.feePayer = this.wallet.publicKey;
 
-        const signedTx = await this.wallet.signTransaction(tx)
+        const signedTx = await this.wallet.signTransaction(tx);
 
         return {
             serialisedTx: signedTx.serialize(),
             blockhash: latestBlockhash
-        }
+        };
     }
 }

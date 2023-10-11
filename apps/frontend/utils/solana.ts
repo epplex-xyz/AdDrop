@@ -47,7 +47,7 @@ export async function createWrappedUserInstructions(
             lamports: amount,
         }),
         createSyncNativeInstruction(associatedAddress),
-    ]
+    ];
 
     let ixs: TransactionInstruction[] = [];
     if (associatedAccountInfo) {
@@ -61,10 +61,10 @@ export async function createWrappedUserInstructions(
                 NATIVE_MINT
             ),
             ...preIx
-        ])
+        ]);
     }
 
-    return [ixs, associatedAddress]
+    return [ixs, associatedAddress];
 }
 export async function tryCreateATAIx2(
     connection: Connection,
@@ -137,7 +137,7 @@ export async function tokenTransfer(
         }
     }
 
-    let destinationAta: PublicKey
+    let destinationAta: PublicKey;
     const resDestination = await tryCreateATAIx2(connection, payer, destination, token);
     if (resDestination === undefined) {
         throw new Error("try create destination ATA failed");
@@ -172,7 +172,7 @@ export async function tokenTransfer(
         ixs.push(createCloseAccountInstruction(sourceAta, payer, payer));
     }
 
-    return ixs
+    return ixs;
 }
 
 async function getAccountInfo(connection: Connection, mint: PublicKey): Promise<Token22> {

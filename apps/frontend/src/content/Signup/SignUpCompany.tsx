@@ -78,9 +78,7 @@ export function SignUpCompany({...props}: BoxProps) {
 
                     {/*Submit button */}
                     {loading ?
-                        <Button>
-                            variant="contained"
-                            disabled={true}
+                        <Button variant="contained" disabled={true}>
                             <CircularProgress sx={{color: "text.primary"}} />
                         </Button>
                         : <Button

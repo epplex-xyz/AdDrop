@@ -33,8 +33,8 @@ export function Review({buttonAction, ...props}: StepComponentProps){
     const [loading, setLoading] = React.useState(false);
     // this needs to be middleware
     const {authenticated, data} = useIsAuthenticated();
-    const {program} = useProgramApis()
-    const wallet = useWallet()
+    const {program} = useProgramApis();
+    const wallet = useWallet();
 
     const tokenTypes = MySelect({
         options: tokenList,
@@ -44,7 +44,7 @@ export function Review({buttonAction, ...props}: StepComponentProps){
         selectWidth: "80px"
     });
 
-    const distDate = new Date(distribution.distributionDate)
+    const distDate = new Date(distribution.distributionDate);
     const cost = 0.1 * distribution.userReach;
     const fees = 0.1 * cost;
     const totalCost = cost + fees;
@@ -108,14 +108,14 @@ export function Review({buttonAction, ...props}: StepComponentProps){
                 usdAmount: totalCost,
             });
             const finaliseRes = await requestWrapper(() => finaliseRequest);
-            console.log("finalise", finaliseRes)
+            console.log("finalise", finaliseRes);
             if (finaliseRes.result) {
                 toast.success("Campaign created successfully");
             } else {
                 toast.error("Campaign creation failed");
             }
         } catch (e) {
-            console.log("error", e)
+            console.log("error", e);
         } finally {
             setLoading(false);
         }
@@ -125,20 +125,20 @@ export function Review({buttonAction, ...props}: StepComponentProps){
     if (!wallet.connected) {
         walletButton = <MyMountedWalletButton>
             CONNECT WALLET
-        </MyMountedWalletButton>
+        </MyMountedWalletButton>;
     } else if (loading) {
         walletButton =
             <Button
                 variant={"contained"}
                 disabled={true}
             >
-            <CircularProgress sx={{color: "text.primary"}} />
-        </Button>
+                <CircularProgress sx={{color: "text.primary"}} />
+            </Button>;
     } else {
         walletButton = <Button
             onClick={handleSubmit}
             {...ButtonConfig.submitCampaign}
-        />
+        />;
     }
 
     return (

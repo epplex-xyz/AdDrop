@@ -123,7 +123,7 @@ export const backendRequest = {
 
 };
 
-export const birdeyeApi = (token) => `https://public-api.birdeye.so/public/price?address=${token}`
+export const birdeyeApi = (token) => `https://public-api.birdeye.so/public/price?address=${token}`;
 
 export interface ApiResult {
     data: {
