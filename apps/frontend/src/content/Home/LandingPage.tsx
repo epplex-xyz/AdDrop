@@ -30,8 +30,9 @@ export function LandingPage({...props}: BoxProps){
     // check if user exists in db, if in user db, redirect to user page
     // if in company db, redirect to company page
 
-    // LOL this is  unsafe cus anyone could login,
-    // need to setup a PW
+    // Anyone could login, need to setup a PW?
+    // Probably OK to just check if user exists in table, or ask to signup
+
     const router = useRouter();
 
     const {button, data} = useXButton({redirect: "/"});
@@ -41,7 +42,6 @@ export function LandingPage({...props}: BoxProps){
             const request = backendRequest.checkAccount({
                 id: data.id,
             });
-
             const res = await requestWrapper(() => request);
             console.log("result", res)
             if (res === null) {
