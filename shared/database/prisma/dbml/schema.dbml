@@ -272,6 +272,8 @@ Table Campaign {
   rewardType RewardType [not null]
   rewardQuestions String[] [not null]
   rewardQuestionTypes Int[] [not null]
+  escrowPrivatekey String [unique]
+  escrowPubkey String [unique]
   isPaid Boolean [not null, default: false]
   paidTx String
   paidTimestamp DateTime
@@ -279,8 +281,6 @@ Table Campaign {
   tokenAddress String
   tokenAmount Int
   usdAmount Int
-  escrowPrivatekey String [unique]
-  escrowPubkey String [unique]
   payer String
   engagement Engagement [not null]
 }

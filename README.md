@@ -1,4 +1,4 @@
-<h1 align="center">AdDrop | Hyperdrive Hackathon</h1>
+<h1 align="center">AdDrop</h1>
 
 
 Insert description
