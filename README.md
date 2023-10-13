@@ -1,11 +1,24 @@
 <h1 align="center">AdDrop</h1>
 
 
-Insert description
+A mobile app for creators to airdrop NFTs as ads, and for consumers to view, earn & use ads
 
+Ad types as epNFTs include:
+- Survey
+- 3-second video
+- Limited-time coupon
+- Limited-time access token
+
+No wallet cluttering with ads, since epNFTs self-destruct after a set time.
 
 ## Website
-inset
+[addrop.cc](https://addrop.cc)
+
+## Roadblack
+This idea has been put on pause for now, since the following needs to be thought out
+
+- Who is going to use a platform with ads only
+- Brands want users with money, this platform attracts "eager earners"
 
 
 ## Background
