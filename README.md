@@ -53,6 +53,6 @@ This is what would constitute a MVP
 - Prisma
 - Postgres DB (Supabase)
 
-Credits
+## Credits
 - [dReader](https://github.com/d-reader-organization) for providing NestJs inspiration
 - [Cubik](https://github.com/cubik-so) for providing monorepo inspiration
