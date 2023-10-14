@@ -1,6 +1,5 @@
 <h1 align="center">AdDrop</h1>
 
-
 A mobile app for creators to airdrop NFTs as ads, and for consumers to view, earn & use ads
 
 Ad types as epNFTs include:
@@ -13,6 +12,10 @@ No wallet cluttering with ads, since epNFTs self-destruct after a set time.
 
 ## Website
 [addrop.cc](https://addrop.cc)
+
+## Pitch
+[Link to pitch](https://addrop.cc/pitch.pdf)
+
 
 ## Roadblack
 This idea has been put on pause for now, since the following needs to be thought out
@@ -35,6 +38,8 @@ So for AdDrop I had to showcase epPlex, although I'm not strictly married to epN
 - NFTs: epPlex
 - NestJS Backend (hosted on railway.app)
 - NextJS Frontend (hosted on vercel)
+  - Material UI
+- Prisma
 - Postgres DB (Supabase)
 
 Credits
