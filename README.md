@@ -14,7 +14,8 @@ No wallet cluttering with ads, since epNFTs self-destruct after a set time.
 [addrop.cc](https://addrop.cc)
 
 ## Pitch
-[Link to pitch](https://addrop.cc/pitch.pdf)
+[Link to pitch](https://addrop.cc/pitch.pdf) (incomplete)
+[Link to UI Designs](https://addrop.cc/UIDesign.pdf) (incomplete)
 
 
 ## Roadblack
@@ -30,9 +31,19 @@ I finished building the epPlex<insert link> MVP, then I was looking for some use
 So for AdDrop I had to showcase epPlex, although I'm not strictly married to epNFTs for this idea.
 
 ## MVP
+This is what would constitute a MVP
 - Ad creator can create a campaign
 - AdDrop distributes epNFT
-- Ad consumer can answer survey to get rewards
+- User sees epNFT in wallet
+- User goes to platform to engage with ad/epNFT to get rewards
+
+
+### Working features
+- User signup
+- Brand signup
+- Brand can create ad campaign by going through creation procedure
+  - Can use BONK, SOL, USDC, EUROe as payment for creation
+  - These funds are held in escrow until campaign launch
 
 ## Tech stack
 - NFTs: epPlex
